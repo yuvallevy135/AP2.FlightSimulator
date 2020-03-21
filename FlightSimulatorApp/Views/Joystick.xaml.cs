@@ -13,17 +13,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorApp
+namespace FlightSimulatorApp.Views
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for Joystick.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class Joystick : UserControl
 	{
-		public MainWindow()
+		public Joystick()
 		{
 			InitializeComponent();
+		}
 
-		}	
+		private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+
+		private void Knob_MouseMove(object sender, MouseEventArgs e)
+		{
+
+		}
+
+		private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+		private void centerKnob_Completed(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

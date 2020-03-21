@@ -4,9 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorApp"
+        xmlns:viewWindowns ="clr-namespace:FlightSimulatorApp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="674" Width="1048">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="41*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <!-- Title?-->
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <viewWindowns:MapControl Grid.RowSpan="2"/>
+        <viewWindowns:Joystick Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>
+
 </Window>
