@@ -18,6 +18,7 @@ namespace FlightSimulatorApp.Views
 	/// <summary>
 	/// Interaction logic for Joystick.xaml
 	/// </summary>
+	/// comment
 	public partial class Joystick : UserControl
 	{
 		public Joystick()
