@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace FlightSimulatorApp.Views
 {
@@ -21,40 +22,71 @@ namespace FlightSimulatorApp.Views
 	/// comment
 	public partial class Joystick : UserControl
 	{
+		private Point firstPoint;
+		private volatile bool isMousePressed;
+		double to_x, to_y;
+
 		public Joystick()
 		{
 			InitializeComponent();
+			firstPoint = new Point(this.Base.Width / 2, this.Base.Height / 2);
+			isMousePressed = false;
+			Storyboard storyboard = this.Knob.Resources["MoveKnob"] as Storyboard;
+			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
+			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
+			x.From = this.firstPoint.X;
+			y.From = this.firstPoint.Y;
 		}
 
-		private Point firstPoint = new Point();
-
-		private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
+		private void Movement()
 		{
-			if (e.ChangedButton == MouseButton.Left)
+			Storyboard storyboard = this.Knob.Resources["MoveKnob"] as Storyboard;
+			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
+			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
+			x.To = this.to_x - this.firstPoint.X;
+			y.To = this.to_y - this.firstPoint.Y;
+			storyboard.Begin();
+			x.From = x.To;
+			y.From = y.To;
+			
+		}
+
+		private void Knob_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+		{
+			this.isMousePressed = true;
+		}
+
+		private void Base_MouseMove_1(object sender, MouseEventArgs e)
+		{
+			if (isMousePressed)
 			{
-				firstPoint = e.GetPosition(this);
+				to_x = e.GetPosition(this.Base).X;
+				to_y = e.GetPosition(this.Base).Y;
+				Movement();
 			}
 		}
 
-		private void Knob_MouseMove(object sender, MouseEventArgs e)
+		private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 		{
-			if (e.LeftButton == MouseButtonState.Pressed)
+			if (this.isMousePressed)
 			{
-				double x = e.GetPosition(this).X - firstPoint.X;
-				double y = e.GetPosition(this).Y - firstPoint.Y;
-				if (Math.Sqrt(x*x + y*y) < base.Width / 2)
-				{
-					knobPosition.X = x;
-					knobPosition.Y = y;
-				}					
+				this.MoveToCenter();
 			}
 		}
 
-		private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
+		private void Base_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			knobPosition.X = 0;
-			knobPosition.Y = 0;
+			this.MoveToCenter();
 		}
-		private void centerKnob_Completed(object sender, EventArgs e) { }
+
+		private void MoveToCenter()
+		{
+			this.isMousePressed = false;
+			this.to_x = this.firstPoint.X;
+			this.to_y = this.firstPoint.Y;
+			this.Movement();
+		}
+
+
 	}
 }
