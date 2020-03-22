@@ -24,6 +24,16 @@ namespace FlightSimulatorApp
 		{
 			InitializeComponent();
 
-		}	
+		}
+
+		private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+
+		}
+
+		private void Joystick_Loaded(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }
