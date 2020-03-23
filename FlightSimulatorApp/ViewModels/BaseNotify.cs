@@ -15,7 +15,7 @@ namespace FlightSimulatorApp.ViewModels
 		{
 			if (this.PropertyChanged != null)
 			{
-				this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 			}
 		}
 	}
