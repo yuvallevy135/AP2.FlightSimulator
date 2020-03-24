@@ -53,7 +53,14 @@ namespace FlightSimulatorApp.Models
 					heading = Double.Parse(telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
                     groundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
 					verticalSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
-                    Thread.Sleep(2000);
+
+					//debug prints for controls
+                    Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
+					Console.WriteLine("aileron: " + telnetClient.Read("/controls/flight/aileron") + "\n");
+                    Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
+                    Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
+
+					Thread.Sleep(2000);
 				}
 
 			}).Start();
