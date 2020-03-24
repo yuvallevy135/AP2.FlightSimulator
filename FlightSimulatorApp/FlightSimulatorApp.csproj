@@ -63,13 +63,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\DashBoardModel.cs" />
     <Compile Include="Interfaces\ITelnetClient.cs" />
-    <Compile Include="Models\ManualControlModel.cs" />
-    <Compile Include="Models\MapControlModel.cs" />
+    <Compile Include="Models\FlightSimulatorModel.cs" />
     <Compile Include="Models\MyTelnetClient.cs" />
     <Compile Include="ViewModels\BaseNotify.cs" />
     <Compile Include="ViewModels\DashBoardViewModel.cs" />
+    <Compile Include="ViewModels\ManualControlViewModel.cs" />
     <Compile Include="ViewModels\MapControlViewModel.cs" />
     <Compile Include="Views\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>
