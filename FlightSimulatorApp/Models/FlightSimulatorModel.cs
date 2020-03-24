@@ -27,8 +27,9 @@ namespace FlightSimulatorApp.Models
 		private double aileron;
 
 		public FlightSimulatorModel()
-		{
-		}
+        {
+            telnetClient = new MyTelnetClient();
+        }
 		public void Connect(string ip, int port)
 		{
 			telnetClient.Connect(ip, port);
@@ -43,18 +44,16 @@ namespace FlightSimulatorApp.Models
 			new Thread(delegate ()
 			{
 				while (!stop)
-				{
-					telnetClient.Write("get Heading ");
-					telnetClient.Write("get Heading ");
-					telnetClient.Write("get Heading ");
-					telnetClient.Write("get Heading ");
-
-					Heading = Double.Parse(telnetClient.Read());
-
-
-
-
-					Thread.Sleep(2000);
+                {
+                    airSpeed = Double.Parse(telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
+                    altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
+                    roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
+                    pitch = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-pitch-deg"));
+                    altimeter = Double.Parse(telnetClient.Read("/instrumentation/altimeter/indicated-altitude-ft"));
+					heading = Double.Parse(telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
+                    groundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
+					verticalSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
+                    Thread.Sleep(2000);
 				}
 
 			}).Start();

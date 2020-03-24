@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Sockets;
+using FlightSimulatorApp.Models;
 
 namespace FlightSimulatorApp
 {
@@ -24,23 +25,12 @@ namespace FlightSimulatorApp
 		public MainWindow()
 		{
 			InitializeComponent();
-			TcpClient t = new TcpClient();
-			t.Connect("127.0.0.1", 5402);
-			reading(t, "get /position/latitude-deg\n");
-			reading(t, "get /instrumentation/heading-indicator/indicated-heading-deg\n");
-		}
+            FlightSimulatorModel model = new FlightSimulatorModel();
+			model.Connect("121", 5644);
+			model.Start();
+        }
 
-		private void reading(TcpClient t, string command)
-		{
-			byte[] read = Encoding.ASCII.GetBytes(command);
-			t.GetStream().Write(read, 0, read.Length);
-			byte[] buffer = new byte[64];
-			t.GetStream().Read(buffer, 0, 64);
-			string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-			Console.WriteLine(data);
-		}
-
-		private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
 
 		}
