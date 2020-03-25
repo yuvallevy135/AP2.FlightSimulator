@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace FlightSimulatorApp.Models
 {
 	public class MyTelnetClient : ITelnetClient
 	{
 		private TcpClient client;
-		private NetworkStream stream;
+        private NetworkStream stream;
 		private bool stillConnect = false;
-       
-		public void Connect(string ip, int port)
+        public void Connect(string ip, int port)
 		{
             client = new TcpClient();
             client.Connect(ip, port);
@@ -42,24 +42,37 @@ namespace FlightSimulatorApp.Models
 
 		public string Read(string command)
         {
-            return readData("get " + command + "\n");
+            
+            return ReadData("get " + command + "\n");
         }
 
-
-        public string readData(string command)
+		public string ReadData(string command)
         {
             byte[] read = Encoding.ASCII.GetBytes(command);
             client.GetStream().Write(read, 0, read.Length);
             byte[] buffer = new byte[64];
             client.GetStream().Read(buffer, 0, 64);
             string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-            Console.WriteLine(data);
+            //Console.WriteLine(data);
             return data;
+            
         }
 
-		public void Write(string str)
-		{
-			
-		}
+        public void Write(string command)
+        {
+            WriteCommand(command + "\n");
+        }
+
+		public void WriteCommand(string command)
+        {
+            byte[] read = Encoding.ASCII.GetBytes(command);
+            client.GetStream().Write(read, 0, read.Length);
+
+            byte[] buffer = new byte[64];
+            client.GetStream().Read(buffer, 0, 64);
+            string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+            Console.WriteLine(data);
+        }
+
 	}
 }

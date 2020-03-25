@@ -21,12 +21,19 @@ namespace FlightSimulatorApp.ViewModels
             };
         }
 
-        //public void Notify()
-        //{
-        //    flightSimulatorModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
-        //        NotifyPropertyChanged("VM_" + e.PropertyName);
-        //    };
-        //}
+        //map start
+        public double VM_Latitude
+        {
+            get { return flightSimulatorModel.Latitude; }
+        }
+
+        public double VM_Longitude
+        {
+            get { return flightSimulatorModel.Longitude; }
+        }
+
+        //map end
+
 
         //Dashboard start
         public double VM_Heading
@@ -77,13 +84,9 @@ namespace FlightSimulatorApp.ViewModels
         //Manual Controls start
         public double VM_Throttle
         {
-            get
-            {
-                return flightSimulatorModel.Throttle;
-            }
             set
             {
-                string stringThrottle = "set /controls/engines/current-engine/throttle";
+                string stringThrottle = "set /controls/engines/current-engine/throttle ";
                 if (value > 1)
                 {
                     value = 1;
@@ -93,15 +96,12 @@ namespace FlightSimulatorApp.ViewModels
                     value = 0;
                 }
                 stringThrottle += value.ToString();
-                //flightSimulatorModel.
+                flightSimulatorModel.StartWriting(stringThrottle);
             }
         }
+
         public double VM_Rudder
         {
-            get
-            {
-                return flightSimulatorModel.Rudder;
-            }
             set
             {
                 string stringRudder = "set /controls/flight/rudder";
@@ -114,28 +114,43 @@ namespace FlightSimulatorApp.ViewModels
                     value = -1;
                 }
                 stringRudder += value.ToString();
+                flightSimulatorModel.StartWriting(stringRudder);
             }
         }
+
         public double VM_Aileron
         {
-            get
-            {
-                return flightSimulatorModel.Aileron;
-            }
             set
             {
-
+                string stringAileron = "set /controls/flight/aileron ";
+                if (value > 1)
+                {
+                    value = 1;
+                }
+                else if (value < -1)
+                {
+                    value = -1;
+                }
+                stringAileron += value.ToString();
+                flightSimulatorModel.StartWriting(stringAileron);
             }
         }
+
         public double VM_Elevator
         {
-            get
-            {
-                return flightSimulatorModel.Elevator;
-            }
             set
             {
-
+                string stringElevator = "set /controls/flight/elevator ";
+                if (value > 1)
+                {
+                    value = 1;
+                }
+                else if (value < -1)
+                {
+                    value = -1;
+                }
+                stringElevator += value.ToString();
+                flightSimulatorModel.StartWriting(stringElevator);
             }
         }
         //Manual Controls end

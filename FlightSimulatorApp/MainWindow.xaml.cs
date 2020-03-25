@@ -31,7 +31,7 @@ namespace FlightSimulatorApp
 			vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
             DataContext = vm;
             //model.Connect("127.0.0.1", 5402);
-            //model.Start();
+            //model.StartReading();
 
         }
 

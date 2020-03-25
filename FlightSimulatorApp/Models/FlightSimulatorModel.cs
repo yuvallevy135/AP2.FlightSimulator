@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel;
+using System.Windows.Forms;
 using FlightSimulatorApp.ViewModels;
 
 namespace FlightSimulatorApp.Models
@@ -21,7 +22,9 @@ namespace FlightSimulatorApp.Models
 		private double roll;
 		private double pitch;
 		private double altimeter;
-		private double rudder;
+        private double latitude;
+        private double longitude;
+        private double rudder;
 		private double elevator;
 		private double throttle;
 		private double aileron;
@@ -30,7 +33,7 @@ namespace FlightSimulatorApp.Models
         {
             telnetClient = telnetC;
 			telnetClient.Connect("127.0.0.1", 5402); //change later
-			Start();
+			StartReading();
         }
 		public void Connect(string ip, int port)
 		{
@@ -41,12 +44,13 @@ namespace FlightSimulatorApp.Models
 			this.stop = true;
 			telnetClient.Disconnect();
 		}
-		public void Start()
+		public void StartReading()
 		{
 			new Thread(delegate ()
 			{
 				while (!stop)
                 {
+					//reading Dashboard elements from the simulator
                     AirSpeed = Double.Parse(telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
                     Altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
                     Roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
@@ -56,17 +60,28 @@ namespace FlightSimulatorApp.Models
                     GroundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
 					VerticalSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
 
-					//debug prints for controls
-                    Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
-					Console.WriteLine("aileron: " + telnetClient.Read("/controls/flight/aileron") + "\n");
-                    Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
-                    Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
+                    //reading map values from the simulator
+					Latitude = Double.Parse(telnetClient.Read("/position/latitude-deg"));
+					Longitude = Double.Parse(telnetClient.Read("/position/longitude-deg"));
+
+					////debug prints for controls
+					//               Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
+					//Console.WriteLine("aileron: " + telnetClient.Read("/controls/flight/aileron") + "\n");
+					//               Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
+					//               Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
 
 					Thread.Sleep(250);
 				}
 
 			}).Start();
 		}
+
+        public void StartWriting(string command)
+        {
+            telnetClient.Write(command); 
+        }
+
+
 
 		public double Heading
 		{
@@ -140,13 +155,35 @@ namespace FlightSimulatorApp.Models
 				NotifyPropertyChanged("Altimeter");
 			}
 		}
-		public double Rudder
+
+        public double Latitude
+        {
+            get { return latitude; }
+            set
+            {
+                latitude = value;
+                NotifyPropertyChanged("Latitude");
+            }
+        }
+
+		public double Longitude
+        {
+            get { return longitude; }
+            set
+            {
+                longitude = value;
+                NotifyPropertyChanged("Longitude");
+            }
+        }
+
+
+        public double Rudder
 		{
 			get { return rudder; }
 			set
 			{
                 rudder = value;
-				NotifyPropertyChanged("Rudder");
+				//NotifyPropertyChanged("Rudder");
 			}
 		}
 		public double Elevator
@@ -155,7 +192,7 @@ namespace FlightSimulatorApp.Models
 			set
 			{
                 elevator = value;
-				NotifyPropertyChanged("Elevator");
+				//NotifyPropertyChanged("Elevator");
 			}
 		}
 		public double Throttle
@@ -164,7 +201,7 @@ namespace FlightSimulatorApp.Models
 			set
 			{
                 throttle = value;
-                NotifyPropertyChanged("Throttle");
+                //NotifyPropertyChanged("Throttle");
 			}
 		}
 		public double Aileron
@@ -173,8 +210,8 @@ namespace FlightSimulatorApp.Models
 			set
 			{
                 aileron = value;
-				NotifyPropertyChanged("Aileron");
+				//NotifyPropertyChanged("Aileron");
 			}
 		}
-	}
+    }
 }
