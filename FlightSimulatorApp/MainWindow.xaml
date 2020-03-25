@@ -4,13 +4,142 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorApp"
-        xmlns:viewWindowns ="clr-namespace:FlightSimulatorApp.Views"
+        xmlns:viewWindows ="clr-namespace:FlightSimulatorApp.Views"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         mc:Ignorable="d"
-        Title="FlightSimulator"  Width="800" Height="600">
+        Title="FlightSimulator"  Width="800" Height="600" ResizeMode="NoResize">
     <Canvas Background="Gray">
 
-            <viewWindowns:MapControl Width="400" Height="569"/>
-            <viewWindowns:ManualControls Canvas.Left="405" Canvas.Top="259" Width="397" />
+        <!--Map-->
+        <Grid Width="400" Height="570">
+            <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12"/>
+        </Grid>
+        <!--Map end-->
+
+        <!--Manual controls-->
+        <Grid Width="400" Height="300" Margin="0,0,0,0" Background="Gray" Canvas.Left="400" Canvas.Top="259">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <viewWindows:Joystick Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Loaded="Joystick_Loaded" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
+                <viewWindows:Joystick.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </viewWindows:Joystick.RenderTransform>
+            </viewWindows:Joystick>
+            <!-- Rudder slider-->
+            <Slider x:Name="AileronSlider" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,220,0,0" Width="170" Height="20" Background="#FF4C71B2" Value="{Binding VM_Aileron, Mode = OneWayToSource }" Maximum="1" Minimum="-1" ValueChanged="AileronSlider_ValueChanged"/>
+            <!-- Throttle slider-->
+            <Slider x:Name="ThrottleSlider" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="170" Background="#FF4C71B2" RenderTransformOrigin="0.5,0.5"  Margin="-220,0,0,0" Value="{Binding VM_Throttle, Mode = OneWayToSource}" Maximum="1" Minimum="0" ValueChanged="ThrottleSlider_ValueChanged" >
+                <Slider.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="270"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Slider.RenderTransform>
+            </Slider>
+            <!-- Throttle slider End-->
+            <!-- Throttle Text-->
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="-11,133,53,134"  RenderTransformOrigin="0.5,0.5"  Width="158"   TextWrapping="Wrap" Text="&lt;--Throttle--&gt;"  FontSize="23" FontWeight="Bold">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <!-- Throttle Text End-->
+            <!-- Trottle value-->
+            <TextBlock Name="ThrottleValue" Grid.Row="0" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="19,136,0,0" TextWrapping="Wrap" Text="0.0" Height="26" Width="37" Foreground="Black" FontSize="16" FontWeight="Bold"/>
+            <!-- Trottle value end-->
+            <!-- Aileron Text-->
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="126,117,125,0" TextWrapping="Wrap" Text="&lt;--Aileron--&gt;" Width="149" FontSize="23" FontWeight="Bold">
+            </TextBlock>
+            <!-- Aileron Text End-->
+            <!-- Aileron value-->
+            <TextBlock Name="AileronValue" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,122,72,2" TextWrapping="Wrap" Text="0.0" Height="26" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold">
+                <TextBlock.BindingGroup>
+                    <BindingGroup/>
+                </TextBlock.BindingGroup>
+            </TextBlock>
+            <!-- Aileron value end-->
+
+            <!-- Rudder Text-->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="126,29,124,88" TextWrapping="Wrap" Text="&lt;--Rudder--&gt;" Width="150" FontSize="23" FontWeight="Bold">
+            </TextBlock>
+            <!-- Rudder Text End-->
+            <!-- Rudder value-->
+            <TextBlock Name="RudderValue" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,34,72,88" TextWrapping="Wrap" Text="0.0" Height="28" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.494,0.808"/>
+            <!-- Rudder value end-->
+
+            <!-- Elevaor Text-->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="220,0,0,0"  RenderTransformOrigin="0.5,0.5" TextWrapping="Wrap" Text="&lt;--Elevaor--&gt;" Width="149" FontSize="23" FontWeight="Bold">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <!-- Elevaor Text End-->
+            <!-- Elevaor value-->
+            <TextBlock Name="ElevatorValue" Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="125,136,37,138" TextWrapping="Wrap" Text="0.0" Height="26" Width="38" Foreground="Black" FontSize="16" FontWeight="Bold"/>
+            <!-- Elevaor value end-->
+        </Grid>
+        <!--Manual controls end-->
+
+        <!--Dashboard-->
+        <Grid Width="380" Height="270"  Background="Gray" Canvas.Left="405" Canvas.Top="10" RenderTransformOrigin="0.5,0.5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*"/>
+                <ColumnDefinition Width ="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- names on the DashBoard-->
+            <TextBlock Grid.Column="0" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="heading" VerticalAlignment="center" FontSize="20" FontWeight ="Bold"/>
+            <TextBlock Grid.Column="0" TextAlignment="Center" Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="ground speed" VerticalAlignment="center" FontSize="20" FontWeight ="Bold"/>
+            <TextBlock Grid.Column="0" TextAlignment="Center" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="altitude" VerticalAlignment="center" FontSize="20" FontWeight ="Bold"/>
+            <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="pitch" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="air speed" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="vertical speed" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="roll" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="altimiter" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
+            <!-- the progress bars-->
+            <TextBlock Text="{Binding VM_Heading, Mode=OneWay}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" />
+            <TextBlock Text="{Binding VM_GroundSpeed, Mode=OneWay}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+            <TextBlock Text="{Binding VM_Pitch, Mode=OneWay}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+            <TextBlock Text="{Binding VM_AirSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+            <TextBlock Text="{Binding VM_VerticalSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+            <TextBlock Text="{Binding VM_Roll, Mode=OneWay}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+            <TextBlock Text="{Binding VM_Altimeter, Mode=OneWay}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+            <TextBlock Text="{Binding VM_Altitude, Mode=OneWay}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+
+        </Grid>
+        <!--Dashboard end-->
 
     </Canvas>
 </Window>

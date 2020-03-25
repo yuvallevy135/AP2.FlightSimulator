@@ -9,7 +9,7 @@ using FlightSimulatorApp.ViewModels;
 
 namespace FlightSimulatorApp.Models
 {
-	class FlightSimulatorModel : BaseNotify
+	public class FlightSimulatorModel : BaseNotify
 	{
 		private ITelnetClient telnetClient;
 		private bool stop = false;
@@ -26,9 +26,9 @@ namespace FlightSimulatorApp.Models
 		private double throttle;
 		private double aileron;
 
-		public FlightSimulatorModel()
+		public FlightSimulatorModel(ITelnetClient telnetC)
         {
-            telnetClient = new MyTelnetClient();
+            telnetClient = telnetC;
         }
 		public void Connect(string ip, int port)
 		{
@@ -161,8 +161,7 @@ namespace FlightSimulatorApp.Models
 			get { return throttle; }
 			set
 			{
-				heading = value;
-				NotifyPropertyChanged("Throttle");
+				
 			}
 		}
 		public double Aileron

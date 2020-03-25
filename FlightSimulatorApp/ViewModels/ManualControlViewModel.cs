@@ -8,13 +8,12 @@ using System.ComponentModel;
 
 namespace FlightSimulatorApp.ViewModels
 {
-	class ManualControlViewModel : BaseNotify
+	public class ManualControlViewModel : BaseNotify
 	{
 		private FlightSimulatorModel flightSimulatorModel;
 		public ManualControlViewModel()
 		{
-			flightSimulatorModel = new FlightSimulatorModel();
-			flightSimulatorModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
+            flightSimulatorModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
 
 				NotifyPropertyChanged("VM_" + e.PropertyName);
 			};
@@ -27,8 +26,18 @@ namespace FlightSimulatorApp.ViewModels
 			}
 			set
 			{
-
-			} 
+				string stringThrottle = "set /controls/engines/current-engine/throttle";
+				if (value > 1)
+				{
+					value = 1;
+				}
+				else if (value < 0)
+				{
+					value = 0;
+				}
+                stringThrottle += value.ToString();
+				//flightSimulatorModel.
+            } 
 		}
 		public double VM_Rudder
 		{

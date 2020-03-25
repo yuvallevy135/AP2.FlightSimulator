@@ -8,7 +8,7 @@ using System.Net.Sockets;
 
 namespace FlightSimulatorApp.Models
 {
-	class MyTelnetClient : ITelnetClient
+	public class MyTelnetClient : ITelnetClient
 	{
 		private TcpClient client;
 		private NetworkStream stream;
@@ -17,7 +17,7 @@ namespace FlightSimulatorApp.Models
 		public void Connect(string ip, int port)
 		{
             client = new TcpClient();
-            client.Connect("127.0.0.1", 5402);
+            client.Connect(ip, port);
 
 			//IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
 			//this.client = new TcpClient();
