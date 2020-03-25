@@ -17,10 +17,16 @@ namespace FlightSimulatorApp.ViewModels
         {
             flightSimulatorModel = model;
             flightSimulatorModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
-
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
+
+        //public void Notify()
+        //{
+        //    flightSimulatorModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
+        //        NotifyPropertyChanged("VM_" + e.PropertyName);
+        //    };
+        //}
 
         //Dashboard start
         public double VM_Heading
@@ -28,37 +34,37 @@ namespace FlightSimulatorApp.ViewModels
             get { return flightSimulatorModel.Heading; }
         }
 
-        public double VerticalSpeed
+        public double VM_VerticalSpeed
         {
             get { return flightSimulatorModel.VerticalSpeed; }
         }
 
-        public double GroundSpeed
+        public double VM_GroundSpeed
         {
             get { return flightSimulatorModel.GroundSpeed; }
         }
 
-        public double AirSpeed
+        public double VM_AirSpeed
         {
             get { return flightSimulatorModel.AirSpeed; }
         }
 
-        public double Altitude
+        public double VM_Altitude
         {
             get { return flightSimulatorModel.Altitude; }
         }
 
-        public double Roll
+        public double VM_Roll
         {
             get { return flightSimulatorModel.Roll; }
         }
 
-        public double Pitch
+        public double VM_Pitch
         {
             get { return flightSimulatorModel.Pitch; }
         }
 
-        public double Altimeter
+        public double VM_Altimeter
         {
             get
             {

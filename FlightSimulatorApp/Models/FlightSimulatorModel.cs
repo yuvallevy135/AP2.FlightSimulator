@@ -12,7 +12,7 @@ namespace FlightSimulatorApp.Models
 	public class FlightSimulatorModel : BaseNotify
 	{
 		private ITelnetClient telnetClient;
-		private bool stop = false;
+        private volatile bool stop = false;
 		private double heading;
 		private double verticalSpeed;
 		private double groundSpeed;
@@ -29,6 +29,8 @@ namespace FlightSimulatorApp.Models
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
             telnetClient = telnetC;
+			telnetClient.Connect("127.0.0.1", 5402); //change later
+			Start();
         }
 		public void Connect(string ip, int port)
 		{
@@ -45,14 +47,14 @@ namespace FlightSimulatorApp.Models
 			{
 				while (!stop)
                 {
-                    airSpeed = Double.Parse(telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
-                    altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
-                    roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
-                    pitch = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-pitch-deg"));
-                    altimeter = Double.Parse(telnetClient.Read("/instrumentation/altimeter/indicated-altitude-ft"));
-					heading = Double.Parse(telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
-                    groundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
-					verticalSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
+                    AirSpeed = Double.Parse(telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
+                    Altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
+                    Roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
+                    Pitch = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-pitch-deg"));
+                    Altimeter = Double.Parse(telnetClient.Read("/instrumentation/altimeter/indicated-altitude-ft"));
+					Heading = Double.Parse(telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
+                    GroundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
+					VerticalSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
 
 					//debug prints for controls
                     Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
@@ -60,7 +62,7 @@ namespace FlightSimulatorApp.Models
                     Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
                     Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
 
-					Thread.Sleep(2000);
+					Thread.Sleep(250);
 				}
 
 			}).Start();
@@ -72,7 +74,7 @@ namespace FlightSimulatorApp.Models
 			set
 			{
 				heading = value;
-				NotifyPropertyChanged("heading");
+				NotifyPropertyChanged("Heading");
 			}
 		}
 		public double VerticalSpeed
@@ -80,7 +82,7 @@ namespace FlightSimulatorApp.Models
 			get { return verticalSpeed; }
 			set
 			{
-				heading = value;
+				verticalSpeed = value;
 				NotifyPropertyChanged("VerticalSpeed");
 			}
 		}
@@ -89,7 +91,7 @@ namespace FlightSimulatorApp.Models
 			get { return groundSpeed; }
 			set
 			{
-				heading = value;
+                groundSpeed = value;
 				NotifyPropertyChanged("GroundSpeed");
 			}
 		}
@@ -98,7 +100,7 @@ namespace FlightSimulatorApp.Models
 			get { return airSpeed; }
 			set
 			{
-				heading = value;
+                airSpeed = value;
 				NotifyPropertyChanged("AirSpeed");
 			}
 		}
@@ -107,7 +109,7 @@ namespace FlightSimulatorApp.Models
 			get { return altitude; }
 			set
 			{
-				heading = value;
+                altitude = value;
 				NotifyPropertyChanged("Altitude");
 			}
 		}
@@ -116,7 +118,7 @@ namespace FlightSimulatorApp.Models
 			get { return roll; }
 			set
 			{
-				heading = value;
+                roll = value;
 				NotifyPropertyChanged("Roll");
 			}
 		}
@@ -125,7 +127,7 @@ namespace FlightSimulatorApp.Models
 			get { return pitch; }
 			set
 			{
-				heading = value;
+                pitch = value;
 				NotifyPropertyChanged("Pitch");
 			}
 		}
@@ -134,7 +136,7 @@ namespace FlightSimulatorApp.Models
 			get { return altimeter; }
 			set
 			{
-				heading = value;
+                altimeter = value;
 				NotifyPropertyChanged("Altimeter");
 			}
 		}
@@ -143,7 +145,7 @@ namespace FlightSimulatorApp.Models
 			get { return rudder; }
 			set
 			{
-				rudder = value;
+                rudder = value;
 				NotifyPropertyChanged("Rudder");
 			}
 		}
@@ -152,7 +154,7 @@ namespace FlightSimulatorApp.Models
 			get { return elevator; }
 			set
 			{
-				heading = value;
+                elevator = value;
 				NotifyPropertyChanged("Elevator");
 			}
 		}
@@ -161,7 +163,8 @@ namespace FlightSimulatorApp.Models
 			get { return throttle; }
 			set
 			{
-				
+                throttle = value;
+                NotifyPropertyChanged("Throttle");
 			}
 		}
 		public double Aileron
@@ -169,7 +172,7 @@ namespace FlightSimulatorApp.Models
 			get { return aileron; }
 			set
 			{
-				heading = value;
+                aileron = value;
 				NotifyPropertyChanged("Aileron");
 			}
 		}

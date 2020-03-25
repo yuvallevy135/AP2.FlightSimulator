@@ -129,7 +129,7 @@
             <TextBlock Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="roll" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
             <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="altimiter" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
             <!-- the progress bars-->
-            <TextBlock Text="{Binding VM_Heading, Mode=OneWay}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" />
+            <TextBlock Text="{Binding VM_Heading, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" />
             <TextBlock Text="{Binding VM_GroundSpeed, Mode=OneWay}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
             <TextBlock Text="{Binding VM_Pitch, Mode=OneWay}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
             <TextBlock Text="{Binding VM_AirSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
