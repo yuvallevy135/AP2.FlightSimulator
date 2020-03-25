@@ -67,9 +67,7 @@
     <Compile Include="Models\FlightSimulatorModel.cs" />
     <Compile Include="Models\MyTelnetClient.cs" />
     <Compile Include="ViewModels\BaseNotify.cs" />
-    <Compile Include="ViewModels\DashBoardViewModel.cs" />
-    <Compile Include="ViewModels\ManualControlViewModel.cs" />
-    <Compile Include="ViewModels\MapControlViewModel.cs" />
+    <Compile Include="ViewModels\FlightSimulatorViewModel.cs" />
     <Compile Include="Views\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>
     </Compile>

@@ -23,18 +23,17 @@ namespace FlightSimulatorApp
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window
-	{
+    {
+        private FlightSimulatorViewModel vm;
 		public MainWindow()
 		{
 			InitializeComponent();
-			//ITelnetClient telnetClient = new MyTelnetClient();
-			//FlightSimulatorModel model = new FlightSimulatorModel(telnetClient);
-			//DashBoardViewModel dashBoardViewModel = new DashBoardViewModel(model);
-			//DashBoard dashBoard = new DashBoard(dashBoardViewModel);
-   //         model.Connect("127.0.0.1", 5402);
-			//model.Start();
+			vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
+            DataContext = vm;
+            //model.Connect("127.0.0.1", 5402);
+            //model.Start();
 
-		}
+        }
 
 		private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
