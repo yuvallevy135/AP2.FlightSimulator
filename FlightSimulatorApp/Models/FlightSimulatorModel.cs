@@ -40,13 +40,13 @@ namespace FlightSimulatorApp.Models
 		public void Connect(string ip, int port)
 		{
 			telnetClient.Connect(ip, port);
-			status = "Connected";
+			Status = "Connected";
 			stop = false;
 			StartReading();
 		}
 		public void Disconnect()
 		{
-			status = "Disconnected";
+			Status = "Disconnected";
 			stop = true;
 			telnetClient.Disconnect();
 		}

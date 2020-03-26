@@ -35,7 +35,7 @@
         <Button x:Name="connect" Width="70" Height="30" Content="Connect" Margin="10,7" Click="connect_Click"/>
         <Button x:Name="disconnect" Command="{Binding VM_Disconnect}" Width="70" Height="30" Content="disconnect" Margin="90,7" Click="disconnect_Click"/>
         <TextBlock HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="18" Canvas.Left="187" Canvas.Top="10" />
-        <TextBlock x:Name="status" HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Status}" VerticalAlignment="Top" FontSize="18" Canvas.Left="254" Canvas.Top="10" Width="89" />
+        <TextBlock x:Name="status" HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Status, Mode=OneWay}" VerticalAlignment="Top" FontSize="18" Canvas.Left="254" Canvas.Top="10"/>
 
         <!--connect bar end-->
 
