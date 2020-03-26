@@ -66,9 +66,9 @@
                 </viewWindows:Joystick.RenderTransform>
             </viewWindows:Joystick>
             <!-- Rudder slider-->
-            <Slider x:Name="AileronSlider" Value="{Binding VM_Aileron, Mode = OneWayToSource }" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,220,0,0" Width="170" Height="20" Background="#FF4C71B2"  Maximum="1" Minimum="-1" ValueChanged="AileronSlider_ValueChanged"/>
+            <Slider x:Name="AileronSlider" Value="{Binding VM_Aileron, Mode = OneWayToSource }" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,220,0,0" Width="170" Height="20" Background="#FF4C71B2"  Maximum="1" Minimum="-1" TickFrequency="0.01" ValueChanged="AileronSlider_ValueChanged"/>
             <!-- Throttle slider-->
-            <Slider x:Name="ThrottleSlider" Value="{Binding VM_Throttle, Mode = OneWayToSource}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="170" Background="#FF4C71B2" RenderTransformOrigin="0.5,0.5"  Margin="-220,0,0,0"  Maximum="1" Minimum="0" ValueChanged="ThrottleSlider_ValueChanged" >
+            <Slider x:Name="ThrottleSlider" Value="{Binding VM_Throttle, Mode = OneWayToSource}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="170" Background="#FF4C71B2" RenderTransformOrigin="0.5,0.5"  Margin="-220,0,0,0"  Maximum="1" Minimum="0" TickFrequency="0.01" ValueChanged="ThrottleSlider_ValueChanged" >
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
