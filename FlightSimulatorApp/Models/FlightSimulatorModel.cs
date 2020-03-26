@@ -28,6 +28,7 @@ namespace FlightSimulatorApp.Models
 		private double elevator;
 		private double throttle;
 		private double aileron;
+		private string location;
 
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
@@ -63,6 +64,8 @@ namespace FlightSimulatorApp.Models
                     //reading map values from the simulator
 					Latitude = Double.Parse(telnetClient.Read("/position/latitude-deg"));
 					Longitude = Double.Parse(telnetClient.Read("/position/longitude-deg"));
+					Location = Convert.ToString(latitude + "," + longitude);
+
 
 					////debug prints for controls
 					//               Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
@@ -156,7 +159,18 @@ namespace FlightSimulatorApp.Models
 			}
 		}
 
-        public double Latitude
+		public string Location { 
+			get 
+			{
+				return location;
+			}
+			set 
+			{
+				location = value;
+				NotifyPropertyChanged("Location");
+			}
+		}
+		public double Latitude
         {
             get { return latitude; }
             set

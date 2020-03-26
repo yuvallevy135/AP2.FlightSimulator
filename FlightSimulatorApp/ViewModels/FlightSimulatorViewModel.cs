@@ -22,6 +22,13 @@ namespace FlightSimulatorApp.ViewModels
         }
 
         //map start
+        public string VM_Location
+        {
+            get
+            {
+                return flightSimulatorModel.Location;
+            }
+        }
         public double VM_Latitude
         {
             get { return flightSimulatorModel.Latitude; }

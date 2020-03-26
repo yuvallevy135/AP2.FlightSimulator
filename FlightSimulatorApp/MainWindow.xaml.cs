@@ -17,6 +17,7 @@ using FlightSimulatorApp.Models;
 using FlightSimulatorApp.ViewModels;
 using FlightSimulatorApp.Views;
 
+
 namespace FlightSimulatorApp
 {
 	/// <summary>
@@ -28,8 +29,8 @@ namespace FlightSimulatorApp
 		public MainWindow()
 		{
 			InitializeComponent();
-			vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
-            DataContext = vm;
+			//vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
+   //         DataContext = vm;
             //model.Connect("127.0.0.1", 5402);
             //model.StartReading();
 
@@ -54,5 +55,21 @@ namespace FlightSimulatorApp
         {
             ThrottleValue.Text = ThrottleSlider.Value.ToString();
         }
+
+		private void connect_Click(object sender, RoutedEventArgs e)
+		{
+			//Window connectWindow = new ConnectWindow();
+			//connectWindow.ShowDialog();
+			//Window connectWindow = new ConnectWindow();
+			//connectWindow.Show();
+			//Window connectWindow = new Window();
+			//connectWindow.Show();
+		}
+
+		private void connect_Click_1(object sender, RoutedEventArgs e)
+		{
+			ConnectWindow connectWindow = new ConnectWindow();
+			connectWindow.Show();
+		}
 	}
 }

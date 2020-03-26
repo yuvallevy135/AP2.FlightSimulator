@@ -63,6 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConnectWindow.xaml.cs">
+      <DependentUpon>ConnectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ITelnetClient.cs" />
     <Compile Include="Models\FlightSimulatorModel.cs" />
     <Compile Include="Models\MyTelnetClient.cs" />
@@ -71,6 +74,10 @@
     <Compile Include="Views\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>
     </Compile>
+    <Page Include="ConnectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,6 +123,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\altitude.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\airplane.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

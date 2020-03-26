@@ -9,11 +9,40 @@
         mc:Ignorable="d"
         Title="FlightSimulator"  Width="800" Height="600" ResizeMode="NoResize">
     <Canvas Background="Gray">
+        <!--<UserControl>
+            <UserControl.Resources>
+                <ControlTemplate x:Key="Plane" TargetType="m:Pushpin">
+                    <Grid>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="Views/airplane.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                </ControlTemplate>
+            </UserControl.Resources>
+        </UserControl>-->
+        
+        <!--connect bar-->
+        <Button x:Name="connect" Width="70" Height="30" Content="Connect" Margin="10,7" Click="connect_Click_1"/>
+        <Button x:Name="disconnect" Width="70" Height="30" Content="disconnect" Margin="90,7"/>
 
+
+        <!--connect bar end-->
         <!--Map-->
-        <Grid Width="400" Height="540">
-            <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12" Margin="0,30,0,-30"/>
+        <Grid Width="400" Height="490">
+            <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" 
+                   Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12" Margin="0,44,0,-44">
+                <m:Pushpin VerticalAlignment="Bottom" m:MapLayer.Position="{Binding VM_Location}">
+                </m:Pushpin>
+            </m:Map>
         </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" Canvas.Left="81" Canvas.Top="545"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Latitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Canvas.Left="10" Canvas.Top="540"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Canvas.Left="214" Canvas.Top="542"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" Canvas.Left="300" Canvas.Top="545"/>
+
+
         <!--Map end-->
 
         <!--Manual controls-->
@@ -141,5 +170,8 @@
         </Grid>
         <!--Dashboard end-->
 
+        <!-- lan and lad-->
+
+        <!-- lan and lad ends-->
     </Canvas>
 </Window>
