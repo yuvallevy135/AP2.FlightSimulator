@@ -12,6 +12,8 @@ namespace FlightSimulatorApp.ViewModels
     public class FlightSimulatorViewModel : BaseNotify
     {
         private FlightSimulatorModel flightSimulatorModel;
+        private string ip, port, status;
+        
 
         public FlightSimulatorViewModel(FlightSimulatorModel model)
         {
@@ -22,6 +24,13 @@ namespace FlightSimulatorApp.ViewModels
         }
 
         //map start
+        public string VM_Location
+        {
+            get
+            {
+                return flightSimulatorModel.Location;
+            }
+        }
         public double VM_Latitude
         {
             get { return flightSimulatorModel.Latitude; }
@@ -79,6 +88,16 @@ namespace FlightSimulatorApp.ViewModels
 
             }
         }
+
+        public string VM_Status
+        {
+            get
+            {
+                return flightSimulatorModel.Status;
+
+            }
+        }
+
         //Dashboard end
 
         //Manual Controls start
@@ -154,5 +173,33 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
         //Manual Controls end
+
+        public string VM_Ip { 
+            set 
+            {
+                this.ip = value;
+            }
+        }
+        public string VM_Port
+        {
+            set
+            {
+                this.port = value.ToString();
+            }
+        }
+
+        public void VM_Connect()
+        {
+            flightSimulatorModel.Connect(ip, int.Parse(port));
+            //if (ip == null || port == null)
+            //{
+            //    MessageBox
+            //}
+        }
+
+        public void VM_Disconnect()
+        {
+            flightSimulatorModel.Disconnect();
+        }
     }
 }

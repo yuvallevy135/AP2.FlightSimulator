@@ -14,9 +14,15 @@ namespace FlightSimulatorApp.Models
 		private TcpClient client;
         private NetworkStream stream;
 		private bool stillConnect = false;
+
+        public MyTelnetClient()
+        {
+            
+        }
         public void Connect(string ip, int port)
 		{
             client = new TcpClient();
+            stillConnect = true;
             client.Connect(ip, port);
 
 			//IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
@@ -48,14 +54,20 @@ namespace FlightSimulatorApp.Models
 
 		public string ReadData(string command)
         {
-            byte[] read = Encoding.ASCII.GetBytes(command);
-            client.GetStream().Write(read, 0, read.Length);
-            byte[] buffer = new byte[64];
-            client.GetStream().Read(buffer, 0, 64);
-            string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-            //Console.WriteLine(data);
-            return data;
-            
+            if (stillConnect)
+            {
+                byte[] read = Encoding.ASCII.GetBytes(command);
+                client.GetStream().Write(read, 0, read.Length);
+                byte[] buffer = new byte[64];
+                client.GetStream().Read(buffer, 0, 64);
+                string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                //Console.WriteLine(data);
+                return data;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void Write(string command)
@@ -65,13 +77,15 @@ namespace FlightSimulatorApp.Models
 
 		public void WriteCommand(string command)
         {
-            byte[] read = Encoding.ASCII.GetBytes(command);
-            client.GetStream().Write(read, 0, read.Length);
-
-            byte[] buffer = new byte[64];
-            client.GetStream().Read(buffer, 0, 64);
-            string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-            Console.WriteLine(data);
+            if (stillConnect)
+            {
+                byte[] read = Encoding.ASCII.GetBytes(command);
+                client.GetStream().Write(read, 0, read.Length);
+                byte[] buffer = new byte[64];
+                client.GetStream().Read(buffer, 0, 64);
+                string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                Console.WriteLine(data);
+            }
         }
 
 	}

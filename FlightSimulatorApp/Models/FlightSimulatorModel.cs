@@ -28,20 +28,26 @@ namespace FlightSimulatorApp.Models
 		private double elevator;
 		private double throttle;
 		private double aileron;
+		private string location;
+		private string status;
 
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
             telnetClient = telnetC;
-			telnetClient.Connect("127.0.0.1", 5402); //change later
-			StartReading();
+			//telnetClient.Connect("127.0.0.1", 5402); //change later
+			
         }
 		public void Connect(string ip, int port)
 		{
 			telnetClient.Connect(ip, port);
+			Status = "Connected";
+			stop = false;
+			StartReading();
 		}
 		public void Disconnect()
 		{
-			this.stop = true;
+			Status = "Disconnected";
+			stop = true;
 			telnetClient.Disconnect();
 		}
 		public void StartReading()
@@ -63,6 +69,8 @@ namespace FlightSimulatorApp.Models
                     //reading map values from the simulator
 					Latitude = Double.Parse(telnetClient.Read("/position/latitude-deg"));
 					Longitude = Double.Parse(telnetClient.Read("/position/longitude-deg"));
+					Location = Convert.ToString(latitude + "," + longitude);
+
 
 					////debug prints for controls
 					//               Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
@@ -156,7 +164,18 @@ namespace FlightSimulatorApp.Models
 			}
 		}
 
-        public double Latitude
+		public string Location { 
+			get 
+			{
+				return location;
+			}
+			set 
+			{
+				location = value;
+				NotifyPropertyChanged("Location");
+			}
+		}
+		public double Latitude
         {
             get { return latitude; }
             set
@@ -175,6 +194,17 @@ namespace FlightSimulatorApp.Models
                 NotifyPropertyChanged("Longitude");
             }
         }
+
+		public string Status
+		{
+			get { return status; }
+
+			set
+			{
+				status = value;
+				NotifyPropertyChanged("Status");
+			}
+		}
 
 
         public double Rudder
@@ -213,5 +243,7 @@ namespace FlightSimulatorApp.Models
 				//NotifyPropertyChanged("Aileron");
 			}
 		}
+
+
     }
 }

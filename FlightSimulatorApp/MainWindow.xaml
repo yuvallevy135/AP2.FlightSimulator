@@ -9,12 +9,45 @@
         mc:Ignorable="d"
         Title="FlightSimulator"  Width="800" Height="600" ResizeMode="NoResize">
     <Canvas Background="Gray">
+        <UserControl>
+            <UserControl.Resources>
+                <ControlTemplate x:Key="Plane" TargetType="m:Pushpin">
+                    <Grid>
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/Views/airplane.png"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                </ControlTemplate>
+            </UserControl.Resources>
+            <!--Map-->
+            <Grid Width="400" Height="490">
+                <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" 
+                   Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12" Margin="0,44,0,-44">
+                    <m:Pushpin Template="{StaticResource Plane}" VerticalAlignment="Bottom" m:MapLayer.Position="{Binding VM_Location}">
+                    </m:Pushpin>
+                </m:Map>
+            </Grid>
+            <!--map ends-->
+        </UserControl>
+        <!--connect bar-->
+        <Button x:Name="connect" Width="70" Height="30" Content="Connect" Margin="10,7" Click="connect_Click"/>
+        <Button x:Name="disconnect" Command="{Binding VM_Disconnect}" Width="70" Height="30" Content="disconnect" Margin="90,7" Click="disconnect_Click"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="18" Canvas.Left="187" Canvas.Top="10" />
+        <TextBlock x:Name="status" HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Status, Mode=OneWay}" VerticalAlignment="Top" FontSize="18" Canvas.Left="254" Canvas.Top="10"/>
 
-        <!--Map-->
-        <Grid Width="400" Height="540">
-            <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12" Margin="0,30,0,-30"/>
-        </Grid>
-        <!--Map end-->
+        <!--connect bar end-->
+
+
+
+
+        <!--latitude and longitude-->
+        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" Canvas.Left="81" Canvas.Top="545"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Latitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Canvas.Left="10" Canvas.Top="540"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Canvas.Left="214" Canvas.Top="542"/>
+        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" Canvas.Left="300" Canvas.Top="545"/>
+        <!--latitude and longitude ends-->
 
         <!--Manual controls-->
         <Grid Width="400" Height="300" Margin="0,0,0,0" Background="Gray" Canvas.Left="400" Canvas.Top="259">
