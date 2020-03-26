@@ -22,20 +22,21 @@ namespace FlightSimulatorApp.Views
 	/// comment
 	public partial class Joystick : UserControl
 	{
-		private Point firstPoint;
+		private Point centerPoint;
 		private volatile bool isMousePressed;
 		double to_x, to_y;
 
 		public Joystick()
 		{
 			InitializeComponent();
-			firstPoint = new Point(this.Base.Width / 2, this.Base.Height / 2);
+
+			centerPoint = new Point(this.Base.Width / 2, this.Base.Height / 2);
 			isMousePressed = false;
 			Storyboard storyboard = this.Knob.Resources["MoveKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
-			x.From = this.firstPoint.X;
-			y.From = this.firstPoint.Y;
+			x.From = this.centerPoint.X;
+			y.From = this.centerPoint.Y;
 		}
 
 		private void Movement()
@@ -43,8 +44,8 @@ namespace FlightSimulatorApp.Views
 			Storyboard storyboard = this.Knob.Resources["MoveKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
-			x.To = this.to_x - this.firstPoint.X;
-			y.To = this.to_y - this.firstPoint.Y;
+			x.To = this.to_x - this.centerPoint.X;
+			y.To = this.to_y - this.centerPoint.Y;
 			storyboard.Begin();
 			x.From = x.To;
 			y.From = y.To;
@@ -82,8 +83,8 @@ namespace FlightSimulatorApp.Views
 		private void MoveToCenter()
 		{
 			this.isMousePressed = false;
-			this.to_x = this.firstPoint.X;
-			this.to_y = this.firstPoint.Y;
+			this.to_x = this.centerPoint.X;
+			this.to_y = this.centerPoint.Y;
 			this.Movement();
 		}
 
