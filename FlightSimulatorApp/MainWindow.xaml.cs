@@ -26,15 +26,20 @@ namespace FlightSimulatorApp
 	public partial class MainWindow : Window
     {
         private FlightSimulatorViewModel vm;
+		private ConnectWindow cw;
 		public MainWindow()
 		{
+		
 			InitializeComponent();
-			//vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
-   //         DataContext = vm;
-            //model.Connect("127.0.0.1", 5402);
-            //model.StartReading();
+			vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
+			DataContext = vm;
+			cw = new ConnectWindow(vm);
 
-        }
+
+			//model.Connect("127.0.0.1", 5402);
+			//model.StartReading();
+
+		}
 
 		private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
@@ -56,20 +61,18 @@ namespace FlightSimulatorApp
             ThrottleValue.Text = ThrottleSlider.Value.ToString();
         }
 
+
 		private void connect_Click(object sender, RoutedEventArgs e)
 		{
-			//Window connectWindow = new ConnectWindow();
-			//connectWindow.ShowDialog();
-			//Window connectWindow = new ConnectWindow();
+			//ConnectWindow connectWindow = new ConnectWindow();
 			//connectWindow.Show();
-			//Window connectWindow = new Window();
-			//connectWindow.Show();
+			//this.vm.VM_ConnectWindow();
+			cw.Show();
 		}
 
-		private void connect_Click_1(object sender, RoutedEventArgs e)
+		private void disconnect_Click(object sender, RoutedEventArgs e)
 		{
-			ConnectWindow connectWindow = new ConnectWindow();
-			connectWindow.Show();
+			vm.VM_Disconnect();
 		}
 	}
 }

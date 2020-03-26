@@ -29,20 +29,25 @@ namespace FlightSimulatorApp.Models
 		private double throttle;
 		private double aileron;
 		private string location;
+		private string status;
 
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
             telnetClient = telnetC;
-			telnetClient.Connect("127.0.0.1", 5402); //change later
-			StartReading();
+			//telnetClient.Connect("127.0.0.1", 5402); //change later
+			
         }
 		public void Connect(string ip, int port)
 		{
 			telnetClient.Connect(ip, port);
+			status = "Connected";
+			stop = false;
+			StartReading();
 		}
 		public void Disconnect()
 		{
-			this.stop = true;
+			status = "Disconnected";
+			stop = true;
 			telnetClient.Disconnect();
 		}
 		public void StartReading()
@@ -190,6 +195,17 @@ namespace FlightSimulatorApp.Models
             }
         }
 
+		public string Status
+		{
+			get { return status; }
+
+			set
+			{
+				status = value;
+				NotifyPropertyChanged("Status");
+			}
+		}
+
 
         public double Rudder
 		{
@@ -227,5 +243,7 @@ namespace FlightSimulatorApp.Models
 				//NotifyPropertyChanged("Aileron");
 			}
 		}
+
+
     }
 }

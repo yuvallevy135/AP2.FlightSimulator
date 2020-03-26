@@ -19,9 +19,18 @@ namespace FlightSimulatorApp
 	/// </summary>
 	public partial class ConnectWindow : Window
 	{
-		public ConnectWindow()
+		private ViewModels.FlightSimulatorViewModel vm;
+		public ConnectWindow(ViewModels.FlightSimulatorViewModel viewModel)
 		{
 			InitializeComponent();
+			vm = viewModel;
+			DataContext = vm;
+		}
+
+		private void connect_server_Click(object sender, RoutedEventArgs e)
+		{
+			vm.VM_Connect();
+			this.Hide();
 		}
 	}
 }
