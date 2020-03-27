@@ -59,7 +59,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <viewWindows:Joystick Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Loaded="Joystick_Loaded" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
+            <viewWindows:Joystick x:Name="Joystick" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Loaded="Joystick_Loaded" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
                 <viewWindows:Joystick.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
@@ -70,9 +70,9 @@
                 </viewWindows:Joystick.RenderTransform>
             </viewWindows:Joystick>
             <!-- Rudder slider-->
-            <Slider x:Name="AileronSlider" Value="{Binding VM_Aileron, Mode = OneWayToSource }" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,220,0,0" Width="170" Height="20" Background="#FF4C71B2"  Maximum="1" Minimum="-1" TickFrequency="0.01" ValueChanged="AileronSlider_ValueChanged"/>
+            <Slider x:Name="AileronSlider" Value="{Binding VM_Aileron, Mode = OneWayToSource }" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,220,0,0" Width="170" Height="20" Background="#FF4C71B2" Maximum="1" Minimum="-1" TickFrequency="0.1" LargeChange="0.1" ValueChanged="AileronSlider_ValueChanged" />
             <!-- Throttle slider-->
-            <Slider x:Name="ThrottleSlider" Value="{Binding VM_Throttle, Mode = OneWayToSource}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="170" Background="#FF4C71B2" RenderTransformOrigin="0.5,0.5"  Margin="-220,0,0,0"  Maximum="1" Minimum="0" TickFrequency="0.01" ValueChanged="ThrottleSlider_ValueChanged" >
+            <Slider x:Name="ThrottleSlider" Value="{Binding VM_Throttle, Mode = OneWayToSource}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="170" Background="#FF4C71B2" RenderTransformOrigin="0.5,0.5"  Margin="-220,0,0,0"  Maximum="1" Minimum="0" TickFrequency="0.01" LargeChange="0.1" ValueChanged="ThrottleSlider_ValueChanged" >
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -96,14 +96,14 @@
             </TextBlock>
             <!-- Throttle Text End-->
             <!-- Trottle value-->
-            <TextBlock Name="ThrottleValue" Grid.Row="0" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="19,136,0,0" TextWrapping="Wrap" Text="0.0" Height="26" Width="37" Foreground="Black" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Name="ThrottleValue" Grid.Row="0" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="19,136,0,0" TextWrapping="Wrap" Text="{Binding ElementName=ThrottleSlider, Path=Value}" Height="26" Width="37" Foreground="Black" FontSize="16" FontWeight="Bold"/>
             <!-- Trottle value end-->
             <!-- Aileron Text-->
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="126,117,125,0" TextWrapping="Wrap" Text="&lt;--Aileron--&gt;" Width="149" FontSize="23" FontWeight="Bold">
             </TextBlock>
             <!-- Aileron Text End-->
             <!-- Aileron value-->
-            <TextBlock Name="AileronValue" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,122,72,2" TextWrapping="Wrap" Text="0.0" Height="26" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold">
+            <TextBlock Name="AileronValue" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,122,72,2" TextWrapping="Wrap" Text="{Binding ElementName=AileronSlider, Path=Value}" Height="26" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold">
                 <TextBlock.BindingGroup>
                     <BindingGroup/>
                 </TextBlock.BindingGroup>

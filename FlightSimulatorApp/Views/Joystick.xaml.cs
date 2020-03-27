@@ -16,78 +16,153 @@ using System.Windows.Media.Animation;
 
 namespace FlightSimulatorApp.Views
 {
-	/// <summary>
+    /// <summary>
 	/// Interaction logic for Joystick.xaml
 	/// </summary>
 	/// comment
 	public partial class Joystick : UserControl
-	{
+    {
+        private enum BoundState  {
+            MOVE,STAY,CENTER
+        };
 		private Point centerPoint;
 		private volatile bool isMousePressed;
-		double to_x, to_y;
+        private double from_x ,from_y, to_x, to_y, ellipseRadius;
+        private double normalX = 0, normalY = 0;
 
-		public Joystick()
+		public delegate void Event (double x, double y);
+
+        public Event MyEvent;
+
+        public Joystick()
 		{
 			InitializeComponent();
 
-			centerPoint = new Point(this.Base.Width / 2, this.Base.Height / 2);
+			centerPoint = new Point(Base.Width / 2, Base.Height / 2);
+            // radius = (Base.Width - centerPoint.X) * 0.235;
+            ellipseRadius = this.borderCircle.Width / 2;
+            //Console.WriteLine(borderCircle.Width/2);
+            //Console.WriteLine(borderCircle.Width);
+            //Console.WriteLine(Base.Width);
 			isMousePressed = false;
-			Storyboard storyboard = this.Knob.Resources["MoveKnob"] as Storyboard;
+			Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
-			x.From = this.centerPoint.X;
-			y.From = this.centerPoint.Y;
-		}
+			x.From = 0;
+			y.From = 0;
+            from_x = 0;
+            from_y = 0;
+            //Console.WriteLine(centerPoint.X);
+            //Console.WriteLine(centerPoint.Y);
+        }
+
+        private BoundState CheckBound()
+        {
+            double bound = Math.Sqrt(Math.Pow(to_x - this.centerPoint.X, 2) + Math.Pow(to_y - this.centerPoint.Y, 2));
+            if (this.ellipseRadius >= bound)
+            {
+                return BoundState.MOVE;
+            } else
+            {
+                return BoundState.CENTER;
+            }
+            // else
+            // {
+            //     return BoundState.STAY;
+            // }
+        }
 
 		private void Movement()
 		{
-			Storyboard storyboard = this.Knob.Resources["MoveKnob"] as Storyboard;
-			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
-			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
-			x.To = this.to_x - this.centerPoint.X;
-			y.To = this.to_y - this.centerPoint.Y;
-			storyboard.Begin();
-			x.From = x.To;
-			y.From = y.To;
-			
-		}
+            switch (CheckBound())
+            {
+				case BoundState.MOVE:
+                    Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
+                    DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
+                    DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
+                    x.To = to_x - centerPoint.X;
+                    y.To = to_y - centerPoint.Y;
+                    storyboard.Begin();
+                    x.From = x.To;
+                    y.From = y.To;
+                    from_x = x.From.Value;
+                    from_y = y.From.Value;
+                    //Console.WriteLine(x.To);
+                    //Console.WriteLine(y.To);
 
-		private void Knob_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+					break;
+				case BoundState.STAY:
+                    break;
+				case BoundState.CENTER:
+					MoveToCenter();
+					break;
+				default:
+                    break;
+            }
+			Normal();
+        }
+
+        //public double GetNormalX()
+        //{
+        //    return normalX;
+        //}
+
+        //public double GetNormalY()
+        //{
+        //    return normalY;
+        //}
+
+		private void Normal()
+        {
+            //normalize
+            normalX = ((to_x - centerPoint.X) / (ellipseRadius ));
+			normalY = ((to_y - centerPoint.Y) / (ellipseRadius));
+
+			if (MyEvent != null)
+            {
+                MyEvent(normalX, -normalY);
+            }
+        }
+
+		private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			this.isMousePressed = true;
+			isMousePressed = true;
 		}
 
-		private void Base_MouseMove_1(object sender, MouseEventArgs e)
+		private void Base_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (isMousePressed)
 			{
-				to_x = e.GetPosition(this.Base).X;
-				to_y = e.GetPosition(this.Base).Y;
+                to_x = e.GetPosition(Base).X;
+				to_y = e.GetPosition(Base).Y;
 				Movement();
 			}
 		}
 
+		private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+		{
+			MoveToCenter();
+		}
+
 		private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 		{
-			if (this.isMousePressed)
+			if (isMousePressed)
 			{
-				this.MoveToCenter();
+				MoveToCenter();
 			}
 		}
 
 		private void Base_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			this.MoveToCenter();
+			MoveToCenter();
 		}
 
 		private void MoveToCenter()
 		{
-			this.isMousePressed = false;
-			this.to_x = this.centerPoint.X;
-			this.to_y = this.centerPoint.Y;
-			this.Movement();
+			isMousePressed = false;
+			to_x = centerPoint.X;
+			to_y = centerPoint.Y;
+			Movement();
 		}
-
-
-	}
+    }
 }

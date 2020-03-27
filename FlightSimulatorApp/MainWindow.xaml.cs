@@ -33,13 +33,35 @@ namespace FlightSimulatorApp
 			InitializeComponent();
 			vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
 			DataContext = vm;
-			cw = new ConnectWindow(vm);
+            Joystick.MyEvent += SetXY;
 
+            cw = new ConnectWindow(vm);
+        }
 
-			//model.Connect("127.0.0.1", 5402);
-			//model.StartReading();
+        private void SetXY(double x, double y)
+        {
+            if (x > 1)
+            {
+                x = 1;
+            } 
+            else if (x < -1)
+            {
+                x = -1;
+            }
 
-		}
+            if (y > 1)
+            {
+                y = 1;
+            }
+            else if (y < -1)
+            {
+                y = -1;
+            }
+            vm.VM_Rudder = x;
+            vm.VM_Elevator = y;
+            RudderValue.Text = x.ToString();
+            ElevatorValue.Text = y.ToString();
+        }
 
 		private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
@@ -47,18 +69,20 @@ namespace FlightSimulatorApp
 		}
 
 		private void Joystick_Loaded(object sender, RoutedEventArgs e)
-		{
-
-		}
+        {
+            
+        }
 
         private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            AileronValue.Text = AileronSlider.Value.ToString();
+            AileronValue.Text = AileronSlider.Value.ToString("F" );
+            Console.WriteLine(AileronSlider.Value.ToString());
+            Console.WriteLine(sender.ToString());
         }
 
         private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ThrottleValue.Text = ThrottleSlider.Value.ToString();
+            ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
         }
 
 

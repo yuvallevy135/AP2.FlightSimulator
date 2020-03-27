@@ -12,7 +12,7 @@ namespace FlightSimulatorApp.ViewModels
     public class FlightSimulatorViewModel : BaseNotify
     {
         private FlightSimulatorModel flightSimulatorModel;
-        private string ip, port, status;
+        private string ip, port;
         
 
         public FlightSimulatorViewModel(FlightSimulatorModel model)
@@ -123,15 +123,15 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
-                string stringRudder = "set /controls/flight/rudder";
-                if (value > 1)
-                {
-                    value = 1;
-                }
-                else if (value < -1)
-                {
-                    value = -1;
-                }
+                string stringRudder = "set /controls/flight/rudder ";
+                //if (value > 1)
+                //{
+                //    value = 1;
+                //}
+                //else if (value < -1)
+                //{
+                //    value = -1;
+                //}
                 stringRudder += value.ToString();
                 flightSimulatorModel.StartWriting(stringRudder);
             }
