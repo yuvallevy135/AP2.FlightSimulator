@@ -34,8 +34,9 @@ namespace FlightSimulatorApp.Models
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
             telnetClient = telnetC;
-			//telnetClient.Connect("127.0.0.1", 5402); //change later
-			
+            status = "Disconnected";
+            //telnetClient.Connect("127.0.0.1", 5402); //change later
+
         }
 		public void Connect(string ip, int port)
 		{
