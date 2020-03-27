@@ -23,19 +23,26 @@ namespace FlightSimulatorApp.Models
 		{
             client = new TcpClient();
             stillConnect = true;
-            client.Connect(ip, port);
+            try
+            {
+                client.Connect(ip, port);
+            }
+            catch(Exception exception)
+            {
+                Console.WriteLine("Couldn't connect to server");
+            }
 
-			//IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-			//this.client = new TcpClient();
-			//while (!client.Connected)
-			//{
-			//	try { client.Connect(endPoint); }
-			//	catch (Exception) { }
-			//}
-			//stillConnect = true;
-			//this.stream = client.GetStream();
+            //IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            //this.client = new TcpClient();
+            //while (!client.Connected)
+            //{
+            //	try { client.Connect(endPoint); }
+            //	catch (Exception) { }
+            //}
+            //stillConnect = true;
+            //this.stream = client.GetStream();
 
-		}
+        }
 
 		public void Disconnect()
 		{

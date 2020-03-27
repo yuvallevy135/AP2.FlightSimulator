@@ -27,7 +27,7 @@ namespace FlightSimulatorApp.Views
         };
 		private Point centerPoint;
 		private volatile bool isMousePressed;
-        private double from_x ,from_y, to_x, to_y, ellipseRadius;
+        private double to_x, to_y, ellipseRadius;
         private double normalX = 0, normalY = 0;
 
 		public delegate void Event (double x, double y);
@@ -50,8 +50,6 @@ namespace FlightSimulatorApp.Views
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
 			x.From = 0;
 			y.From = 0;
-            from_x = 0;
-            from_y = 0;
             //Console.WriteLine(centerPoint.X);
             //Console.WriteLine(centerPoint.Y);
         }
@@ -85,8 +83,6 @@ namespace FlightSimulatorApp.Views
                     storyboard.Begin();
                     x.From = x.To;
                     y.From = y.To;
-                    from_x = x.From.Value;
-                    from_y = y.From.Value;
                     //Console.WriteLine(x.To);
                     //Console.WriteLine(y.To);
 
