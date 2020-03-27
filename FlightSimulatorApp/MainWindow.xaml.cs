@@ -75,14 +75,14 @@ namespace FlightSimulatorApp
 
         private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            AileronValue.Text = AileronSlider.Value.ToString();
+            AileronValue.Text = AileronSlider.Value.ToString("F" );
             Console.WriteLine(AileronSlider.Value.ToString());
             Console.WriteLine(sender.ToString());
         }
 
         private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ThrottleValue.Text = ThrottleSlider.Value.ToString();
+            ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
         }
 
 

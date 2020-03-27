@@ -27,7 +27,7 @@ namespace FlightSimulatorApp.Views
         };
 		private Point centerPoint;
 		private volatile bool isMousePressed;
-        private double from_x ,from_y, to_x, to_y, ellipseRadius, relativeBorder = 0.5;
+        private double from_x ,from_y, to_x, to_y, ellipseRadius;
         private double normalX = 0, normalY = 0;
 
 		public delegate void Event (double x, double y);
@@ -59,17 +59,17 @@ namespace FlightSimulatorApp.Views
         private BoundState CheckBound()
         {
             double bound = Math.Sqrt(Math.Pow(to_x - this.centerPoint.X, 2) + Math.Pow(to_y - this.centerPoint.Y, 2));
-            if (this.ellipseRadius* relativeBorder > bound)
+            if (this.ellipseRadius >= bound)
             {
                 return BoundState.MOVE;
-            } else if (this.ellipseRadius > bound)
+            } else
             {
-                return BoundState.STAY;
+                return BoundState.CENTER;
             }
-            else
-            {
-                return BoundState.STAY;
-            }
+            // else
+            // {
+            //     return BoundState.STAY;
+            // }
         }
 
 		private void Movement()
@@ -115,8 +115,8 @@ namespace FlightSimulatorApp.Views
 		private void Normal()
         {
             //normalize
-            normalX = ((to_x - centerPoint.X) / (ellipseRadius * relativeBorder ));
-			normalY = ((to_y - centerPoint.Y) / (ellipseRadius * relativeBorder));
+            normalX = ((to_x - centerPoint.X) / (ellipseRadius ));
+			normalY = ((to_y - centerPoint.Y) / (ellipseRadius));
 
 			if (MyEvent != null)
             {
