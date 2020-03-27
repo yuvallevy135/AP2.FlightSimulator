@@ -64,7 +64,6 @@ namespace FlightSimulatorApp
 
 		private void connect_Click(object sender, RoutedEventArgs e)
 		{
-			//ConnectWindow connectWindow = new ConnectWindow();
 			//connectWindow.Show();
 			//this.vm.VM_ConnectWindow();
 			cw.Show();

@@ -26,14 +26,14 @@
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="1" Grid.Column="1" Text="IP" Margin="0,0,0,20" />
-        <TextBox Text="{Binding VM_Ip}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
+        <TextBox x:Name="ipBlock"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
 
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Port" Margin="0,0,20,0"/>
-        <TextBox Text="{Binding VM_Port}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
+        <TextBox x:Name="portBlock"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
 
             <Button x:Name="connect_server" Content="Connect" Grid.Row="3" Grid.Column="2" Click="connect_server_Click"/>
         
-        <Button x:Name="cancel" Content="Cancel" Grid.Row="3" Grid.Column="4"/>
+        <Button x:Name="cancel" Content="Cancel" Grid.Row="3" Grid.Column="4" Click="cancel_Click"/>
 
         </Grid>
         
