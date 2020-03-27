@@ -45,7 +45,7 @@ namespace FlightSimulatorApp.Views
             //Console.WriteLine(borderCircle.Width);
             //Console.WriteLine(Base.Width);
 			isMousePressed = false;
-			Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
+			Storyboard storyboard = Knob.Resources["CenterKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
 			x.From = 0;
@@ -75,7 +75,7 @@ namespace FlightSimulatorApp.Views
             switch (CheckBound())
             {
 				case BoundState.MOVE:
-                    Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
+                    Storyboard storyboard = Knob.Resources["CenterKnob"] as Storyboard;
                     DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
                     DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
                     x.To = to_x - centerPoint.X;
