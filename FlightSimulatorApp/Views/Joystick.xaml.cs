@@ -17,44 +17,49 @@ using System.Windows.Media.Animation;
 namespace FlightSimulatorApp.Views
 {
     /// <summary>
-    /// Interaction logic for Joystick.xaml
-    /// </summary>
-    /// comment
-    public partial class Joystick : UserControl
+	/// Interaction logic for Joystick.xaml
+	/// </summary>
+	/// comment
+	public partial class Joystick : UserControl
     {
         private enum BoundState  {
             MOVE,STAY,CENTER
         };
 		private Point centerPoint;
 		private volatile bool isMousePressed;
-        private double to_x, to_y, radius, ellipseRadius;
+        private double from_x ,from_y, to_x, to_y, ellipseRadius, relativeBorder = 0.5;
+        private double normalX = 0, normalY = 0;
 
-		public Joystick()
+		public delegate void Event (double x, double y);
+
+        public Event MyEvent;
+
+        public Joystick()
 		{
 			InitializeComponent();
 
 			centerPoint = new Point(Base.Width / 2, Base.Height / 2);
-            radius = (Base.Width - centerPoint.X) * 0.235;
+            // radius = (Base.Width - centerPoint.X) * 0.235;
             ellipseRadius = this.borderCircle.Width / 2;
-            Console.WriteLine(borderCircle.Width/2);
-            Console.WriteLine(borderCircle.Width);
-            Console.WriteLine(Base.Width);
+            //Console.WriteLine(borderCircle.Width/2);
+            //Console.WriteLine(borderCircle.Width);
+            //Console.WriteLine(Base.Width);
 			isMousePressed = false;
 			Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
 			x.From = 0;
 			y.From = 0;
-			//Console.WriteLine(centerPoint.X);
-			//Console.WriteLine(centerPoint.Y);
-			
+            from_x = 0;
+            from_y = 0;
+            //Console.WriteLine(centerPoint.X);
+            //Console.WriteLine(centerPoint.Y);
+        }
 
-		}
-
-        private BoundState checkBound()
+        private BoundState CheckBound()
         {
             double bound = Math.Sqrt(Math.Pow(to_x - this.centerPoint.X, 2) + Math.Pow(to_y - this.centerPoint.Y, 2));
-            if (this.ellipseRadius*0.8 > bound)
+            if (this.ellipseRadius* relativeBorder > bound)
             {
                 return BoundState.MOVE;
             } else if (this.ellipseRadius > bound)
@@ -69,7 +74,7 @@ namespace FlightSimulatorApp.Views
 
 		private void Movement()
 		{
-            switch (checkBound())
+            switch (CheckBound())
             {
 				case BoundState.MOVE:
                     Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
@@ -80,54 +85,43 @@ namespace FlightSimulatorApp.Views
                     storyboard.Begin();
                     x.From = x.To;
                     y.From = y.To;
-                    Console.WriteLine(x.To);
-                    Console.WriteLine(y.To);
+                    from_x = x.From.Value;
+                    from_y = y.From.Value;
+                    //Console.WriteLine(x.To);
+                    //Console.WriteLine(y.To);
+
 					break;
 				case BoundState.STAY:
-					break;
+                    break;
 				case BoundState.CENTER:
 					MoveToCenter();
 					break;
 				default:
                     break;
-
             }
-			//Storyboard storyboard = Knob.Resources["MoveKnob"] as Storyboard;
-			//DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
-			//DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
-			//x.To = to_x - centerPoint.X;
-			//y.To = to_y - centerPoint.Y;
-			//storyboard.Begin();
-   //         x.From = x.To;
-   //         y.From = y.To;
-			//Console.WriteLine(x.To);
-   //         Console.WriteLine(y.To);
-			//if (Math.Abs(x.To.Value) < radius)
-   //         {
-   //             x.From = x.To;
-			//}
+			Normal();
+        }
 
-   //         if (Math.Abs(y.To.Value) < radius)
-   //         {
-   //             y.From = y.To;
-			//}
+        //public double GetNormalX()
+        //{
+        //    return normalX;
+        //}
 
-			//if (Math.Abs(x.To.Value) > radius || Math.Abs(y.To.Value) > radius)
-			//{
+        //public double GetNormalY()
+        //{
+        //    return normalY;
+        //}
 
-			//	if (Math.Abs(x.To.Value) > radius * 3)
-			//	{
-			//		MoveToCenter();
-   //             }
+		private void Normal()
+        {
+            //normalize
+            normalX = ((to_x - centerPoint.X) / (ellipseRadius * relativeBorder ));
+			normalY = ((to_y - centerPoint.Y) / (ellipseRadius * relativeBorder));
 
-			//	if (Math.Abs(y.To.Value) > radius * 3)
-			//	{
-			//		MoveToCenter();
-   //             }
-
-
-   //         }
-
+			if (MyEvent != null)
+            {
+                MyEvent(normalX, -normalY);
+            }
         }
 
 		private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

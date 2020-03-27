@@ -58,28 +58,40 @@ namespace FlightSimulatorApp.Models
 				while (!stop)
                 {
 					//reading Dashboard elements from the simulator
-                    AirSpeed = Double.Parse(telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
-                    Altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
-                    Roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
-                    Pitch = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-pitch-deg"));
-                    Altimeter = Double.Parse(telnetClient.Read("/instrumentation/altimeter/indicated-altitude-ft"));
-					Heading = Double.Parse(telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
-                    GroundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
-					VerticalSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
+                    try
+                    {
+                        AirSpeed = Double.Parse(
+                            telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
+                        Altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
+                        Roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
+                        Pitch = Double.Parse(
+                            telnetClient.Read("/instrumentation/attitude-indicator/internal-pitch-deg"));
+                        Altimeter = Double.Parse(telnetClient.Read("/instrumentation/altimeter/indicated-altitude-ft"));
+                        Heading = Double.Parse(
+                            telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
+                        GroundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
+                        VerticalSpeed =
+                            Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
 
-                    //reading map values from the simulator
-					Latitude = Double.Parse(telnetClient.Read("/position/latitude-deg"));
-					Longitude = Double.Parse(telnetClient.Read("/position/longitude-deg"));
-					Location = Convert.ToString(latitude + "," + longitude);
+                        //reading map values from the simulator
+                        Latitude = Double.Parse(telnetClient.Read("/position/latitude-deg"));
+                        Longitude = Double.Parse(telnetClient.Read("/position/longitude-deg"));
+                        Location = Convert.ToString(latitude + "," + longitude);
 
 
-					////debug prints for controls
-					//               Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
-					//Console.WriteLine("aileron: " + telnetClient.Read("/controls/flight/aileron") + "\n");
-					//               Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
-					//               Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
+                        ////debug prints for controls
+                        //               Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
+                        //Console.WriteLine("aileron: " + telnetClient.Read("/controls/flight/aileron") + "\n");
+                        //               Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
+                        //               Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
 
-					Thread.Sleep(250);
+                        Thread.Sleep(250);
+                    }
+                    catch (ArgumentNullException nullException)
+                    {
+						Disconnect();
+                    }
+                    
 				}
 
 			}).Start();
