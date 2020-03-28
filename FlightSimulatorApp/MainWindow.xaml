@@ -9,214 +9,61 @@
         mc:Ignorable="d"
         Title="FlightSimulator"  Width="800" Height="600" ResizeMode="NoResize">
     <Canvas Background="Gray">
-        <UserControl>
-            <UserControl.Resources>
-                <ControlTemplate x:Key="Plane" TargetType="m:Pushpin">
-                    <Grid>
-                        <Rectangle>
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="/Views/airplane.png"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Grid>
-                </ControlTemplate>
-            </UserControl.Resources>
-            <!--Map-->
-            <Grid Width="400" Height="490">
-                <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" 
-                   Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12" Margin="0,44,0,-44">
-                    <m:Pushpin x:Name="planeIcon" Template="{StaticResource Plane}" VerticalAlignment="Bottom" m:MapLayer.Position="{Binding VM_Location}">
-                        <!--<Style TargetType="m:Pushpin">
-                            <Setter Property="Visibility" Value="Hidden" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>-->
-                    </m:Pushpin>
-                </m:Map>
-            </Grid>
-            <!--map ends-->
-        </UserControl>
+
+        <!--Map-->
+        <viewWindows:MapControl Canvas.Top="42" Height="529" Width="395" Canvas.Left="10"/>
+        <!--Map end-->
+
         <!--connect bar-->
         <Button x:Name="connect" Width="70" Height="30" Content="Connect" Margin="10,7" Click="connect_Click">
             <Button.Style>
-            <Style TargetType="Button">
-                <Setter Property="IsEnabled" Value="True" />
-                <Style.Triggers>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="True" />
+                    <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                        <Setter Property="IsEnabled" Value="False" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Button.Style>
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
         <Button x:Name="Disconnect" Command="{Binding VM_Disconnect}" Width="70" Height="30" Content="disconnect" Margin="90,7" Click="disconnect_Click">
-        <Button.Style>
-            <Style TargetType="Button">
-                <Setter Property="IsEnabled" Value="False" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                        <Setter Property="IsEnabled" Value="True" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Button.Style>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
         <TextBlock HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="18" Canvas.Left="187" Canvas.Top="10" />
         <TextBlock x:Name="status" HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Status, Mode=OneWay}" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Canvas.Left="254" Canvas.Top="10">
-        <TextBlock.Style>
-            <Style TargetType="{x:Type TextBlock}">
-                <Setter Property="Foreground" Value="Black"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                        <Setter Property="Foreground" Value="Green"/>
-                    </DataTrigger>
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                            <Setter Property="Foreground" Value="Green"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Disconnected">
                             <Setter Property="Foreground" Value="Red"/>
                         </DataTrigger>
                     </Style.Triggers>
-            </Style>
-        </TextBlock.Style>
+                </Style>
+            </TextBlock.Style>
         </TextBlock>
-
         <!--connect bar end-->
 
 
-
-
-        <!--latitude and longitude-->
-        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" Canvas.Left="81" Canvas.Top="545"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Latitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Canvas.Left="10" Canvas.Top="540"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Canvas.Left="214" Canvas.Top="542"/>
-        <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" Canvas.Left="300" Canvas.Top="545"/>
-        <!--latitude and longitude ends-->
-
         <!--Manual controls-->
-        <Grid Width="400" Height="300" Margin="0,0,0,0" Background="Gray" Canvas.Left="400" Canvas.Top="259">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <viewWindows:Joystick x:Name="Joystick" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Loaded="Joystick_Loaded" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
-                <viewWindows:Joystick.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </viewWindows:Joystick.RenderTransform>
-            </viewWindows:Joystick>
-            <!-- Rudder slider-->
-            <Slider x:Name="AileronSlider" Value="{Binding VM_Aileron, Mode = OneWayToSource }" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,220,0,0" Width="170" Height="20" Background="#FF4C71B2" Maximum="1" Minimum="-1" TickFrequency="0.1" LargeChange="0.1" ValueChanged="AileronSlider_ValueChanged" />
-            <!-- Throttle slider-->
-            <Slider x:Name="ThrottleSlider" Value="{Binding VM_Throttle, Mode = OneWayToSource}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="170" Background="#FF4C71B2" RenderTransformOrigin="0.5,0.5"  Margin="-220,0,0,0"  Maximum="1" Minimum="0" TickFrequency="0.01" LargeChange="0.1" ValueChanged="ThrottleSlider_ValueChanged" >
-                <Slider.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="270"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Slider.RenderTransform>
-            </Slider>
-            <!-- Throttle slider End-->
-            <!-- Throttle Text-->
-            <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="-11,133,53,134"  RenderTransformOrigin="0.5,0.5"  Width="158"   TextWrapping="Wrap" Text="&lt;--Throttle--&gt;"  FontSize="23" FontWeight="Bold">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
-            <!-- Throttle Text End-->
-            <!-- Trottle value-->
-            <TextBlock Name="ThrottleValue" Grid.Row="0" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="19,136,0,0" TextWrapping="Wrap" Text="{Binding ElementName=ThrottleSlider, Path=Value}" Height="26" Width="37" Foreground="Black" FontSize="16" FontWeight="Bold"/>
-            <!-- Trottle value end-->
-            <!-- Aileron Text-->
-            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="126,117,125,0" TextWrapping="Wrap" Text="&lt;--Aileron--&gt;" Width="149" FontSize="23" FontWeight="Bold">
-            </TextBlock>
-            <!-- Aileron Text End-->
-            <!-- Aileron value-->
-            <TextBlock Name="AileronValue" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,122,72,2" TextWrapping="Wrap" Text="{Binding ElementName=AileronSlider, Path=Value}" Height="26" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold">
-                <TextBlock.BindingGroup>
-                    <BindingGroup/>
-                </TextBlock.BindingGroup>
-            </TextBlock>
-            <!-- Aileron value end-->
-
-            <!-- Rudder Text-->
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="126,29,124,88" TextWrapping="Wrap" Text="&lt;--Rudder--&gt;" Width="150" FontSize="23" FontWeight="Bold">
-            </TextBlock>
-            <!-- Rudder Text End-->
-            <!-- Rudder value-->
-            <TextBlock Name="RudderValue" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,34,72,88" TextWrapping="Wrap" Text="0.0" Height="28" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.494,0.808"/>
-            <!-- Rudder value end-->
-
-            <!-- Elevaor Text-->
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="220,0,0,0"  RenderTransformOrigin="0.5,0.5" TextWrapping="Wrap" Text="&lt;--Elevaor--&gt;" Width="149" FontSize="23" FontWeight="Bold">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
-            <!-- Elevaor Text End-->
-            <!-- Elevaor value-->
-            <TextBlock Name="ElevatorValue" Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="125,136,37,138" TextWrapping="Wrap" Text="0.0" Height="26" Width="38" Foreground="Black" FontSize="16" FontWeight="Bold"/>
-            <!-- Elevaor value end-->
-        </Grid>
+        <viewWindows:ManualControls Canvas.Left="405" Canvas.Top="263"/>
         <!--Manual controls end-->
 
         <!--Dashboard-->
-        <Grid Width="380" Height="270"  Background="Gray" Canvas.Left="405" Canvas.Top="10" RenderTransformOrigin="0.5,0.5" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width ="*"/>
-                <ColumnDefinition Width ="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <!-- names on the DashBoard-->
-            <TextBlock Grid.Column="0" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="heading" VerticalAlignment="center" FontSize="20" FontWeight ="Bold"/>
-            <TextBlock Grid.Column="0" TextAlignment="Center" Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="ground speed" VerticalAlignment="center" FontSize="20" FontWeight ="Bold"/>
-            <TextBlock Grid.Column="0" TextAlignment="Center" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="altitude" VerticalAlignment="center" FontSize="20" FontWeight ="Bold"/>
-            <TextBlock Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="pitch" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="air speed" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="vertical speed" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="roll" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
-            <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="altimiter" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
-            <!-- the progress bars-->
-            <TextBlock Text="{Binding VM_Heading, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" />
-            <TextBlock Text="{Binding VM_GroundSpeed, Mode=OneWay}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-            <TextBlock Text="{Binding VM_Pitch, Mode=OneWay}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-            <TextBlock Text="{Binding VM_AirSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-            <TextBlock Text="{Binding VM_VerticalSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-            <TextBlock Text="{Binding VM_Roll, Mode=OneWay}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-            <TextBlock Text="{Binding VM_Altimeter, Mode=OneWay}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-            <TextBlock Text="{Binding VM_Altitude, Mode=OneWay}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-
-        </Grid>
+        <viewWindows:Dashboard Canvas.Left="420" Canvas.Top="28" Width="350" Height="230"/>
         <!--Dashboard end-->
-
     </Canvas>
 </Window>

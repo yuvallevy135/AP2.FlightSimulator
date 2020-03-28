@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="FlightSimulatorApp.Views.MapControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlightSimulatorApp.Views"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="540" d:DesignWidth="400" Background="Gray">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="Plane" TargetType="m:Pushpin">
+            <Grid>
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/Views/airplane.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <!--Map-->
+    <Grid>
+        <m:Map x:Name="myMap" CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" 
+               Mode="AerialWithLabels" Center="32.005232, 34.886709" ZoomLevel="12" VerticalAlignment="Top" Height="500">
+            <m:Pushpin x:Name="planeIcon" Template="{StaticResource Plane}" VerticalAlignment="Bottom" m:MapLayer.Position="{Binding VM_Location}">
+                <!--<Style TargetType="m:Pushpin">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>-->
+            </m:Pushpin>
+        </m:Map>
+
+
+        <!--latitude and longitude-->
+        <TextBlock HorizontalAlignment="Left" Margin="81,0,0,14" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" />
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,9" TextWrapping="Wrap" Text="Latitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"  />
+        <TextBlock HorizontalAlignment="Left" Margin="200,0,0,9" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" />
+        <TextBlock HorizontalAlignment="Left" Margin="286,0,0,14" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" />
+        <!--latitude and longitude ends-->
+    </Grid>
+    <!--map ends-->
+</UserControl>

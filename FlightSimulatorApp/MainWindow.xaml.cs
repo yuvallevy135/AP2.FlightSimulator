@@ -27,41 +27,49 @@ namespace FlightSimulatorApp
     {
         private FlightSimulatorViewModel vm;
 		private ConnectWindow cw;
+        private ManualControls manualControls;
+        private Dashboard dashboard;
+        private ConnectionMenu connectionMenu;
 		public MainWindow()
 		{
-		
-			InitializeComponent();
-			vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
+            InitializeComponent();
+            vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
 			DataContext = vm;
-            Joystick.MyEvent += SetXY;
+            connectionMenu = new ConnectionMenu();
+            connectionMenu.DataContext = vm;
+            //manualControls = new ManualControls();
+            //dashboard = new Dashboard();
+            //manualControls.DataContext = vm;
+            //dashboard.DataContext = vm;
 
+            //Joystick.MyEvent += SetXY;
             cw = new ConnectWindow(vm);
         }
 
-        private void SetXY(double x, double y)
-        {
-            if (x > 1)
-            {
-                x = 1;
-            } 
-            else if (x < -1)
-            {
-                x = -1;
-            }
+        //private void SetXY(double x, double y)
+        //{
+        //    if (x > 1)
+        //    {
+        //        x = 1;
+        //    } 
+        //    else if (x < -1)
+        //    {
+        //        x = -1;
+        //    }
 
-            if (y > 1)
-            {
-                y = 1;
-            }
-            else if (y < -1)
-            {
-                y = -1;
-            }
-            vm.VM_Rudder = x;
-            vm.VM_Elevator = y;
-            RudderValue.Text = x.ToString();
-            ElevatorValue.Text = y.ToString();
-        }
+        //    if (y > 1)
+        //    {
+        //        y = 1;
+        //    }
+        //    else if (y < -1)
+        //    {
+        //        y = -1;
+        //    }
+        //    vm.VM_Rudder = x;
+        //    vm.VM_Elevator = y;
+        //    RudderValue.Text = x.ToString();
+        //    ElevatorValue.Text = y.ToString();
+        //}
 
 		private void Throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
 		{
@@ -73,29 +81,29 @@ namespace FlightSimulatorApp
             
         }
 
-        private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            AileronValue.Text = AileronSlider.Value.ToString("F" );
-            Console.WriteLine(AileronSlider.Value.ToString());
-            Console.WriteLine(sender.ToString());
-        }
+        //      private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //      {
+        //          AileronValue.Text = AileronSlider.Value.ToString("F" );
+        //          Console.WriteLine(AileronSlider.Value.ToString());
+        //          Console.WriteLine(sender.ToString());
+        //      }
 
-        private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
-        }
+        //      private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //      {
+        //          ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
+        //      }
 
 
         private void connect_Click(object sender, RoutedEventArgs e)
-		{
-			//connectWindow.Show();
-			//this.vm.VM_ConnectWindow();
-			cw.Show();
-		}
+        {
+            //connectWindow.Show();
+            //this.vm.VM_ConnectWindow();
+            cw.Show();
+        }
 
-		private void disconnect_Click(object sender, RoutedEventArgs e)
-		{
-			vm.VM_Disconnect();
-		}
-	}
+        private void disconnect_Click(object sender, RoutedEventArgs e)
+        {
+            vm.VM_Disconnect();
+        }
+    }
 }

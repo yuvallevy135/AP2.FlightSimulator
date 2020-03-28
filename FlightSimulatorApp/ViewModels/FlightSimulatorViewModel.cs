@@ -188,6 +188,7 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
+
         public void VM_Connect()
         {
             flightSimulatorModel.Connect(ip, int.Parse(port));
