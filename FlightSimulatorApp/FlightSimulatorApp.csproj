@@ -71,7 +71,7 @@
     <Compile Include="Models\FlightSimulatorModel.cs" />
     <Compile Include="Models\MyTelnetClient.cs" />
     <Compile Include="ViewModels\BaseNotify.cs" />
-    <Compile Include="DashboardViewModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\FlightSimulatorViewModel.cs" />
     <Compile Include="ViewModels\ManualControlsViewModel.cs" />
     <Compile Include="ViewModels\MapControlViewModel.cs" />
