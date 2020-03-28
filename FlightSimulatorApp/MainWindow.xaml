@@ -103,7 +103,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <viewWindows:Joystick x:Name="Joystick" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Loaded="Joystick_Loaded" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
+            <viewWindows:Joystick x:Name="Joystick" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
                 <viewWindows:Joystick.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>

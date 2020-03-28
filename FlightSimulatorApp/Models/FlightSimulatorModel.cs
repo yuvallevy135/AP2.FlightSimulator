@@ -53,7 +53,8 @@ namespace FlightSimulatorApp.Models
 			Status = "Disconnected";
 			stop = true;
 			telnetClient.Disconnect();
-		}
+            initializeDashboard();
+        }
 		public void StartReading()
 		{
 			new Thread(delegate ()
@@ -100,7 +101,24 @@ namespace FlightSimulatorApp.Models
 			}).Start();
 		}
 
-        public async Task StartWriting(string command)
+        public void initializeDashboard()
+        {
+            AirSpeed = 0;
+            Altitude = 0;
+            Roll = 0;
+            Pitch = 0;
+            Altimeter = 0;
+            Heading = 0;
+            GroundSpeed = 0;
+            VerticalSpeed = 0;
+
+                //reading map values from the simulator
+            Latitude = 0;
+            Longitude = 0;
+            Location = Convert.ToString(latitude + "," + longitude);
+		}
+
+		public async Task StartWriting(string command)
         {
             await Task.Run(() => telnetClient.Write(command)); 
         }
