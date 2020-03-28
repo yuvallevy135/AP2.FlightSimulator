@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using FlightSimulatorApp.ViewModels;
+using Timer = System.Threading.Timer;
 
 namespace FlightSimulatorApp.Models
 {
@@ -39,12 +41,13 @@ namespace FlightSimulatorApp.Models
 
         }
 		public void Connect(string ip, int port)
-		{
-			telnetClient.Connect(ip, port);
-			Status = "Connected";
+        { 
+			Task.Run(() => telnetClient.Connect(ip, port));
+            Status = "Connected";
 			stop = false;
 			StartReading();
 		}
+
 		public void Disconnect()
 		{
 			Status = "Disconnected";
@@ -97,9 +100,9 @@ namespace FlightSimulatorApp.Models
 			}).Start();
 		}
 
-        public void StartWriting(string command)
+        public async Task StartWriting(string command)
         {
-            telnetClient.Write(command); 
+            await Task.Run(() => telnetClient.Write(command)); 
         }
 
 

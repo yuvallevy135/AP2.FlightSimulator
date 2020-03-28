@@ -130,27 +130,7 @@
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
                     </Storyboard>
-
-                    <!--<Storyboard x:Key="MoveKnob" Name ="CenterKnob" >
-                        <DoubleAnimation Storyboard.TargetName="knobPosition"
-                             Storyboard.TargetProperty="X" Duration="0:0:0.2">
-                            <DoubleAnimation.EasingFunction>
-                                <BackEase EasingMode="EaseInOut" />
-                            </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                        
-                        <DoubleAnimation Storyboard.TargetName="knobPosition" Storyboard.TargetProperty="Y" Duration="0:0:0.2">
-                            <DoubleAnimation.EasingFunction>
-                                <BackEase EasingMode="EaseInOut" />
-                            </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                    </Storyboard>-->
-
-
                 </Canvas.Resources>
-
-                
-                
             </Canvas>
         </Canvas>
     </Grid>

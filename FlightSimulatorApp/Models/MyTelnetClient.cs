@@ -14,7 +14,7 @@ namespace FlightSimulatorApp.Models
 		private TcpClient client;
         //private NetworkStream stream;
 		private bool stillConnect = false;
-
+        
         public MyTelnetClient()
         {
             
@@ -22,6 +22,7 @@ namespace FlightSimulatorApp.Models
         public void Connect(string ip, int port)
 		{
             client = new TcpClient();
+            // Sets the receive time out using the ReceiveTimeout public property.
             stillConnect = true;
             try
             {
@@ -31,17 +32,6 @@ namespace FlightSimulatorApp.Models
             {
                 Console.WriteLine("Couldn't connect to server");
             }
-
-            //IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            //this.client = new TcpClient();
-            //while (!client.Connected)
-            //{
-            //	try { client.Connect(endPoint); }
-            //	catch (Exception) { }
-            //}
-            //stillConnect = true;
-            //this.stream = client.GetStream();
-
         }
 
 		public void Disconnect()
@@ -65,6 +55,10 @@ namespace FlightSimulatorApp.Models
             {
                 try
                 {
+                    client.ReceiveTimeout = 20000;
+                    //// Gets the receive time out using the ReceiveTimeout public property.
+                    //if (client.ReceiveTimeout == 2000)
+                    //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
                     byte[] buffer = new byte[64];

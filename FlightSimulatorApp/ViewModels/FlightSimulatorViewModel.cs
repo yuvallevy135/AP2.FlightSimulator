@@ -191,6 +191,8 @@ namespace FlightSimulatorApp.ViewModels
         public void VM_Connect()
         {
             flightSimulatorModel.Connect(ip, int.Parse(port));
+            //await Task.Run(() => flightSimulatorModel.Connect(ip, int.Parse(port)));
+            //flightSimulatorModel.Connect(ip, int.Parse(port));
             //if (ip == null || port == null)
             //{
             //    MessageBox
