@@ -31,9 +31,6 @@ namespace FlightSimulatorApp
         private MapControlViewModel mapControlViewModel;
         private FlightSimulatorModel model;
         private ConnectWindow cw;
-        private ManualControls manualControls;
-        private Dashboard dashboard;
-        private MapControl mapControl;
         public MainWindow()
 		{
             InitializeComponent();

@@ -5,6 +5,5 @@
              xmlns:viewModles ="clr-namespace:FlightSimulatorApp.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <viewModles:DashboardViewModel x:Key="DashboardViewModel" />
-</Application.Resources>
+    </Application.Resources>
 </Application>

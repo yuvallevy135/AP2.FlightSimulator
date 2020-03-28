@@ -23,6 +23,7 @@ namespace FlightSimulatorApp
 	{
 		private ViewModels.FlightSimulatorViewModel vm;
 
+
 		public ConnectWindow(ViewModels.FlightSimulatorViewModel viewModel)
 		{
 			InitializeComponent();
