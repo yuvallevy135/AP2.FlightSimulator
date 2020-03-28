@@ -71,9 +71,21 @@
     <Compile Include="Models\FlightSimulatorModel.cs" />
     <Compile Include="Models\MyTelnetClient.cs" />
     <Compile Include="ViewModels\BaseNotify.cs" />
+    <Compile Include="DashboardViewModel.cs" />
     <Compile Include="ViewModels\FlightSimulatorViewModel.cs" />
+    <Compile Include="ViewModels\ManualControlsViewModel.cs" />
+    <Compile Include="ViewModels\MapControlViewModel.cs" />
+    <Compile Include="Views\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManualControls.xaml.cs">
+      <DependentUpon>ManualControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MapControl.xaml.cs">
+      <DependentUpon>MapControl.xaml</DependentUpon>
     </Compile>
     <Page Include="ConnectWindow.xaml">
       <SubType>Designer</SubType>
@@ -91,7 +103,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Joystick.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManualControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
