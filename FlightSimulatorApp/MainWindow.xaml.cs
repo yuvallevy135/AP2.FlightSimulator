@@ -25,25 +25,31 @@ namespace FlightSimulatorApp
 	/// </summary>
 	public partial class MainWindow : Window
     {
-        private FlightSimulatorViewModel vm;
-		private ConnectWindow cw;
+        private FlightSimulatorViewModel flightSimulatorViewModel;
+        private ManualControlsViewModel manualControlsViewModel;
+        private DashboardViewModel dashboardViewModel;
+        private MapControlViewModel mapControlViewModel;
+        private FlightSimulatorModel model;
+        private ConnectWindow cw;
         private ManualControls manualControls;
         private Dashboard dashboard;
-        private ConnectionMenu connectionMenu;
-		public MainWindow()
+        private MapControl mapControl;
+        public MainWindow()
 		{
             InitializeComponent();
-            vm = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
-			DataContext = vm;
-            connectionMenu = new ConnectionMenu();
-            connectionMenu.DataContext = vm;
-            //manualControls = new ManualControls();
-            //dashboard = new Dashboard();
-            //manualControls.DataContext = vm;
-            //dashboard.DataContext = vm;
-
+            model = new FlightSimulatorModel(new MyTelnetClient()); 
+            //flightSimulatorViewModel = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
+            flightSimulatorViewModel = new FlightSimulatorViewModel(model);
+            manualControlsViewModel = new ManualControlsViewModel(model);
+            dashboardViewModel = new DashboardViewModel(model);
+            mapControlViewModel = new MapControlViewModel(model);
+            DataContext = flightSimulatorViewModel;
+            myDashboard.DataContext = dashboardViewModel;
+            myMapControl.DataContext = mapControlViewModel;
+            myManualControls.DataContext = manualControlsViewModel;
+            //dashboard.DataContext = flightSimulatorViewModel;
             //Joystick.MyEvent += SetXY;
-            cw = new ConnectWindow(vm);
+            cw = new ConnectWindow(flightSimulatorViewModel);
         }
 
         //private void SetXY(double x, double y)
@@ -65,8 +71,8 @@ namespace FlightSimulatorApp
         //    {
         //        y = -1;
         //    }
-        //    vm.VM_Rudder = x;
-        //    vm.VM_Elevator = y;
+        //    flightSimulatorViewModel.VM_Rudder = x;
+        //    flightSimulatorViewModel.VM_Elevator = y;
         //    RudderValue.Text = x.ToString();
         //    ElevatorValue.Text = y.ToString();
         //}
@@ -97,13 +103,13 @@ namespace FlightSimulatorApp
         private void connect_Click(object sender, RoutedEventArgs e)
         {
             //connectWindow.Show();
-            //this.vm.VM_ConnectWindow();
+            //this.flightSimulatorViewModel.VM_ConnectWindow();
             cw.Show();
         }
 
         private void disconnect_Click(object sender, RoutedEventArgs e)
         {
-            vm.VM_Disconnect();
+            flightSimulatorViewModel.VM_Disconnect();
         }
     }
 }

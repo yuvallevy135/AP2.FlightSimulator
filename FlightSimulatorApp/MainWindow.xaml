@@ -11,7 +11,7 @@
     <Canvas Background="Gray">
 
         <!--Map-->
-        <viewWindows:MapControl Canvas.Top="42" Height="529" Width="395" Canvas.Left="10"/>
+        <viewWindows:MapControl x:Name="myMapControl" Canvas.Top="42" Height="529" Width="395" Canvas.Left="10"/>
         <!--Map end-->
 
         <!--connect bar-->
@@ -59,11 +59,11 @@
 
 
         <!--Manual controls-->
-        <viewWindows:ManualControls Canvas.Left="405" Canvas.Top="263"/>
+        <viewWindows:ManualControls x:Name="myManualControls" Canvas.Left="405" Canvas.Top="263"/>
         <!--Manual controls end-->
 
         <!--Dashboard-->
-        <viewWindows:Dashboard Canvas.Left="420" Canvas.Top="28" Width="350" Height="230"/>
+        <viewWindows:Dashboard x:Name="myDashboard" Canvas.Left="420" Canvas.Top="28" Width="350" Height="230"/>
         <!--Dashboard end-->
     </Canvas>
 </Window>

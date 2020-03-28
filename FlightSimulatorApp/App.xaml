@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FlightSimulatorApp"
+             xmlns:viewModles ="clr-namespace:FlightSimulatorApp.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-    </Application.Resources>
+        <viewModles:DashboardViewModel x:Key="DashboardViewModel" />
+</Application.Resources>
 </Application>
