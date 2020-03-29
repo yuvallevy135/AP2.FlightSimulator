@@ -65,7 +65,7 @@
                         <Setter Property="Foreground" Value="Black"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                                <Setter Property="Foreground" Value="Green"/>
+                                <Setter Property="Foreground" Value="LawnGreen"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Disconnected">
                                 <Setter Property="Foreground" Value="Red"/>

@@ -38,10 +38,10 @@
 
 
         <!--latitude and longitude-->
-        <TextBlock HorizontalAlignment="Left" Margin="81,0,0,10" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" />
+        <TextBlock HorizontalAlignment="Left" Margin="81,0,0,10" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay, StringFormat=N}" VerticalAlignment="Bottom" FontSize="12" />
         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,9" TextWrapping="Wrap" Text="Latitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"  />
-        <TextBlock HorizontalAlignment="Left" Margin="200,0,0,9" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" />
-        <TextBlock HorizontalAlignment="Left" Margin="286,0,0,10" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="12" />
+        <TextBlock HorizontalAlignment="Left" Margin="139,0,0,9" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" />
+        <TextBlock HorizontalAlignment="Left" Margin="225,0,0,10" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay, StringFormat=N}" VerticalAlignment="Bottom" FontSize="12" />
         <!--latitude and longitude ends-->
     </Grid>
     <!--map ends-->

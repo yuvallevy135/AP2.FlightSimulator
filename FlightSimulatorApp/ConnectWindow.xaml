@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
         Title="Connect" Height="200" Width="280" FontSize="12" Background="lightGray">
-    <Viewbox>
+    <Viewbox Stretch="Uniform" StretchDirection="Both">
     <Grid>
         
         <Grid.ColumnDefinitions>

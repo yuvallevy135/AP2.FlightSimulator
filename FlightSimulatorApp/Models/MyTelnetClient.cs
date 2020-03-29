@@ -72,17 +72,20 @@ namespace FlightSimulatorApp.Models
                     return data;
                     
                 }
+                //catch (AbandonedMutexException abandonedMutexException)
+                //{
+                //    
+                //    Disconnect();
+                //    return null;
+                //}
                 catch (Exception exception)
                 {
+                    mutex.ReleaseMutex();
                     Disconnect();
                     return null;
                 }
-               
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public void Write(string command)
@@ -105,8 +108,14 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     Console.WriteLine(data);
                 }
+                //catch (AbandonedMutexException abandonedMutexException)
+                //{
+                //    mutex.ReleaseMutex();
+                //    Disconnect();
+                //}
                 catch (Exception exception)
                 {
+                    mutex.ReleaseMutex();
                     Disconnect();
                 }
 
