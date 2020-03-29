@@ -61,8 +61,8 @@ namespace FlightSimulatorApp.Models
                     //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
-                    byte[] buffer = new byte[64];
-                    client.GetStream().Read(buffer, 0, 64);
+                    byte[] buffer = new byte[1024];
+                    client.GetStream().Read(buffer, 0, 1024);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     //Console.WriteLine(data);
                     return data;
@@ -93,8 +93,8 @@ namespace FlightSimulatorApp.Models
                 {
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
-                    byte[] buffer = new byte[64];
-                    client.GetStream().Read(buffer, 0, 64);
+                    byte[] buffer = new byte[1024];
+                    client.GetStream().Read(buffer, 0, 1024);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     Console.WriteLine(data);
                 }

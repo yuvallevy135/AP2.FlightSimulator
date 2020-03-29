@@ -111,8 +111,7 @@ namespace FlightSimulatorApp.Models
             Heading = 0;
             GroundSpeed = 0;
             VerticalSpeed = 0;
-
-                //reading map values from the simulator
+            //reading map values from the simulator
             Latitude = 0;
             Longitude = 0;
             Location = Convert.ToString(latitude + "," + longitude);
@@ -122,8 +121,6 @@ namespace FlightSimulatorApp.Models
         {
             await Task.Run(() => telnetClient.Write(command)); 
         }
-
-
 
 		public double Heading
 		{

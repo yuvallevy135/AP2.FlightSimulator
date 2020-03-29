@@ -50,5 +50,16 @@ namespace FlightSimulatorApp.Views
             RudderValue.Text = x.ToString();
             ElevatorValue.Text = y.ToString();
         }
+
+        private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            AileronValue.Text = AileronSlider.Value.ToString("F");
+        }
+
+        private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
+        }
+
     }
 }
