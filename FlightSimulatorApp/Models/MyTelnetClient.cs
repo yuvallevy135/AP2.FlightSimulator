@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
+
 namespace FlightSimulatorApp.Models
 {
 	public class MyTelnetClient : ITelnetClient
@@ -14,10 +15,11 @@ namespace FlightSimulatorApp.Models
 		private TcpClient client;
         //private NetworkStream stream;
 		private bool stillConnect = false;
+        Mutex mutex;
         
         public MyTelnetClient()
         {
-            
+            mutex = new Mutex();
         }
         public void Connect(string ip, int port)
 		{
@@ -55,17 +57,20 @@ namespace FlightSimulatorApp.Models
             {
                 try
                 {
+                    mutex.WaitOne();
                     client.ReceiveTimeout = 20000;
                     //// Gets the receive time out using the ReceiveTimeout public property.
                     //if (client.ReceiveTimeout == 2000)
                     //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
-                    byte[] buffer = new byte[1024];
-                    client.GetStream().Read(buffer, 0, 1024);
+                    byte[] buffer = new byte[64];
+                    client.GetStream().Read(buffer, 0, 64);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     //Console.WriteLine(data);
+                    mutex.ReleaseMutex();
                     return data;
+                    
                 }
                 catch (Exception exception)
                 {
@@ -91,11 +96,13 @@ namespace FlightSimulatorApp.Models
             {
                 try
                 {
+                    mutex.WaitOne();
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
-                    byte[] buffer = new byte[1024];
-                    client.GetStream().Read(buffer, 0, 1024);
+                    byte[] buffer = new byte[64];
+                    client.GetStream().Read(buffer, 0, 64);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                    mutex.ReleaseMutex();
                     Console.WriteLine(data);
                 }
                 catch (Exception exception)

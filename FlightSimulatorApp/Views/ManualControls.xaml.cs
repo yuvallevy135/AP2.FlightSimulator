@@ -61,5 +61,9 @@ namespace FlightSimulatorApp.Views
             ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
         }
 
+        private void AileronSlider_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            AileronSlider.Value = 0;
+        }
     }
 }

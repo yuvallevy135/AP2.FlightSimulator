@@ -27,17 +27,20 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
-                string stringThrottle = "set /controls/engines/current-engine/throttle ";
-                if (value > 1)
+                if (Math.Abs(value - flightSimulatorModel.Throttle) > 0.1)
                 {
-                    value = 1;
+                    string stringThrottle = "set /controls/engines/current-engine/throttle ";
+                    if (value > 1)
+                    {
+                        value = 1;
+                    }
+                    else if (value < 0)
+                    {
+                        value = 0;
+                    }
+                    stringThrottle += value.ToString();
+                    flightSimulatorModel.StartWriting(stringThrottle);
                 }
-                else if (value < 0)
-                {
-                    value = 0;
-                }
-                stringThrottle += value.ToString();
-                flightSimulatorModel.StartWriting(stringThrottle);
             }
         }
 
@@ -45,9 +48,13 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
-                string stringRudder = "set /controls/flight/rudder ";
-                stringRudder += value.ToString();
-                flightSimulatorModel.StartWriting(stringRudder);
+                if (Math.Abs(value - flightSimulatorModel.Rudder) > 0.1)
+                {
+                    string stringRudder = "set /controls/flight/rudder ";
+                    stringRudder += value.ToString();
+                    flightSimulatorModel.StartWriting(stringRudder);
+                }
+                    
             }
         }
 
@@ -55,17 +62,21 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
-                string stringAileron = "set /controls/flight/aileron ";
-                if (value > 1)
+                if (Math.Abs(value - flightSimulatorModel.Aileron) > 0.1)
                 {
-                    value = 1;
+                    string stringAileron = "set /controls/flight/aileron ";
+                    if (value > 1)
+                    {
+                        value = 1;
+                    }
+                    else if (value < -1)
+                    {
+                        value = -1;
+                    }
+
+                    stringAileron += value.ToString();
+                    flightSimulatorModel.StartWriting(stringAileron);
                 }
-                else if (value < -1)
-                {
-                    value = -1;
-                }
-                stringAileron += value.ToString();
-                flightSimulatorModel.StartWriting(stringAileron);
             }
         }
 
@@ -73,17 +84,21 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
-                string stringElevator = "set /controls/flight/elevator ";
-                if (value > 1)
+                if (Math.Abs(value - flightSimulatorModel.Elevator) > 0.1)
                 {
-                    value = 1;
+                    string stringElevator = "set /controls/flight/elevator ";
+                    if (value > 1)
+                    {
+                        value = 1;
+                    }
+                    else if (value < -1)
+                    {
+                        value = -1;
+                    }
+                    stringElevator += value.ToString();
+                    flightSimulatorModel.StartWriting(stringElevator);
                 }
-                else if (value < -1)
-                {
-                    value = -1;
-                }
-                stringElevator += value.ToString();
-                flightSimulatorModel.StartWriting(stringElevator);
+                
             }
         }
         //Manual Controls end
