@@ -7,63 +7,83 @@
         xmlns:viewWindows ="clr-namespace:FlightSimulatorApp.Views"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         mc:Ignorable="d"
-        Title="FlightSimulator"  Width="800" Height="600" ResizeMode="NoResize">
-    <Canvas Background="Gray">
+        Title="FlightSimulator" MinWidth="400" MinHeight="300" Width="800" Height="600" Background="Gray" ResizeMode="CanResizeWithGrip">
+    <!--ResizeMode="NoResize"-->
+    <Viewbox  Stretch="Uniform" StretchDirection="Both">
+        <Grid>
 
-        <!--Map-->
-        <viewWindows:MapControl x:Name="myMapControl" Canvas.Top="42" Height="529" Width="395" Canvas.Left="10"/>
-        <!--Map end-->
-
-        <!--connect bar-->
-        <Button x:Name="connect" Width="70" Height="30" Content="Connect" Margin="10,7" Click="connect_Click">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="True" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                            <Setter Property="IsEnabled" Value="False" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="Disconnect" Command="{Binding VM_Disconnect}" Width="70" Height="30" Content="disconnect" Margin="90,7" Click="disconnect_Click">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <TextBlock HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top" FontSize="18" Canvas.Left="187" Canvas.Top="10" />
-        <TextBlock x:Name="status" HorizontalAlignment="Right" Margin="0,0,0,0" TextWrapping="Wrap" Text="{Binding VM_Status, Mode=OneWay}" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Canvas.Left="254" Canvas.Top="10">
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
-                            <Setter Property="Foreground" Value="Green"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Disconnected">
-                            <Setter Property="Foreground" Value="Red"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <!--connect bar end-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
 
-        <!--Manual controls-->
-        <viewWindows:ManualControls x:Name="myManualControls" Canvas.Left="405" Canvas.Top="263"/>
-        <!--Manual controls end-->
+            <!--Map-->
+            <viewWindows:MapControl x:Name="myMapControl" Height="530" Width="400" Grid.Row="1" Grid.RowSpan="2"
+                                    Margin="10 0 0 0"/>
+            <!--Map end-->
 
-        <!--Dashboard-->
-        <viewWindows:Dashboard x:Name="myDashboard" Canvas.Left="420" Canvas.Top="28" Width="350" Height="230"/>
-        <!--Dashboard end-->
-    </Canvas>
+            <!--connect bar-->
+            <Button x:Name="connect" Width="90" Height="35" Content="Connect" Margin="10,0,0,0" Click="connect_Click" 
+                         HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="Disconnect" Command="{Binding VM_Disconnect}" Width="90" Height="35" Content="disconnect" 
+                    Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Margin="110,0,0,0" Click="disconnect_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <TextBlock HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" Margin="0,8,123,0" TextWrapping="Wrap" 
+                           Text="Status:" VerticalAlignment="Top" FontSize="18"/>
+            <TextBlock x:Name="status" Text="{Binding VM_Status, Mode=OneWay}" Grid.Row="0" Grid.Column="0" 
+                           HorizontalAlignment="Right" Margin="0,8,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Disconnected">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <!--connect bar end-->
+
+
+            <!--Manual controls-->
+            <viewWindows:ManualControls x:Name="myManualControls" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <!--Manual controls end-->
+
+            <!--Dashboard-->
+            <viewWindows:Dashboard x:Name="myDashboard" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="10,0,25,270"/>
+            <!--Dashboard end-->
+        </Grid>
+    </Viewbox>
 </Window>

@@ -35,14 +35,14 @@
         <TextBlock Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="altimiter" VerticalAlignment="center" FontSize="20" FontWeight ="Bold" TextAlignment="Center"/>
         <!-- the progress bars-->
         <!--<TextBlock Text="{Binding Path=VM_Heading, Source={StaticResource DashboardViewModel}, Mode=OneWay}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" />-->
-        <TextBlock Text="{Binding Path = VM_Heading, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center" />
-        <TextBlock Text="{Binding Path =VM_GroundSpeed, Mode=OneWay}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-        <TextBlock Text="{Binding Path =VM_Pitch, Mode=OneWay}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-        <TextBlock Text="{Binding Path =VM_AirSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-        <TextBlock Text="{Binding Path =VM_VerticalSpeed, Mode=OneWay}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-        <TextBlock Text="{Binding Path =VM_Roll, Mode=OneWay}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-        <TextBlock Text="{Binding Path =VM_Altimeter, Mode=OneWay}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
-        <TextBlock Text="{Binding Path= VM_Altitude, Mode=OneWay}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path = VM_Heading, Mode=OneWay, StringFormat=N, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path =VM_GroundSpeed, Mode=OneWay, StringFormat=N}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path =VM_Pitch, Mode=OneWay, StringFormat=N}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path =VM_AirSpeed, Mode=OneWay, StringFormat=N}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path =VM_VerticalSpeed, Mode=OneWay, StringFormat=N}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path =VM_Roll, Mode=OneWay, StringFormat=N}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path =VM_Altimeter, Mode=OneWay, StringFormat=N}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Path= VM_Altitude, Mode=OneWay, StringFormat=N}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="center" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="16" TextAlignment="Center"/>
     
         <!--Dashboard end-->
     </Grid>

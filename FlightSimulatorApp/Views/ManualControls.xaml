@@ -10,12 +10,12 @@
         <!--Manual controls-->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <local:Joystick x:Name="Joystick" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.RowSpan="2" Margin="31,-19,29,-22" RenderTransformOrigin="0.5,0.5" Height="341">
                 <local:Joystick.RenderTransform>
@@ -54,7 +54,7 @@
             </TextBlock>
             <!-- Throttle Text End-->
             <!-- Trottle value-->
-            <TextBlock Name="ThrottleValue" Grid.Row="0" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="19,136,0,0" TextWrapping="Wrap" Height="26" Width="37" Foreground="Black" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Name="ThrottleValue" Text="{Binding ElementName=ThrottleSlider, Path=Value}" Grid.Row="0" Grid.Column="0"  Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="19,136,0,0" TextWrapping="Wrap" Height="26" Width="37" Foreground="Black" FontSize="16" FontWeight="Bold"/>
             <!-- Trottle value end-->
             <!-- Aileron Text-->
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Margin="126,117,125,0" TextWrapping="Wrap" Text="&lt;--Aileron--&gt;" Width="149" FontSize="23" FontWeight="Bold">
@@ -73,7 +73,7 @@
             </TextBlock>
             <!-- Rudder Text End-->
             <!-- Rudder value-->
-            <TextBlock Name="RudderValue" Text="{Binding VM_Rudder, Mode=OneWayToSource}"  Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,34,72,88" TextWrapping="Wrap" Height="28" Width="40" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.494,0.808"/>
+            <TextBlock Name="RudderValue" Text="{Binding VM_Rudder, Mode=OneWayToSource, StringFormat=N}"  Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="88,34,72,88" TextWrapping="Wrap" Height="26" Width="40" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.494,0.808"/>
             <!-- Rudder value end-->
 
             <!-- Elevaor Text-->
@@ -89,7 +89,7 @@
             </TextBlock>
             <!-- Elevaor Text End-->
             <!-- Elevaor value-->
-            <TextBlock Name="ElevatorValue" Text="{Binding VM_Elevator, Mode=OneWayToSource}" Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="125,136,37,138" TextWrapping="Wrap" Height="26" Width="38" FontSize="16" FontWeight="Bold"/>
+            <TextBlock Name="ElevatorValue" Text="{Binding VM_Elevator, Mode=OneWayToSource, StringFormat=N}" Grid.Row="0" Grid.Column="1"  Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="125,136,37,138" TextWrapping="Wrap" Height="26" Width="38" FontSize="16" FontWeight="Bold"/>
             <!-- Elevaor value end-->
         </Grid>
         <!--Manual controls end-->
