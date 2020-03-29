@@ -24,6 +24,8 @@ namespace FlightSimulatorApp.Views
         {
             InitializeComponent();
             Joystick.MyEvent += SetXY;
+            RudderValue.Text = "0";
+            ElevatorValue.Text = "0";
         }
 
         private void SetXY(double x, double y)
@@ -44,25 +46,9 @@ namespace FlightSimulatorApp.Views
             else if (y < -1)
             {
                 y = -1;
-            }
-
-            //vm.VM_Rudder = x;
-            //vm.VM_Elevator = y;
+            }       
             RudderValue.Text = x.ToString();
             ElevatorValue.Text = y.ToString();
         }
-
-        private void AileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            AileronValue.Text = AileronSlider.Value.ToString("F");
-        }
-
-        private void ThrottleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            ThrottleValue.Text = ThrottleSlider.Value.ToString("F");
-        }
-
-
-
     }
 }

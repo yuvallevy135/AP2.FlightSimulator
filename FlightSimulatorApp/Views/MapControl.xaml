@@ -13,7 +13,7 @@
             <Grid>
                 <Rectangle>
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="/Views/airplane.png"/>
+                        <ImageBrush ImageSource="airplane.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
             </Grid>
