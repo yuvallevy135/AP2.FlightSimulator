@@ -15,26 +15,21 @@ namespace FlightSimulatorApp.Models
 	public class FlightSimulatorModel : BaseNotify
 	{
 		private ITelnetClient telnetClient;
-        private volatile bool stop = false;
-		private double heading;
-		private double verticalSpeed;
-		private double groundSpeed;
-		private double airSpeed;
-		private double altitude;
-		private double roll;
-		private double pitch;
-		private double altimeter;
-        private double latitude;
-        private double longitude;
-        private double rudder;
-		private double elevator;
-		private double throttle;
-		private double aileron;
-		private string location;
-		private string status;
 
+        private volatile bool stop = false;
+
+        private string headingAddress, verticalSpeedAddress, groundSpeedAddress, airSpeedAddress, altitudeAddress, rollAddress, pitchAddress,
+            altimeterAddress, latitudeAddress, longitudeAddress, rudderAddress, elevatorAddress, throttleAddress, aileronAddress, locationAddress;
+        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude, rudder, elevator, throttle, aileron;
+        private string location, status;
+        private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180;
+
+        private string headingReaded, verticalSpeedReaded, groundSpeedReaded,
+            airSpeedReaded, altitudeReaded, rollReaded, pitchReaded, altimeterReaded, latitudeReaded, longitudeReaded;
+        
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
+            initializeModel();
             telnetClient = telnetC;
             status = "Disconnected";
             //telnetClient.Connect("127.0.0.1", 5402); //change later
@@ -64,41 +59,93 @@ namespace FlightSimulatorApp.Models
 					//reading Dashboard elements from the simulator
                     try
                     {
-                        AirSpeed = Double.Parse(
-                            telnetClient.Read("/instrumentation/airspeed-indicator/indicated-speed-kt"));
-                        Altitude = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-altitude-ft"));
-                        Roll = Double.Parse(telnetClient.Read("/instrumentation/attitude-indicator/internal-roll-deg"));
-                        Pitch = Double.Parse(
-                            telnetClient.Read("/instrumentation/attitude-indicator/internal-pitch-deg"));
-                        Altimeter = Double.Parse(telnetClient.Read("/instrumentation/altimeter/indicated-altitude-ft"));
-                        Heading = Double.Parse(
-                            telnetClient.Read("/instrumentation/heading-indicator/indicated-heading-deg"));
-                        GroundSpeed = Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-ground-speed-kt"));
-                        VerticalSpeed =
-                            Double.Parse(telnetClient.Read("/instrumentation/gps/indicated-vertical-speed"));
-
+                        airSpeedReaded = telnetClient.Read(airSpeedAddress);
+                        altitudeReaded = telnetClient.Read(altitudeAddress);
+                        rollReaded = telnetClient.Read(rollAddress);
+                        pitchReaded = telnetClient.Read(pitchAddress);
+                        altimeterReaded = telnetClient.Read(altimeterAddress);
+						headingReaded = telnetClient.Read(headingAddress);
+                        groundSpeedReaded = telnetClient.Read(groundSpeedAddress);
+                        verticalSpeedReaded = telnetClient.Read(verticalSpeedAddress);
                         //reading map values from the simulator
-                        Latitude = Double.Parse(telnetClient.Read("/position/latitude-deg"));
-                        Longitude = Double.Parse(telnetClient.Read("/position/longitude-deg"));
+                        latitudeReaded = telnetClient.Read(latitudeAddress);
+                        longitudeReaded = telnetClient.Read(longitudeAddress);
                         Location = Convert.ToString(latitude + "," + longitude);
 
+						if (isFormatValid(airSpeedReaded))
+						{
+							AirSpeed = Double.Parse(airSpeedReaded);
+						}
 
-                        ////debug prints for controls
-                        //               Console.WriteLine("throttle: " + telnetClient.Read("/controls/engines/current-engine/throttle") + "\n");
-                        //Console.WriteLine("aileron: " + telnetClient.Read("/controls/flight/aileron") + "\n");
-                        //               Console.WriteLine("elevator: " + telnetClient.Read("/controls/flight/elevator") + "\n");
-                        //               Console.WriteLine("rudder: " + telnetClient.Read("/controls/flight/rudder") + "\n");
+						if (isFormatValid(altitudeReaded))
+						{
+							Altitude = Double.Parse(altitudeReaded);
+						}
 
-                        Thread.Sleep(250);
+						if (isFormatValid(rollReaded))
+						{
+							Roll = Double.Parse(rollReaded);
+						}
+
+						if (isFormatValid(pitchReaded))
+						{
+							Pitch = Double.Parse(pitchReaded);
+						}
+
+						if (isFormatValid(altimeterReaded))
+						{
+							Altimeter = Double.Parse(altimeterReaded);
+						}
+
+						if (isFormatValid(headingReaded))
+						{
+							Heading = Double.Parse(headingReaded);
+						}
+
+						if (isFormatValid(groundSpeedReaded))
+						{
+							GroundSpeed = Double.Parse(groundSpeedReaded);
+						}
+
+						if (isFormatValid(verticalSpeedReaded))
+						{
+							VerticalSpeed = Double.Parse(verticalSpeedReaded);
+						}
+
+						if (isFormatValid(latitudeReaded))
+						{
+							Latitude = Double.Parse(latitudeReaded);
+						}
+
+						if (isFormatValid(longitudeReaded))
+						{
+							Longitude = Double.Parse(longitudeReaded);
+						}
+
+						Thread.Sleep(250);
                     }
                     catch (ArgumentNullException nullException)
                     {
-						Disconnect();
-                    }
-                    
-				}
+                        Disconnect();
+					}
+                }
 
 			}).Start();
+		}
+
+        public bool isFormatValid(string valueReaded)
+        {
+            try
+            { 
+                Double.Parse(valueReaded);
+                return true;
+            }
+			catch (FormatException formatException)
+            {
+                Console.WriteLine("format exception detected");
+                //Disconnect();
+                return false;
+            }
 		}
 
         public void initializeDashboard()
@@ -212,7 +259,17 @@ namespace FlightSimulatorApp.Models
             set
             {
                 latitude = value;
-                NotifyPropertyChanged("Latitude");
+               // Console.WriteLine("latitude value: " + value);
+				if (value > maxLatitude)
+                {
+                    latitude= maxLatitude - 1;
+                }
+				else if (value < minLatitude)
+                {
+                    latitude = minLatitude + 1;
+                }
+               // Console.WriteLine("latitude: " + latitude);
+				NotifyPropertyChanged("Latitude");
             }
         }
 
@@ -222,7 +279,18 @@ namespace FlightSimulatorApp.Models
             set
             {
                 longitude = value;
-                NotifyPropertyChanged("Longitude");
+				//Console.WriteLine("longitude value: " + value);
+
+                if (value > maxLongitude)
+                {
+                    longitude = maxLongitude - 1;
+                }
+                else if (value < minLongitude)
+                {
+                    longitude = minLongitude + 1;
+                }
+                //Console.WriteLine("longitude: " + longitude);
+				NotifyPropertyChanged("Longitude");
             }
         }
 
@@ -275,6 +343,19 @@ namespace FlightSimulatorApp.Models
 			}
 		}
 
-
+        private void initializeModel()
+        {
+            airSpeedAddress = "/instrumentation/airspeed-indicator/indicated-speed-kt";
+            altitudeAddress = "/instrumentation/gps/indicated-altitude-ft";
+            rollAddress = "/instrumentation/attitude-indicator/internal-roll-deg";
+            pitchAddress = "/instrumentation/attitude-indicator/internal-pitch-deg";
+            altimeterAddress = "/instrumentation/altimeter/indicated-altitude-ft";
+            headingAddress = "/instrumentation/heading-indicator/indicated-heading-deg";
+            groundSpeedAddress = "/instrumentation/gps/indicated-ground-speed-kt";
+            verticalSpeedAddress = "/instrumentation/gps/indicated-vertical-speed";
+            //reading map values from the simulator
+            latitudeAddress = "/position/latitude-deg";
+            longitudeAddress = "/position/longitude-deg";
+		}
     }
 }

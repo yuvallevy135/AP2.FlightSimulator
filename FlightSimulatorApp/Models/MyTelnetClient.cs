@@ -58,7 +58,7 @@ namespace FlightSimulatorApp.Models
                 try
                 {
                     mutex.WaitOne();
-                    client.ReceiveTimeout = 20000;
+                    //client.ReceiveTimeout = 20000;
                     //// Gets the receive time out using the ReceiveTimeout public property.
                     //if (client.ReceiveTimeout == 2000)
                     //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());

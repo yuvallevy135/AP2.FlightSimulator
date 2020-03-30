@@ -155,5 +155,6 @@
   <ItemGroup>
     <Resource Include="Views\throttle.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
