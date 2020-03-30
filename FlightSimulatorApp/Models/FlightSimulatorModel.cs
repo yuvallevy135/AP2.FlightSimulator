@@ -24,8 +24,8 @@ namespace FlightSimulatorApp.Models
         private string location, status;
         private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180;
 
-        private string headingReaded, verticalSpeedReaded, groundSpeedReaded,
-            airSpeedReaded, altitudeReaded, rollReaded, pitchReaded, altimeterReaded, latitudeReaded, longitudeReaded;
+        private string headingRead, verticalSpeedRead, groundSpeedRead,
+            airSpeedRead, altitudeRead, rollRead, pitchRead, altimeterRead, latitudeRead, longitudeRead;
         
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
@@ -59,67 +59,67 @@ namespace FlightSimulatorApp.Models
 					//reading Dashboard elements from the simulator
                     try
                     {
-                        airSpeedReaded = telnetClient.Read(airSpeedAddress);
-                        altitudeReaded = telnetClient.Read(altitudeAddress);
-                        rollReaded = telnetClient.Read(rollAddress);
-                        pitchReaded = telnetClient.Read(pitchAddress);
-                        altimeterReaded = telnetClient.Read(altimeterAddress);
-						headingReaded = telnetClient.Read(headingAddress);
-                        groundSpeedReaded = telnetClient.Read(groundSpeedAddress);
-                        verticalSpeedReaded = telnetClient.Read(verticalSpeedAddress);
+                        airSpeedRead = telnetClient.Read(airSpeedAddress);
+                        altitudeRead = telnetClient.Read(altitudeAddress);
+                        rollRead = telnetClient.Read(rollAddress);
+                        pitchRead = telnetClient.Read(pitchAddress);
+                        altimeterRead = telnetClient.Read(altimeterAddress);
+						headingRead = telnetClient.Read(headingAddress);
+                        groundSpeedRead = telnetClient.Read(groundSpeedAddress);
+                        verticalSpeedRead = telnetClient.Read(verticalSpeedAddress);
                         //reading map values from the simulator
-                        latitudeReaded = telnetClient.Read(latitudeAddress);
-                        longitudeReaded = telnetClient.Read(longitudeAddress);
+                        latitudeRead = telnetClient.Read(latitudeAddress);
+                        longitudeRead = telnetClient.Read(longitudeAddress);
                         Location = Convert.ToString(latitude + "," + longitude);
 
-						if (isFormatValid(airSpeedReaded))
+						if (isFormatValid(airSpeedRead))
 						{
-							AirSpeed = Double.Parse(airSpeedReaded);
+							AirSpeed = Double.Parse(airSpeedRead);
 						}
 
-						if (isFormatValid(altitudeReaded))
+						if (isFormatValid(altitudeRead))
 						{
-							Altitude = Double.Parse(altitudeReaded);
+							Altitude = Double.Parse(altitudeRead);
 						}
 
-						if (isFormatValid(rollReaded))
+						if (isFormatValid(rollRead))
 						{
-							Roll = Double.Parse(rollReaded);
+							Roll = Double.Parse(rollRead);
 						}
 
-						if (isFormatValid(pitchReaded))
+						if (isFormatValid(pitchRead))
 						{
-							Pitch = Double.Parse(pitchReaded);
+							Pitch = Double.Parse(pitchRead);
 						}
 
-						if (isFormatValid(altimeterReaded))
+						if (isFormatValid(altimeterRead))
 						{
-							Altimeter = Double.Parse(altimeterReaded);
+							Altimeter = Double.Parse(altimeterRead);
 						}
 
-						if (isFormatValid(headingReaded))
+						if (isFormatValid(headingRead))
 						{
-							Heading = Double.Parse(headingReaded);
+							Heading = Double.Parse(headingRead);
 						}
 
-						if (isFormatValid(groundSpeedReaded))
+						if (isFormatValid(groundSpeedRead))
 						{
-							GroundSpeed = Double.Parse(groundSpeedReaded);
+							GroundSpeed = Double.Parse(groundSpeedRead);
 						}
 
-						if (isFormatValid(verticalSpeedReaded))
+						if (isFormatValid(verticalSpeedRead))
 						{
-							VerticalSpeed = Double.Parse(verticalSpeedReaded);
+							VerticalSpeed = Double.Parse(verticalSpeedRead);
 						}
 
-						if (isFormatValid(latitudeReaded))
+						if (isFormatValid(latitudeRead))
 						{
-							Latitude = Double.Parse(latitudeReaded);
+							Latitude = Double.Parse(latitudeRead);
 						}
 
-						if (isFormatValid(longitudeReaded))
+						if (isFormatValid(longitudeRead))
 						{
-							Longitude = Double.Parse(longitudeReaded);
+							Longitude = Double.Parse(longitudeRead);
 						}
 
 						Thread.Sleep(250);
@@ -133,11 +133,11 @@ namespace FlightSimulatorApp.Models
 			}).Start();
 		}
 
-        public bool isFormatValid(string valueReaded)
+        public bool isFormatValid(string valueRead)
         {
             try
             { 
-                Double.Parse(valueReaded);
+                Double.Parse(valueRead);
                 return true;
             }
 			catch (FormatException formatException)
