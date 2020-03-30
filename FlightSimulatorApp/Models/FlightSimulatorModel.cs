@@ -32,14 +32,13 @@ namespace FlightSimulatorApp.Models
             initializeModel();
             telnetClient = telnetC;
             status = "Disconnected";
-            //telnetClient.Connect("127.0.0.1", 5402); //change later
 
         }
-		public void Connect(string ip, int port)
+		public async void Connect(string ip, int port)
         { 
-			Task.Run(() => telnetClient.Connect(ip, port));
+			await Task.Run(() => telnetClient.Connect(ip, port));
+            stop = false;
             Status = "Connected";
-			stop = false;
 			StartReading();
 		}
 
@@ -129,8 +128,7 @@ namespace FlightSimulatorApp.Models
                         Disconnect();
 					}
                 }
-
-			}).Start();
+            }).Start();
 		}
 
         public bool isFormatValid(string valueRead)
