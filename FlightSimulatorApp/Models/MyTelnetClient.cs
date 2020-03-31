@@ -119,17 +119,11 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     Console.WriteLine(data);
                 }
-                //catch (AbandonedMutexException abandonedMutexException)
-                //{
-                //    mutex.ReleaseMutex();
-                //    Disconnect();
-                //}
                 catch (Exception exception)
                 {
                     mutex.ReleaseMutex();
                     Disconnect();
                 }
-
             }
         }
 
