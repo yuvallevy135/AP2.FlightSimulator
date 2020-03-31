@@ -30,12 +30,12 @@ namespace FlightSimulatorApp.ViewModels
         }
         public double VM_Latitude
         {
-            get { return flightSimulatorModel.Latitude; }
+            get { return Double.Parse(flightSimulatorModel.Latitude); }
         }
 
         public double VM_Longitude
         {
-            get { return flightSimulatorModel.Longitude; }
+            get { return Double.Parse(flightSimulatorModel.Longitude); }
         }
 
         //map end

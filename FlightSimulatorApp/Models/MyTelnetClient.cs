@@ -12,7 +12,7 @@ namespace FlightSimulatorApp.Models
 {
 	public class MyTelnetClient : ITelnetClient
 	{
-		private TcpClient client;
+        private TcpClient client;
         //private NetworkStream stream;
 		private bool stillConnect = false;
         Mutex mutex;
@@ -64,20 +64,12 @@ namespace FlightSimulatorApp.Models
                     //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
-                    byte[] buffer = new byte[64];
-                    client.GetStream().Read(buffer, 0, 64);
+                    byte[] buffer = new byte[1024];
+                    client.GetStream().Read(buffer, 0, 1024);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-                    //Console.WriteLine(data);
                     mutex.ReleaseMutex();
                     return data;
-                    
                 }
-                //catch (AbandonedMutexException abandonedMutexException)
-                //{
-                //    
-                //    Disconnect();
-                //    return null;
-                //}
                 catch (Exception exception)
                 {
                     mutex.ReleaseMutex();
@@ -87,6 +79,24 @@ namespace FlightSimulatorApp.Models
             }
             return null;
         }
+
+        //public void ReadTrash()
+        //{
+        //    mutex.WaitOne();
+        //    byte[] buffer = new byte[1024];
+        //    client.GetStream().Read(buffer, 0, 1024);
+        //    if (buffer.Length != 0)
+        //    {
+        //        Console.WriteLine("overflow!!!");
+        //        while (buffer.Length!= 0)
+        //        {
+        //            int offset = 0;
+        //            client.GetStream().Read(buffer, 0, 1024);
+        //            offset += 1024;
+        //        }
+        //    }
+        //    mutex.ReleaseMutex();
+        //}
 
         public void Write(string command)
         {
@@ -102,9 +112,10 @@ namespace FlightSimulatorApp.Models
                     mutex.WaitOne();
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
-                    byte[] buffer = new byte[64];
-                    client.GetStream().Read(buffer, 0, 64);
+                    byte[] buffer = new byte[1024];
+                    client.GetStream().Read(buffer, 0, 1024);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+
                     mutex.ReleaseMutex();
                     Console.WriteLine(data);
                 }

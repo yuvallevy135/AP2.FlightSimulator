@@ -28,44 +28,44 @@ namespace FlightSimulatorApp.ViewModels
         //Dashboard start
         public double VM_Heading
         {
-            get { return flightSimulatorModel.Heading; }
+            get { return Double.Parse(flightSimulatorModel.Heading); }
         }
 
         public double VM_VerticalSpeed
         {
-            get { return flightSimulatorModel.VerticalSpeed; }
+            get { return Double.Parse(flightSimulatorModel.VerticalSpeed); }
         }
 
         public double VM_GroundSpeed
         {
-            get { return flightSimulatorModel.GroundSpeed; }
+            get { return Double.Parse(flightSimulatorModel.GroundSpeed); }
         }
 
         public double VM_AirSpeed
         {
-            get { return flightSimulatorModel.AirSpeed; }
+            get { return Double.Parse(flightSimulatorModel.AirSpeed); }
         }
 
         public double VM_Altitude
         {
-            get { return flightSimulatorModel.Altitude; }
+            get { return Double.Parse(flightSimulatorModel.Altitude); }
         }
 
         public double VM_Roll
         {
-            get { return flightSimulatorModel.Roll; }
+            get { return Double.Parse(flightSimulatorModel.Roll); }
         }
 
         public double VM_Pitch
         {
-            get { return flightSimulatorModel.Pitch; }
+            get { return Double.Parse(flightSimulatorModel.Pitch); }
         }
 
         public double VM_Altimeter
         {
             get
             {
-                return flightSimulatorModel.Altimeter;
+                return Double.Parse(flightSimulatorModel.Altimeter);
 
             }
         }

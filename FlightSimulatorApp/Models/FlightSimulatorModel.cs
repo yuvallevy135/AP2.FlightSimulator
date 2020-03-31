@@ -20,9 +20,9 @@ namespace FlightSimulatorApp.Models
 
         private string headingAddress, verticalSpeedAddress, groundSpeedAddress, airSpeedAddress, altitudeAddress, rollAddress, pitchAddress,
             altimeterAddress, latitudeAddress, longitudeAddress, rudderAddress, elevatorAddress, throttleAddress, aileronAddress, locationAddress;
-        private double heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude, rudder, elevator, throttle, aileron;
+        private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude;
         private string location, status;
-        private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180;
+        private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180, rudder, elevator, throttle, aileron;
 
         private string headingRead, verticalSpeedRead, groundSpeedRead,
             airSpeedRead, altitudeRead, rollRead, pitchRead, altimeterRead, latitudeRead, longitudeRead;
@@ -32,7 +32,7 @@ namespace FlightSimulatorApp.Models
             initializeModel();
             telnetClient = telnetC;
             status = "Disconnected";
-
+            initializeDashboard();
         }
 		public async void Connect(string ip, int port)
         { 
@@ -58,70 +58,19 @@ namespace FlightSimulatorApp.Models
 					//reading Dashboard elements from the simulator
                     try
                     {
-                        airSpeedRead = telnetClient.Read(airSpeedAddress);
-                        altitudeRead = telnetClient.Read(altitudeAddress);
-                        rollRead = telnetClient.Read(rollAddress);
-                        pitchRead = telnetClient.Read(pitchAddress);
-                        altimeterRead = telnetClient.Read(altimeterAddress);
-						headingRead = telnetClient.Read(headingAddress);
-                        groundSpeedRead = telnetClient.Read(groundSpeedAddress);
-                        verticalSpeedRead = telnetClient.Read(verticalSpeedAddress);
+                        AirSpeed = telnetClient.Read(airSpeedAddress);
+                        Altitude = telnetClient.Read(altitudeAddress);
+                        Roll = telnetClient.Read(rollAddress);
+                        Pitch = telnetClient.Read(pitchAddress);
+                        Altimeter = telnetClient.Read(altimeterAddress);
+						Heading = telnetClient.Read(headingAddress);
+                        GroundSpeed = telnetClient.Read(groundSpeedAddress);
+                        VerticalSpeed = telnetClient.Read(verticalSpeedAddress);
                         //reading map values from the simulator
-                        latitudeRead = telnetClient.Read(latitudeAddress);
-                        longitudeRead = telnetClient.Read(longitudeAddress);
-                        Location = Convert.ToString(latitude + "," + longitude);
-
-						if (isFormatValid(airSpeedRead))
-						{
-							AirSpeed = Double.Parse(airSpeedRead);
-						}
-
-						if (isFormatValid(altitudeRead))
-						{
-							Altitude = Double.Parse(altitudeRead);
-						}
-
-						if (isFormatValid(rollRead))
-						{
-							Roll = Double.Parse(rollRead);
-						}
-
-						if (isFormatValid(pitchRead))
-						{
-							Pitch = Double.Parse(pitchRead);
-						}
-
-						if (isFormatValid(altimeterRead))
-						{
-							Altimeter = Double.Parse(altimeterRead);
-						}
-
-						if (isFormatValid(headingRead))
-						{
-							Heading = Double.Parse(headingRead);
-						}
-
-						if (isFormatValid(groundSpeedRead))
-						{
-							GroundSpeed = Double.Parse(groundSpeedRead);
-						}
-
-						if (isFormatValid(verticalSpeedRead))
-						{
-							VerticalSpeed = Double.Parse(verticalSpeedRead);
-						}
-
-						if (isFormatValid(latitudeRead))
-						{
-							Latitude = Double.Parse(latitudeRead);
-						}
-
-						if (isFormatValid(longitudeRead))
-						{
-							Longitude = Double.Parse(longitudeRead);
-						}
-
-						Thread.Sleep(250);
+                        Latitude = telnetClient.Read(latitudeAddress);
+                        Longitude = telnetClient.Read(longitudeAddress);
+                        Location = latitude + "," + longitude;
+                        Thread.Sleep(250);
                     }
                     catch (ArgumentNullException nullException)
                     {
@@ -134,32 +83,39 @@ namespace FlightSimulatorApp.Models
         public bool isFormatValid(string valueRead)
         {
             try
-            { 
+            {
                 Double.Parse(valueRead);
                 return true;
             }
-			catch (FormatException formatException)
+            catch (FormatException formatException)
             {
                 Console.WriteLine("format exception detected");
                 //Disconnect();
                 return false;
             }
-		}
+            catch (OverflowException overflowException)
+            {
+                Console.WriteLine("Overflow: value is too large");
+                //telnetClient.ReadTrash();
+                return false;
+            }
+
+        }
 
         public void initializeDashboard()
         {
-            AirSpeed = 0;
-            Altitude = 0;
-            Roll = 0;
-            Pitch = 0;
-            Altimeter = 0;
-            Heading = 0;
-            GroundSpeed = 0;
-            VerticalSpeed = 0;
+            AirSpeed = "0";
+            Altitude = "0";
+            Roll = "0";
+            Pitch = "0";
+            Altimeter = "0";
+            Heading = "0";
+            GroundSpeed = "0";
+            VerticalSpeed = "0";
             //reading map values from the simulator
-            Latitude = 0;
-            Longitude = 0;
-            Location = Convert.ToString(latitude + "," + longitude);
+            Latitude = "0";
+            Longitude = "0";
+            Location = latitude + "," + longitude;
 		}
 
 		public async Task StartWriting(string command)
@@ -167,77 +123,106 @@ namespace FlightSimulatorApp.Models
             await Task.Run(() => telnetClient.Write(command)); 
         }
 
-		public double Heading
+		public string Heading
 		{
 			get { return heading; }
 			set
 			{
-				heading = value;
-				NotifyPropertyChanged("Heading");
+                if (isFormatValid(value))
+                {
+                    heading = value;
+                    NotifyPropertyChanged("Heading");
+				}
+				
 			}
 		}
-		public double VerticalSpeed
+		public string VerticalSpeed
 		{
 			get { return verticalSpeed; }
 			set
 			{
-				verticalSpeed = value;
-				NotifyPropertyChanged("VerticalSpeed");
+                if (isFormatValid(value))
+                {
+                    verticalSpeed = value;
+                    NotifyPropertyChanged("VerticalSpeed");
+				}
+				
 			}
 		}
-		public double GroundSpeed
+		public string GroundSpeed
 		{
 			get { return groundSpeed; }
 			set
 			{
-                groundSpeed = value;
-				NotifyPropertyChanged("GroundSpeed");
-			}
+                if (isFormatValid(value))
+                {
+                    groundSpeed = value;
+                    NotifyPropertyChanged("GroundSpeed");
+				}
+            }
 		}
-		public double AirSpeed
+		public string AirSpeed
 		{
 			get { return airSpeed; }
 			set
 			{
-                airSpeed = value;
-				NotifyPropertyChanged("AirSpeed");
+                if (isFormatValid(value))
+                {
+                    airSpeed = value;
+                    NotifyPropertyChanged("AirSpeed");
+				}
+					
 			}
 		}
-		public double Altitude
+		public string Altitude
 		{
-			get { return altitude; }
+            get { return altitude; }
 			set
 			{
-                altitude = value;
-				NotifyPropertyChanged("Altitude");
-			}
+                if (isFormatValid(value))
+                {
+                    altitude = value;
+                    NotifyPropertyChanged("Altitude");
+				}
+            }
 		}
-		public double Roll
+		public string Roll
 		{
 			get { return roll; }
 			set
 			{
-                roll = value;
-				NotifyPropertyChanged("Roll");
-			}
+                if (isFormatValid(value))
+                {
+                    roll = value;
+                    NotifyPropertyChanged("Roll");
+				}
+            }
 		}
-		public double Pitch
-		{
-			get { return pitch; }
-			set
-			{
-                pitch = value;
-				NotifyPropertyChanged("Pitch");
-			}
-		}
-		public double Altimeter
+
+        public string Pitch
+        {
+            get { return pitch; }
+            set
+            {
+                if (isFormatValid(value))
+                {
+                    pitch = value;
+                    NotifyPropertyChanged("Pitch");
+                }
+            }
+        }
+
+        public string Altimeter
 		{
 			get { return altimeter; }
 			set
 			{
-                altimeter = value;
-				NotifyPropertyChanged("Altimeter");
-			}
+                if (isFormatValid(value))
+                {
+                    altimeter = value;
+                    NotifyPropertyChanged("Altimeter");
+                }
+            }
 		}
 
 		public string Location { 
@@ -247,56 +232,63 @@ namespace FlightSimulatorApp.Models
 			}
 			set 
 			{
-				location = value;
-				NotifyPropertyChanged("Location");
-			}
+                location = value;
+                NotifyPropertyChanged("Location");
+                
+            }
 		}
-		public double Latitude
+
+		public string Latitude
         {
             get { return latitude; }
             set
             {
-                latitude = value;
-               // Console.WriteLine("latitude value: " + value);
-				if (value > maxLatitude)
+                if (isFormatValid(value))
                 {
-                    latitude= maxLatitude - 1;
+                    latitude = value;
+                    // Console.WriteLine("latitude value: " + value);
+                    if (Double.Parse(value) > maxLatitude)
+                    {
+                        latitude = (maxLatitude - 1).ToString("F");
+                    }
+                    else if (Double.Parse(value) < minLatitude)
+                    {
+                        latitude = (minLatitude + 1).ToString("F");
+                    }
+                    // Console.WriteLine("latitude: " + latitude);
+                    NotifyPropertyChanged("Latitude");
                 }
-				else if (value < minLatitude)
-                {
-                    latitude = minLatitude + 1;
-                }
-               // Console.WriteLine("latitude: " + latitude);
-				NotifyPropertyChanged("Latitude");
             }
         }
 
-		public double Longitude
+		public string Longitude
         {
             get { return longitude; }
             set
             {
-                longitude = value;
-				//Console.WriteLine("longitude value: " + value);
+                if (isFormatValid(value))
+                {
+                    longitude = value;
+                    //Console.WriteLine("longitude value: " + value);
 
-                if (value > maxLongitude)
-                {
-                    longitude = maxLongitude - 1;
+                    if (Double.Parse(value) > maxLongitude)
+                    {
+                        longitude = (maxLongitude - 1).ToString("F");
+                    }
+                    else if (Double.Parse(value) < minLongitude)
+                    {
+                        longitude = (minLongitude + 1).ToString("F");
+                    }
+                    //Console.WriteLine("longitude: " + longitude);
+                    NotifyPropertyChanged("Longitude");
                 }
-                else if (value < minLongitude)
-                {
-                    longitude = minLongitude + 1;
-                }
-                //Console.WriteLine("longitude: " + longitude);
-				NotifyPropertyChanged("Longitude");
             }
         }
 
 		public string Status
 		{
 			get { return status; }
-
-			set
+            set
 			{
 				status = value;
 				NotifyPropertyChanged("Status");

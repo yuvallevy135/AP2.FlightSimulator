@@ -26,28 +26,29 @@ namespace FlightSimulatorApp
 	/// </summary>
 	public partial class MainWindow : Window
     {
-        private FlightSimulatorViewModel flightSimulatorViewModel;
-        private ManualControlsViewModel manualControlsViewModel;
-        private DashboardViewModel dashboardViewModel;
-        private MapControlViewModel mapControlViewModel;
-        private FlightSimulatorModel model;
+        //private FlightSimulatorViewModel flightSimulatorViewModel;
+        //private ManualControlsViewModel manualControlsViewModel;
+        //private DashboardViewModel dashboardViewModel;
+        //private MapControlViewModel mapControlViewModel;
+        //private FlightSimulatorModel model;
         private ConnectWindow cw;
         public MainWindow()
 		{
             InitializeComponent();
-            model = new FlightSimulatorModel(new MyTelnetClient()); 
-            //flightSimulatorViewModel = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
-            flightSimulatorViewModel = new FlightSimulatorViewModel(model);
-            manualControlsViewModel = new ManualControlsViewModel(model);
-            dashboardViewModel = new DashboardViewModel(model);
-            mapControlViewModel = new MapControlViewModel(model);
-            DataContext = flightSimulatorViewModel;
-            myDashboard.DataContext = dashboardViewModel;
-            myMapControl.DataContext = mapControlViewModel;
-            myManualControls.DataContext = manualControlsViewModel;
+            DataContext = (Application.Current as App).flightSimulatorViewModel;
+            //model = new FlightSimulatorModel(new MyTelnetClient()); 
+            ////flightSimulatorViewModel = new FlightSimulatorViewModel(new FlightSimulatorModel(new MyTelnetClient()));
+            //flightSimulatorViewModel = new FlightSimulatorViewModel(model);
+            //manualControlsViewModel = new ManualControlsViewModel(model);
+            //dashboardViewModel = new DashboardViewModel(model);
+            //mapControlViewModel = new MapControlViewModel(model);
+            //DataContext = flightSimulatorViewModel;
+            myDashboard.DataContext = (Application.Current as App).dashboardViewModel;
+            myMapControl.DataContext = (Application.Current as App).mapControlViewModel;
+            myManualControls.DataContext = (Application.Current as App).manualControlsViewModel;
             //dashboard.DataContext = flightSimulatorViewModel;
             //Joystick.MyEvent += SetXY;
-            cw = new ConnectWindow(flightSimulatorViewModel);
+            cw = new ConnectWindow((Application.Current as App).flightSimulatorViewModel);
         }
 
         private void connect_Click(object sender, RoutedEventArgs e)
@@ -57,7 +58,7 @@ namespace FlightSimulatorApp
 
         private void disconnect_Click(object sender, RoutedEventArgs e)
         {
-            flightSimulatorViewModel.VM_Disconnect();
+            (Application.Current as App).flightSimulatorViewModel.VM_Disconnect();
         }
     }
 }
