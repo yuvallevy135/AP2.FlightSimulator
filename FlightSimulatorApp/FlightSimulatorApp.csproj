@@ -67,6 +67,9 @@
     <Compile Include="ConnectWindow.xaml.cs">
       <DependentUpon>ConnectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ErrorsWindow.xaml.cs">
+      <DependentUpon>ErrorsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ITelnetClient.cs" />
     <Compile Include="Models\FlightSimulatorModel.cs" />
     <Compile Include="Models\MyTelnetClient.cs" />
@@ -88,6 +91,10 @@
       <DependentUpon>MapControl.xaml</DependentUpon>
     </Compile>
     <Page Include="ConnectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

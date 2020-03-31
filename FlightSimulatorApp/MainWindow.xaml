@@ -75,7 +75,18 @@
                 </TextBlock.Style>
             </TextBlock>
             <!--connect bar end-->
-
+            <Button x:Name="Error" Width="90" Height="35" Content="ERROR" Margin="292,442,0,-63"
+                         HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Click="Error_Click" Grid.Row="2">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
             <!--Manual controls-->
             <viewWindows:ManualControls x:Name="myManualControls" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
