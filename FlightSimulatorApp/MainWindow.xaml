@@ -78,13 +78,13 @@
             <!--connect bar end-->
 
 
-            <Button x:Name="Error" Style="{StaticResource MyButton}" Width="30" Height="35" Margin="380,500,0,-5"
+            <Button x:Name="Error" Style="{StaticResource MyButton}" Width="20" Height="25" Margin="385,500,0, 0"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Click="Error_Click" Grid.Row="2">
                 <!--<Button.Background>
                     <ImageBrush ImageSource="bell.png" Stretch="Uniform"/>
                 </Button.Background>-->
                 <Button.Content>
-                    <Rectangle x:Name="imageSwitch" Width="30" Height="35" >
+                    <Rectangle x:Name="imageSwitch" Width="20" Height="25" >
                         <Rectangle.Style>
                             <Style TargetType="{x:Type Rectangle}" >
                                 <Setter Property="Fill">

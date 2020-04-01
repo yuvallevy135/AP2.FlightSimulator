@@ -59,7 +59,7 @@ namespace FlightSimulatorApp
             {
                 cw = new ConnectWindow((Application.Current as App).flightSimulatorViewModel);
                 cw.Show();
-            }              
+            }
         }
 
         private void disconnect_Click(object sender, RoutedEventArgs e)

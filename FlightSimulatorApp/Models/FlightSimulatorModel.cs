@@ -92,13 +92,6 @@ namespace FlightSimulatorApp.Models
                 Double.Parse(valueRead);
                 return true;
             }
-            catch (FormatException formatException)
-            {
-                Console.WriteLine("format exception detected");
-                Err = "format exception detected - notice it's not updating";
-                //Disconnect();
-                return false;
-            }
             catch (OverflowException overflowException)
             {
                 Console.WriteLine("Overflow: value is too large");
@@ -106,6 +99,14 @@ namespace FlightSimulatorApp.Models
                 //telnetClient.ReadTrash();
                 return false;
             }
+            catch (FormatException formatException)
+            {
+                Console.WriteLine("format exception detected");
+                Err = "Format exception detected from server - notice value isn't updating";
+                //Disconnect();
+                return false;
+            }
+           
 
         }
 

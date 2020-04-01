@@ -83,7 +83,6 @@ namespace FlightSimulatorApp.Models
                                 endOfStream = true;
                                 break;
                             }
-                          
                         }
                     } while (!endOfStream);
                     endOfStream = false;

@@ -26,8 +26,8 @@ namespace FlightSimulatorApp
 		{
 			InitializeComponent();
 			vm = flightSimulatorViewModel;
-			DataContext = vm;
-		}
+            DataContext = vm;
+        }
 
 		private void TextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
 		{
