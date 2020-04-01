@@ -16,6 +16,7 @@ namespace FlightSimulatorApp.Models
         //private NetworkStream stream;
 		private bool stillConnect = false;
         private bool telnetErrorFlag;
+        private bool endOfStream = false;
         Mutex mutex;
         
         public MyTelnetClient()
@@ -69,10 +70,27 @@ namespace FlightSimulatorApp.Models
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
                     byte[] buffer = new byte[1024];
-                    client.GetStream().Read(buffer, 0, 1024);
-                    string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                    StringBuilder data = new StringBuilder();
+                    do
+                    {
+                        client.GetStream().Read(buffer, 0, buffer.Length);
+                        //data.AppendFormat("{0", Encoding.ASCII.GetString(buffer, 0, buffer.Length));
+                        data.Append(Encoding.ASCII.GetString(buffer, 0, buffer.Length));
+                        for (int i = 0; i < 1024; i++)
+                        {
+                            if (buffer[i] ==  10)
+                            {
+                                endOfStream = true;
+                                break;
+                            }
+                          
+                        }
+                    } while (!endOfStream);
+                    endOfStream = false;
+
+                    //string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     mutex.ReleaseMutex();
-                    return data;
+                    return data.ToString();
                 }
                 catch (Exception exception)
                 {
@@ -129,7 +147,10 @@ namespace FlightSimulatorApp.Models
                     telnetErrorFlag = true;
                     mutex.ReleaseMutex();               
                     Disconnect();
-                    (Application.Current as App).model.Err = "Server ended communication";
+                    if(telnetErrorFlag == false)
+                    {
+                        (Application.Current as App).model.Err = "Server ended communication";
+                    }
                 }
             }
         }

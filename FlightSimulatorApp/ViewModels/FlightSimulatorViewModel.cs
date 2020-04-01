@@ -13,6 +13,7 @@ namespace FlightSimulatorApp.ViewModels
     {
         private FlightSimulatorModel flightSimulatorModel;
         private string ip, port;
+        private bool errorWindowEmptyFlag = true;
         
 
         public FlightSimulatorViewModel(FlightSimulatorModel model)
@@ -47,11 +48,36 @@ namespace FlightSimulatorApp.ViewModels
 
         public string VM_Err
         {
+            set
+            {
+                flightSimulatorModel.clearError();
+                errorWindowEmptyFlag = true;
+            }
             get
             {
-                return flightSimulatorModel.Err;
+                errorWindowEmptyFlag = false;
+                return flightSimulatorModel.Err;              
             }
         }
+
+        public bool VM_isErrorWindowEmpty
+        {
+            get
+            {
+                if(this.flightSimulatorModel.Err != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                
+            }
+        }
+
+
+
 
 
         public void VM_Connect()

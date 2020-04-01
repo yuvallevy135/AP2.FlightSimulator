@@ -72,7 +72,7 @@ namespace FlightSimulatorApp
             if (!ew.IsLoaded)
             {
                 ew = new ErrorsWindow((Application.Current as App).flightSimulatorViewModel);
-                ew.Show();
+                ew.Show();       
             }         
         }
     }

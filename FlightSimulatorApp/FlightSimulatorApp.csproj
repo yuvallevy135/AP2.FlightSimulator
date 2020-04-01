@@ -154,9 +154,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\altitude.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Views\airplane.png" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +170,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="bell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\bellNotification.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bellNotification.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

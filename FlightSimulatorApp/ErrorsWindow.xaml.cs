@@ -40,6 +40,16 @@ namespace FlightSimulatorApp
 			//currentStartingY += textBlock.Height;
 		}
 
+		private void clear_Click(object sender, RoutedEventArgs e)
+		{
+			errorText.Text = "";
+		}
+
+		private void close_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
+
 		private void TextBlock_SourceUpdated(object sender, DataTransferEventArgs e)
 		{
 			//TextBlock textBlock = new TextBlock() { Text = vm.VM_Err, Width = Double.NaN, Height = 40, FontSize = 20 };

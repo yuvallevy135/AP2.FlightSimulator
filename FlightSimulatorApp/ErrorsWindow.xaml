@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="ErrorsWindow" Height="300" Width="400" FontSize="16" Foreground="Red" Background="Black">
+        Title="ErrorsWindow" Height="300" Width="500" FontSize="16" Foreground="Red" Background="Black">
+    
     <ScrollViewer>
-        <TextBlock Text="{Binding Path = VM_Err, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 0 0" SourceUpdated="TextBlock_SourceUpdated" TargetUpdated="TextBlock_TargetUpdated"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>       
+            </Grid.RowDefinitions>
+            
+            <TextBlock x:Name="errorText" Text="{Binding Path = VM_Err, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="10 10 0 0" 
+                       SourceUpdated="TextBlock_SourceUpdated" 
+                       TargetUpdated="TextBlock_TargetUpdated"/>
+
+            <Button x:Name="clear" Content="Clear" Grid.Row="1" Width="90" Height="35"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-120 0 0 0 " Click="clear_Click"/>
+            <Button x:Name="close" Content="Close" Grid.Row="1" Width="90" Height="35" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120 0 0 0 " Click="close_Click"/>
+            
+        </Grid>
     </ScrollViewer>
+
 </Window>

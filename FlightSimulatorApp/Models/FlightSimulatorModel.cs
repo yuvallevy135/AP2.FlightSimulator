@@ -353,8 +353,17 @@ namespace FlightSimulatorApp.Models
                     err += "\n" + value;
                 }              
                 NotifyPropertyChanged("Err");
+                NotifyPropertyChanged("isErrorWindowEmpty");
             }
         }
+
+
+        public void clearError()
+        {
+            err = null;
+            NotifyPropertyChanged("isErrorWindowEmpty");
+        }
+
 
         private void initializeModel()
         {
