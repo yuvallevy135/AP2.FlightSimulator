@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel;
+using System.Media;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using FlightSimulatorApp.ViewModels;
@@ -348,11 +349,13 @@ namespace FlightSimulatorApp.Models
                 if(err == null)
                 {
                     err = value;
+                    SystemSounds.Hand.Play();
                 }
                 else
                 {
                     err += "\n" + value;
-                }              
+                    SystemSounds.Hand.Play();
+                }
                 NotifyPropertyChanged("Err");
                 NotifyPropertyChanged("isErrorWindowEmpty");
             }

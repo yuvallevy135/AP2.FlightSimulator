@@ -51,7 +51,7 @@ namespace FlightSimulatorApp.Views
                 planeIcon.RenderTransformOrigin = new Point(0.5, 0.5);
                 doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
                 //doubleAnimation.FillBehavior = FillBehavior.HoldEnd;
-                rotateTransform.BeginAnimation(RotateTransform.AngleProperty, doubleAnimation);
+                rotateTransform.BeginAnimation(RotateTransform.AngleProperty, null);
                 //planeIcon.RenderTransform = new RotateTransform(newDeg);
                 //currDeg = newDeg;
             }
