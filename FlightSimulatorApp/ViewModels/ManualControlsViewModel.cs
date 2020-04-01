@@ -37,7 +37,7 @@ namespace FlightSimulatorApp.ViewModels
                     else if (value < 0)
                     {
                         value = 0;
-                    }
+                    }                 
                     stringThrottle += value.ToString();
                     flightSimulatorModel.StartWriting(stringThrottle);
                 }

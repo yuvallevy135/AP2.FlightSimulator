@@ -32,7 +32,7 @@ namespace FlightSimulatorApp
         //private MapControlViewModel mapControlViewModel;
         //private FlightSimulatorModel model;
         private ConnectWindow cw;
-        private ErrorWindow ew;
+        private ErrorsWindow ew;
         public MainWindow()
 		{
             InitializeComponent();
@@ -50,12 +50,16 @@ namespace FlightSimulatorApp
             //dashboard.DataContext = flightSimulatorViewModel;
             //Joystick.MyEvent += SetXY;
             cw = new ConnectWindow((Application.Current as App).flightSimulatorViewModel);
-            ew = new ErrorWindow((Application.Current as App).flightSimulatorViewModel);
+            ew = new ErrorsWindow((Application.Current as App).flightSimulatorViewModel);
         }
 
         private void connect_Click(object sender, RoutedEventArgs e)
         {
-            cw.Show();
+            if (!cw.IsLoaded)
+            {
+                cw = new ConnectWindow((Application.Current as App).flightSimulatorViewModel);
+                cw.Show();
+            }              
         }
 
         private void disconnect_Click(object sender, RoutedEventArgs e)
@@ -65,7 +69,11 @@ namespace FlightSimulatorApp
 
         private void Error_Click(object sender, RoutedEventArgs e)
         {
-            cw.Show();
+            if (!ew.IsLoaded)
+            {
+                ew = new ErrorsWindow((Application.Current as App).flightSimulatorViewModel);
+                ew.Show();
+            }         
         }
     }
 }

@@ -165,5 +165,14 @@
   <ItemGroup>
     <Resource Include="Views\straightBoeing.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="errorIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\bell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bell.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

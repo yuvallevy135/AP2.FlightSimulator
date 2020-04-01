@@ -38,12 +38,13 @@ namespace FlightSimulatorApp
 			vm.VM_Ip = ipBlock.Text;
 			vm.VM_Port = portBlock.Text;
 			vm.VM_Connect();
-			this.Hide();
+			this.Close();
+			
 		}
 
 		private void cancel_Click(object sender, RoutedEventArgs e)
 		{
-			this.Hide();
+			this.Close();
 		}
 	}
 }

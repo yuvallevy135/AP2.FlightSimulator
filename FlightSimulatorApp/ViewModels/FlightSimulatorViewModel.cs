@@ -40,11 +40,19 @@ namespace FlightSimulatorApp.ViewModels
         public string VM_Status
         {
             get
-            {
+            {          
                 return flightSimulatorModel.Status;
-
             }
         }
+
+        public string VM_Err
+        {
+            get
+            {
+                return flightSimulatorModel.Err;
+            }
+        }
+
 
         public void VM_Connect()
         {
@@ -61,5 +69,7 @@ namespace FlightSimulatorApp.ViewModels
         {
             flightSimulatorModel.Disconnect();
         }
+
+       
     }
 }

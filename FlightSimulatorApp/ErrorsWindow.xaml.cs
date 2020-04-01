@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,21 +20,40 @@ namespace FlightSimulatorApp
 	/// </summary>
 	public partial class ErrorsWindow : Window
 	{
+		FlightSimulatorViewModel vm;
 		double currentStartingX = 0, currentStartingY = 0;
-		public ErrorsWindow()
+		public ErrorsWindow(FlightSimulatorViewModel flightSimulatorViewModel)
 		{
 			InitializeComponent();
+			vm = flightSimulatorViewModel;
+			DataContext = vm;
 		}
 
-		public void temp()
+		private void TextBlock_TargetUpdated(object sender, DataTransferEventArgs e)
 		{
-			TextBlock textBlock = new TextBlock() {Text = "Text Block", Width = Double.NaN, Height = 40, FontSize = 20 };
-			textBlock.RenderTransform = new TranslateTransform
-			{
-				X = currentStartingX,
-				Y = currentStartingY,
-			};
-			currentStartingY += textBlock.Height;
+			//TextBlock textBlock = new TextBlock() { Text = vm.VM_Err, Width = Double.NaN, Height = 40, FontSize = 20 };
+			//textBlock.RenderTransform = new TranslateTransform
+			//{
+			//	X = currentStartingX,
+			//	Y = currentStartingY,
+			//};
+			//currentStartingY += textBlock.Height;
 		}
+
+		private void TextBlock_SourceUpdated(object sender, DataTransferEventArgs e)
+		{
+			//TextBlock textBlock = new TextBlock() { Text = vm.VM_Err, Width = Double.NaN, Height = 40, FontSize = 20 };
+			//textBlock.RenderTransform = new TranslateTransform
+			//{
+			//	X = currentStartingX,
+			//	Y = currentStartingY,
+			//};
+			//currentStartingY += textBlock.Height;
+		}
+
+		//public void temp()
+		//{
+			
+		//}
 	}
 }

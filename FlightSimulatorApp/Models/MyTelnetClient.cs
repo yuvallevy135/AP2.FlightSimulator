@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
+using System.Windows;
 
 namespace FlightSimulatorApp.Models
 {
@@ -15,11 +15,12 @@ namespace FlightSimulatorApp.Models
         private TcpClient client;
         //private NetworkStream stream;
 		private bool stillConnect = false;
+        private bool telnetErrorFlag;
         Mutex mutex;
         
         public MyTelnetClient()
         {
-            mutex = new Mutex();
+            mutex = new Mutex();         
         }
         public void Connect(string ip, int port)
 		{
@@ -29,9 +30,12 @@ namespace FlightSimulatorApp.Models
             try
             {
                 client.Connect(ip, port);
+                telnetErrorFlag = false;
             }
             catch(Exception exception)
             {
+                telnetErrorFlag = true;
+                (Application.Current as App).model.Err = "Couldn't connect to server";
                 Console.WriteLine("Couldn't connect to server");
             }
         }
@@ -74,6 +78,7 @@ namespace FlightSimulatorApp.Models
                 {
                     mutex.ReleaseMutex();
                     Disconnect();
+                    //(Application.Current as App).model.Error = "Server ended communication";
                     return null;
                 }
             }
@@ -121,10 +126,17 @@ namespace FlightSimulatorApp.Models
                 }
                 catch (Exception exception)
                 {
-                    mutex.ReleaseMutex();
+                    telnetErrorFlag = true;
+                    mutex.ReleaseMutex();               
                     Disconnect();
+                    (Application.Current as App).model.Err = "Server ended communication";
                 }
             }
+        }
+
+        public bool getTelnetErrorFlag()
+        {
+            return this.telnetErrorFlag;
         }
 
 	}

@@ -23,6 +23,34 @@
             </Grid.RowDefinitions>
 
 
+            <!--<UserControl>
+                <UserControl.Resources>
+                    --><!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect --><!--
+                    <Style x:Key="MyButtonStyle" TargetType="Button">
+                        <Setter Property="OverridesDefaultStyle" Value="True"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </UserControl.Resources>
+            </UserControl>-->
             <!--Map-->
             <viewWindows:MapControl x:Name="myMapControl" Height="530" Width="400" Grid.Row="1" Grid.RowSpan="2"
                                     Margin="10 0 0 0"/>
@@ -75,9 +103,14 @@
                 </TextBlock.Style>
             </TextBlock>
             <!--connect bar end-->
-            <Button x:Name="Error" Width="90" Height="35" Content="ERROR" Margin="292,442,0,-63"
+
+
+            <Button x:Name="Error" Style="{StaticResource MyButton}" Width="30" Height="35" Content="" Margin="380,500,0,-5"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Click="Error_Click" Grid.Row="2">
-                <Button.Style>
+                <Button.Background>
+                    <ImageBrush ImageSource="bell.png" Stretch="Uniform"/>
+                </Button.Background>
+                <!--<Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
@@ -85,7 +118,7 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Button.Style>
+                </Button.Style>-->
             </Button>
 
             <!--Manual controls-->

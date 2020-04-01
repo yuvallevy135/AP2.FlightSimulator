@@ -21,12 +21,12 @@ namespace FlightSimulatorApp.Models
         private string headingAddress, verticalSpeedAddress, groundSpeedAddress, airSpeedAddress, altitudeAddress, rollAddress, pitchAddress,
             altimeterAddress, latitudeAddress, longitudeAddress, rudderAddress, elevatorAddress, throttleAddress, aileronAddress, locationAddress;
         private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude;
-        private string location, status;
+        private string location, status, err;
         private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180, rudder, elevator, throttle, aileron;
 
         private string headingRead, verticalSpeedRead, groundSpeedRead,
             airSpeedRead, altitudeRead, rollRead, pitchRead, altimeterRead, latitudeRead, longitudeRead;
-        
+        private bool errorFlag;
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
             initializeModel();
@@ -75,7 +75,12 @@ namespace FlightSimulatorApp.Models
                     catch (ArgumentNullException nullException)
                     {
                         Disconnect();
-					}
+                        if (!telnetClient.getTelnetErrorFlag())
+                        {
+                            Err = "Server ended communication";
+                        }
+                        
+                    }
                 }
             }).Start();
 		}
@@ -90,12 +95,14 @@ namespace FlightSimulatorApp.Models
             catch (FormatException formatException)
             {
                 Console.WriteLine("format exception detected");
+                Err = "format exception detected - notice it's not updating";
                 //Disconnect();
                 return false;
             }
             catch (OverflowException overflowException)
             {
                 Console.WriteLine("Overflow: value is too large");
+                Err = "Overflow: the value sended by the server is too large";
                 //telnetClient.ReadTrash();
                 return false;
             }
@@ -332,6 +339,22 @@ namespace FlightSimulatorApp.Models
 				//NotifyPropertyChanged("Aileron");
 			}
 		}
+        public string Err
+        {
+            get { return err; }
+            set
+            {
+                if(err == null)
+                {
+                    err = value;
+                }
+                else
+                {
+                    err += "\n" + value;
+                }              
+                NotifyPropertyChanged("Err");
+            }
+        }
 
         private void initializeModel()
         {

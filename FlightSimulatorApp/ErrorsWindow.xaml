@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="ErrorsWindow" Height="300" Width="400" FontSize="14">
-    <Grid>
-        <TextBlock Text="{Binding VM_Errors, Mode=OneWay}" Margin="10 10 0 0"/>
-    </Grid>
+        Title="ErrorsWindow" Height="300" Width="400" FontSize="16" Foreground="Red" Background="Black">
+    <ScrollViewer>
+        <TextBlock Text="{Binding Path = VM_Err, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 0 0" SourceUpdated="TextBlock_SourceUpdated" TargetUpdated="TextBlock_TargetUpdated"/>
+    </ScrollViewer>
 </Window>
