@@ -60,25 +60,6 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
-        public bool VM_isErrorWindowEmpty
-        {
-            get
-            {
-                if(this.flightSimulatorModel.Err != null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-                
-            }
-        }
-
-
-
-
 
         public void VM_Connect()
         {
