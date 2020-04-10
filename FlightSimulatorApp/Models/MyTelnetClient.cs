@@ -18,6 +18,7 @@ namespace FlightSimulatorApp.Models
 		private bool stillConnect = false;
         private bool telnetErrorFlag;
         private bool endOfStream = false;
+        private int timeout = 10000;
         Mutex mutex;
         
         public MyTelnetClient()
@@ -65,7 +66,7 @@ namespace FlightSimulatorApp.Models
                 try
                 {
                     mutex.WaitOne();
-                    client.ReceiveTimeout = 10000;
+                    client.ReceiveTimeout = timeout;
                     //// Gets the receive time out using the ReceiveTimeout public property.
                     //if (client.ReceiveTimeout == 2000)
                     //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());

@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.Views
 {
@@ -44,6 +45,7 @@ namespace FlightSimulatorApp.Views
         {
             if (longitudeChange != 0)
             {
+                //myMap.Center = new Location(newLatitude,newLongitude);
                 newDeg = Math.Atan(latitudeChange / longitudeChange) * (180/Math.PI);
                 var doubleAnimation = new DoubleAnimation(currDeg, newDeg, new Duration(TimeSpan.FromSeconds(1)));
                 var rotateTransform = new RotateTransform();
@@ -61,6 +63,7 @@ namespace FlightSimulatorApp.Views
         {
             newLongitude = Double.Parse(longitudeVal.Text);
             longitudeChange = newLongitude - currentLongitude;
+            myMap.Center = new Location(currentLatitude, currentLongitude);
             currentLongitude = newLongitude;
             PlaneRotate();
         }
@@ -69,6 +72,7 @@ namespace FlightSimulatorApp.Views
         {
             newLatitude = Double.Parse(latitudeVal.Text);
             latitudeChange = newLatitude - currentLatitude;
+            myMap.Center = new Location(currentLatitude, currentLongitude);
             currentLatitude = newLatitude;
             PlaneRotate();
         }
