@@ -13,11 +13,13 @@ namespace FlightSimulatorApp.ViewModels
     {
         private FlightSimulatorModel flightSimulatorModel;
         private string ip, port;
-        private bool errorWindowEmptyFlag = true;
-        
+        #pragma warning disable 414
+        private bool errorWindowEmptyFlag;
+        #pragma warning restore 414
 
         public FlightSimulatorViewModel(FlightSimulatorModel model)
         {
+            errorWindowEmptyFlag = true;
             flightSimulatorModel = model;
             flightSimulatorModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
@@ -65,21 +67,13 @@ namespace FlightSimulatorApp.ViewModels
         {
             get
             {
-                if(this.flightSimulatorModel.Err != null)
+                if(flightSimulatorModel.Err != null)
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
-                
+                return true;
             }
         }
-
-
-
-
 
         public void VM_Connect()
         {
@@ -96,7 +90,5 @@ namespace FlightSimulatorApp.ViewModels
         {
             flightSimulatorModel.Disconnect();
         }
-
-       
     }
 }

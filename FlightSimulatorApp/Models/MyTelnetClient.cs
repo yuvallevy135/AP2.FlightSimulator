@@ -35,7 +35,7 @@ namespace FlightSimulatorApp.Models
                 client.Connect(ip, port);
                 telnetErrorFlag = false;
             }
-            catch(Exception exception)
+            catch(Exception)
             {
                 telnetErrorFlag = true;
                 (Application.Current as App).model.Err = "Couldn't connect to server";
@@ -95,14 +95,14 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     return data.ToString();
                 }
-                catch (InvalidOperationException exception)
+                catch (InvalidOperationException)
                 {
                     mutex.ReleaseMutex();
                     Disconnect();
                     //(Application.Current as App).model.Error = "Server ended communication";
                     return null;
                 }
-                catch (IOException timeout)
+                catch (IOException)
                 {
                     mutex.ReleaseMutex();
                     return "timeout";
@@ -151,7 +151,7 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     Console.WriteLine(data);
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     telnetErrorFlag = true;
                     mutex.ReleaseMutex();               

@@ -21,7 +21,7 @@ namespace FlightSimulatorApp
 	public partial class ErrorsWindow : Window
 	{
 		FlightSimulatorViewModel vm;
-		double currentStartingX = 0, currentStartingY = 0;
+		//double currentStartingX = 0, currentStartingY = 0;
 		public ErrorsWindow(FlightSimulatorViewModel flightSimulatorViewModel)
 		{
 			InitializeComponent();

@@ -8,8 +8,8 @@ using System.ComponentModel;
 using System.Media;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Windows.Media.Animation;
 using FlightSimulatorApp.ViewModels;
-using Timer = System.Threading.Timer;
 
 namespace FlightSimulatorApp.Models
 {
@@ -20,15 +20,12 @@ namespace FlightSimulatorApp.Models
         private volatile bool stop = false;
 
         private string headingAddress, verticalSpeedAddress, groundSpeedAddress, airSpeedAddress, altitudeAddress, rollAddress, pitchAddress,
-            altimeterAddress, latitudeAddress, longitudeAddress, rudderAddress, elevatorAddress, throttleAddress, aileronAddress, locationAddress;
+            altimeterAddress, latitudeAddress, longitudeAddress;
         private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude;
         private string location, status, err;
         private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180, defaultLatitudePositive = 84, defaultLongitudePositive = 179,
             defaultLatitudeNegative = -84, defaultLongitudeNegative = -179, rudder, elevator, throttle, aileron;
 
-        private string headingRead, verticalSpeedRead, groundSpeedRead,
-            airSpeedRead, altitudeRead, rollRead, pitchRead, altimeterRead, latitudeRead, longitudeRead;
-        private bool errorFlag;
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
             initializeModel();
@@ -75,7 +72,7 @@ namespace FlightSimulatorApp.Models
                         Location = latitude + "," + longitude;
                         Thread.Sleep(250);
                     }
-                    catch (ArgumentNullException nullException)
+                    catch (ArgumentNullException)
                     {
                         // Catching errors from the server that sent unvalid values.
                         Disconnect();
@@ -97,14 +94,14 @@ namespace FlightSimulatorApp.Models
                 Double.Parse(valueRead);
                 return true;
             }
-            catch (OverflowException overflowException)
+            catch (OverflowException)
             {
                 Console.WriteLine("Overflow: value is too large");
                 Err = "Overflow: the value sended by the server is too large";
                 //telnetClient.ReadTrash();
                 return false;
             }
-            catch (FormatException formatException)
+            catch (FormatException)
             {
                 if (valueRead.Equals("timeout"))
                 {
@@ -365,16 +362,16 @@ namespace FlightSimulatorApp.Models
                 if(err == null)
                 {
                     err = value;
-                    SystemSounds.Hand.Play();
+                    NotifyPropertyChanged("Err");
+                    NotifyPropertyChanged("isErrorWindowEmpty");
                 }
-                else
+                // Else it isn't the first error and we want to print "\n" between the old error and the new one.
+                else if(!checkAppearance(value))
                 {
-                    // Else it isnt the first error and we want to print "\n" between the old error and the new one.
                     err += "\n" + value;
-                    SystemSounds.Hand.Play();
+                    NotifyPropertyChanged("Err");
+                    NotifyPropertyChanged("isErrorWindowEmpty");
                 }
-                NotifyPropertyChanged("Err");
-                NotifyPropertyChanged("isErrorWindowEmpty");
             }
         }
 
@@ -385,6 +382,25 @@ namespace FlightSimulatorApp.Models
             NotifyPropertyChanged("isErrorWindowEmpty");
         }
 
+        public bool checkAppearance(string val)
+        {
+            List<string> list = trimStringToLines(Err);
+            foreach (string line in list)
+            {
+                if (line.Equals(val))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static List<string> trimStringToLines(string str)
+        {
+            List<string> list = new List<string>(
+                str.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+            return list;
+        }
 
         private void initializeModel()
         {

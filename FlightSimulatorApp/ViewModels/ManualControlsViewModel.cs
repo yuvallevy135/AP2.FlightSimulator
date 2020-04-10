@@ -40,7 +40,9 @@ namespace FlightSimulatorApp.ViewModels
                         value = 0;
                     }                 
                     stringThrottle += value.ToString();
+                    #pragma warning disable 4014
                     flightSimulatorModel.StartWriting(stringThrottle);
+                    #pragma warning restore 4014
                 }
             }
         }
@@ -54,9 +56,11 @@ namespace FlightSimulatorApp.ViewModels
                 {
                     string stringRudder = "set /controls/flight/rudder ";
                     stringRudder += value.ToString();
+                    #pragma warning disable 4014
                     flightSimulatorModel.StartWriting(stringRudder);
+                    #pragma warning restore 4014
                 }
-                    
+
             }
         }
 
@@ -78,7 +82,9 @@ namespace FlightSimulatorApp.ViewModels
                     }
 
                     stringAileron += value.ToString();
+                    #pragma warning disable 4014
                     flightSimulatorModel.StartWriting(stringAileron);
+                    #pragma warning restore 4014
                 }
             }
         }
@@ -100,9 +106,11 @@ namespace FlightSimulatorApp.ViewModels
                         value = -1;
                     }
                     stringElevator += value.ToString();
+                    #pragma warning disable 4014
                     flightSimulatorModel.StartWriting(stringElevator);
+                    #pragma warning restore 4014
                 }
-                
+
             }
         }
         // Manual Controls end.
