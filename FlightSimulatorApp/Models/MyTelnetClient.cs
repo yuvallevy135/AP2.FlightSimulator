@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace FlightSimulatorApp.Models
                 try
                 {
                     mutex.WaitOne();
-                    //client.ReceiveTimeout = 20000;
+                    client.ReceiveTimeout = 10000;
                     //// Gets the receive time out using the ReceiveTimeout public property.
                     //if (client.ReceiveTimeout == 2000)
                     //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());
@@ -79,25 +80,31 @@ namespace FlightSimulatorApp.Models
                         data.Append(Encoding.ASCII.GetString(buffer, 0, buffer.Length));
                         for (int i = 0; i < 1024; i++)
                         {
-                            if (buffer[i] ==  10)
+                            if (buffer[i] == 10)
                             {
                                 endOfStream = true;
                                 break;
                             }
                         }
                     } while (!endOfStream);
+
                     endOfStream = false;
 
                     //string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     mutex.ReleaseMutex();
                     return data.ToString();
                 }
-                catch (Exception exception)
+                catch (InvalidOperationException exception)
                 {
                     mutex.ReleaseMutex();
                     Disconnect();
                     //(Application.Current as App).model.Error = "Server ended communication";
                     return null;
+                }
+                catch (IOException timeout)
+                {
+                    mutex.ReleaseMutex();
+                    return "timeout";
                 }
             }
             return null;

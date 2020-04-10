@@ -23,7 +23,8 @@ namespace FlightSimulatorApp.Models
             altimeterAddress, latitudeAddress, longitudeAddress, rudderAddress, elevatorAddress, throttleAddress, aileronAddress, locationAddress;
         private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude;
         private string location, status, err;
-        private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180, rudder, elevator, throttle, aileron;
+        private double maxLatitude = 85, minLatitude = -85, maxLongitude = 180, minLongitude = -180, defaultLatitudePositive = 84, defaultLongitudePositive = 179,
+            defaultLatitudeNegative = -84, defaultLongitudeNegative = -179, rudder, elevator, throttle, aileron;
 
         private string headingRead, verticalSpeedRead, groundSpeedRead,
             airSpeedRead, altitudeRead, rollRead, pitchRead, altimeterRead, latitudeRead, longitudeRead;
@@ -105,9 +106,15 @@ namespace FlightSimulatorApp.Models
             }
             catch (FormatException formatException)
             {
-                Console.WriteLine("format exception detected");
-                Err = "Format exception detected from server - notice value isn't updating";
-                //Disconnect();
+                if (valueRead.Equals("timeout"))
+                {
+                    Err = "Server is not responding...";
+                }
+                else
+                {
+                    Console.WriteLine("format exception detected");
+                    Err = "Format exception detected from server - notice value isn't updating";
+                }
                 return false;
             }
            
@@ -263,12 +270,12 @@ namespace FlightSimulatorApp.Models
                     if (Double.Parse(value) > maxLatitude)
                     {
                         Err = "Latitude is too high! Invalid location";
-                        latitude = (maxLatitude - 1).ToString("F");
+                        latitude = defaultLatitudePositive.ToString("F");
                     }
                     else if (Double.Parse(value) < minLatitude)
                     {
                         Err = "Latitude is too low Invalid location";
-                        latitude = (minLatitude + 1).ToString("F");
+                        latitude = defaultLatitudeNegative.ToString("F");
                     }
                     // Console.WriteLine("latitude: " + latitude);
                     NotifyPropertyChanged("Latitude");
@@ -289,12 +296,12 @@ namespace FlightSimulatorApp.Models
                     if (Double.Parse(value) > maxLongitude)
                     {
                         Err = "Longitude is too high! Invalid location";
-                        longitude = (maxLongitude - 1).ToString("F");
+                        longitude = defaultLongitudePositive.ToString("F");
                     }
                     else if (Double.Parse(value) < minLongitude)
                     {
                         Err = "Longitude is too low! Invalid location";
-                        longitude = (minLongitude + 1).ToString("F");
+                        longitude = defaultLongitudeNegative.ToString("F");
                     }
                     //Console.WriteLine("longitude: " + longitude);
                     NotifyPropertyChanged("Longitude");
