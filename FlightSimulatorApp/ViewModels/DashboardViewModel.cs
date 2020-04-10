@@ -25,7 +25,7 @@ namespace FlightSimulatorApp.ViewModels
         }
 
 
-        //Dashboard start
+        // Dashboard start.
         public double VM_Heading
         {
             get { return Double.Parse(flightSimulatorModel.Heading); }
@@ -70,7 +70,7 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
-        //Dashboard end
+        // Dashboard end.
 
     }
 }

@@ -50,6 +50,7 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
+                // Clearing the error window.
                 flightSimulatorModel.clearError();
                 errorWindowEmptyFlag = true;
             }

@@ -22,11 +22,12 @@ namespace FlightSimulatorApp.ViewModels
         }
 
 
-        //Manual Controls start
+        // Manual Controls start.
         public double VM_Throttle
         {
             set
             {
+                // Checking that the value is valid.
                 if (Math.Abs(value - flightSimulatorModel.Throttle) > 0.1)
                 {
                     string stringThrottle = "set /controls/engines/current-engine/throttle ";
@@ -48,6 +49,7 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
+                // Checking that the value is valid.
                 if (Math.Abs(value - flightSimulatorModel.Rudder) > 0.1)
                 {
                     string stringRudder = "set /controls/flight/rudder ";
@@ -62,6 +64,7 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
+                // Checking that the value is valid.
                 if (Math.Abs(value - flightSimulatorModel.Aileron) > 0.1)
                 {
                     string stringAileron = "set /controls/flight/aileron ";
@@ -84,6 +87,7 @@ namespace FlightSimulatorApp.ViewModels
         {
             set
             {
+                // Checking that the value is valid.
                 if (Math.Abs(value - flightSimulatorModel.Elevator) > 0.1)
                 {
                     string stringElevator = "set /controls/flight/elevator ";
@@ -101,7 +105,7 @@ namespace FlightSimulatorApp.ViewModels
                 
             }
         }
-        //Manual Controls end
+        // Manual Controls end.
 
     }
 }

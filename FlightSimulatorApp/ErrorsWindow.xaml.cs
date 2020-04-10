@@ -42,11 +42,13 @@ namespace FlightSimulatorApp
 
 		private void clear_Click(object sender, RoutedEventArgs e)
 		{
+			// Click clear to clear all the error screen from all the old errors the user got.
 			errorText.Text = "";
 		}
 
 		private void close_Click(object sender, RoutedEventArgs e)
 		{
+			// Closing the window.
 			this.Close();
 		}
 

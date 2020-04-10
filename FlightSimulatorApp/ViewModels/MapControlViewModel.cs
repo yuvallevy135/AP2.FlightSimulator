@@ -20,7 +20,7 @@ namespace FlightSimulatorApp.ViewModels
             };
         }
 
-        //map start
+        // Map starts.
         public string VM_Location
         {
             get
@@ -38,7 +38,7 @@ namespace FlightSimulatorApp.ViewModels
             get { return Double.Parse(flightSimulatorModel.Longitude); }
         }
 
-        //map end
+        // Map ends.
 
     }
 }

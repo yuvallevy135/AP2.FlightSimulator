@@ -21,10 +21,9 @@
 
         <Button x:Name="clear" Content="Clear" Grid.Row="1" Width="90" Height="35"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-120 0 0 0 " Click="clear_Click"/>
-            <Button x:Name="close" Content="Close" Grid.Row="1" Width="90" Height="35" 
+        <Button x:Name="close" Content="Close" Grid.Row="1" Width="90" Height="35" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120 0 0 0 " Click="close_Click"/>
-            
-        </Grid>
+    </Grid>
     
 
 </Window>

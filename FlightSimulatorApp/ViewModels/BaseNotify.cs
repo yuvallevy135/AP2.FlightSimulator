@@ -7,6 +7,7 @@ using System.ComponentModel;
 
 namespace FlightSimulatorApp.ViewModels
 {
+	// Abstract class that inherit from INotifyPropertyChanged and so all the VM and the model can inherit from it and minimize code.
 	public abstract class BaseNotify : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
