@@ -258,10 +258,12 @@ namespace FlightSimulatorApp.Models
                     // Console.WriteLine("latitude value: " + value);
                     if (Double.Parse(value) > maxLatitude)
                     {
+                        Err = "Latitude is too high! Invalid location";
                         latitude = (maxLatitude - 1).ToString("F");
                     }
                     else if (Double.Parse(value) < minLatitude)
                     {
+                        Err = "Latitude is too low Invalid location";
                         latitude = (minLatitude + 1).ToString("F");
                     }
                     // Console.WriteLine("latitude: " + latitude);
@@ -282,10 +284,12 @@ namespace FlightSimulatorApp.Models
 
                     if (Double.Parse(value) > maxLongitude)
                     {
+                        Err = "Longitude is too high! Invalid location";
                         longitude = (maxLongitude - 1).ToString("F");
                     }
                     else if (Double.Parse(value) < minLongitude)
                     {
+                        Err = "Longitude is too low! Invalid location";
                         longitude = (minLongitude + 1).ToString("F");
                     }
                     //Console.WriteLine("longitude: " + longitude);
