@@ -29,14 +29,17 @@ namespace FlightSimulatorApp
 			InitializeComponent();
 			vm = viewModel;
 			DataContext = vm;
+			// Getting the default Ip and Port for the app.
 			portBlock.Text = ConfigurationManager.AppSettings.Get("Port");
 			ipBlock.Text = ConfigurationManager.AppSettings.Get("IP");
 		}
 
 		private void connect_server_Click(object sender, RoutedEventArgs e)
 		{
+			// Getting the Ip and Port that the user chose.
 			vm.VM_Ip = ipBlock.Text;
 			vm.VM_Port = portBlock.Text;
+			// Running the connect VM to open a connection with the silmulator.
 			vm.VM_Connect();
 			this.Close();
 			
@@ -44,6 +47,7 @@ namespace FlightSimulatorApp
 
 		private void cancel_Click(object sender, RoutedEventArgs e)
 		{
+			// Clicking canel to close the window. The use regretted chosing ip and port. 
 			this.Close();
 		}
 	}

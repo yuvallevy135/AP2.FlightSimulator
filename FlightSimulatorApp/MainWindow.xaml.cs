@@ -57,6 +57,7 @@ namespace FlightSimulatorApp
         {
             if (!cw.IsLoaded)
             {
+                // Click on the "Connect" button to insert ip and port.
                 cw = new ConnectWindow((Application.Current as App).flightSimulatorViewModel);
                 cw.Show();
             }
@@ -64,11 +65,13 @@ namespace FlightSimulatorApp
 
         private void disconnect_Click(object sender, RoutedEventArgs e)
         {
+            // Disconnecting from the server.
             (Application.Current as App).flightSimulatorViewModel.VM_Disconnect();
         }
 
         private void Error_Click(object sender, RoutedEventArgs e)
         {
+            // Clicking on the error icon to see all the errors the user got from the app.
             if (!ew.IsLoaded)
             {
                 ew = new ErrorsWindow((Application.Current as App).flightSimulatorViewModel);

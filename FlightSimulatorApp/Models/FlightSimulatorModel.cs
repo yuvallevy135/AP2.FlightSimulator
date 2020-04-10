@@ -37,6 +37,7 @@ namespace FlightSimulatorApp.Models
         }
 		public async void Connect(string ip, int port)
         { 
+            // Using the telnet to connect to the server.
 			await Task.Run(() => telnetClient.Connect(ip, port));
             stop = false;
             Status = "Connected";
@@ -56,7 +57,7 @@ namespace FlightSimulatorApp.Models
 			{
 				while (!stop)
                 {
-					//reading Dashboard elements from the simulator
+					// Reading Dashboard elements from the simulator.
                     try
                     {
                         AirSpeed = telnetClient.Read(airSpeedAddress);
@@ -75,6 +76,7 @@ namespace FlightSimulatorApp.Models
                     }
                     catch (ArgumentNullException nullException)
                     {
+                        // Catching errors from the server that sent unvalid values.
                         Disconnect();
                         if (!telnetClient.getTelnetErrorFlag())
                         {
@@ -88,6 +90,7 @@ namespace FlightSimulatorApp.Models
 
         public bool isFormatValid(string valueRead)
         {
+            // Checking if the value we got from the serverg is valid.
             try
             {
                 Double.Parse(valueRead);
@@ -113,6 +116,7 @@ namespace FlightSimulatorApp.Models
 
         public void initializeDashboard()
         {
+            // Initialize all the properties to 0.s.
             AirSpeed = "0";
             Altitude = "0";
             Roll = "0";
@@ -121,7 +125,7 @@ namespace FlightSimulatorApp.Models
             Heading = "0";
             GroundSpeed = "0";
             VerticalSpeed = "0";
-            //reading map values from the simulator
+            // Reading map values from the simulator.
             Latitude = "0";
             Longitude = "0";
             Location = latitude + "," + longitude;
@@ -350,6 +354,7 @@ namespace FlightSimulatorApp.Models
             get { return err; }
             set
             {
+                // if err is null it means its the first error.
                 if(err == null)
                 {
                     err = value;
@@ -357,6 +362,7 @@ namespace FlightSimulatorApp.Models
                 }
                 else
                 {
+                    // Else it isnt the first error and we want to print "\n" between the old error and the new one.
                     err += "\n" + value;
                     SystemSounds.Hand.Play();
                 }
@@ -383,7 +389,7 @@ namespace FlightSimulatorApp.Models
             headingAddress = "/instrumentation/heading-indicator/indicated-heading-deg";
             groundSpeedAddress = "/instrumentation/gps/indicated-ground-speed-kt";
             verticalSpeedAddress = "/instrumentation/gps/indicated-vertical-speed";
-            //reading map values from the simulator
+            // Reading map values from the simulator.
             latitudeAddress = "/position/latitude-deg";
             longitudeAddress = "/position/longitude-deg";
 		}

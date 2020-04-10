@@ -31,9 +31,23 @@
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Port" Margin="0,0,20,0"/>
         <TextBox x:Name="portBlock"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
 
-        <Button x:Name="connect_server" Content="Connect" Grid.Row="3" Grid.Column="2" Click="connect_server_Click"/>
-        
-        <Button x:Name="cancel" Content="Cancel" Grid.Row="3" Grid.Column="4" Click="cancel_Click"/>
+            <Button x:Name="connect_server" Content="Connect" Grid.Row="3" Grid.Column="2" Click="connect_server_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=ipBlock}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Text, ElementName=portBlock}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="cancel" Content="Cancel" Grid.Row="3" Grid.Column="4" Click="cancel_Click"/>
 
         </Grid>
         

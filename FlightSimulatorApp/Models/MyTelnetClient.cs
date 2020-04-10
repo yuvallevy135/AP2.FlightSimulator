@@ -43,6 +43,7 @@ namespace FlightSimulatorApp.Models
 
 		public void Disconnect()
 		{
+            // Disconecting from the server.
 			if (stillConnect)
 			{
 				stillConnect = false;
@@ -52,7 +53,7 @@ namespace FlightSimulatorApp.Models
 
 		public string Read(string command)
         {
-            
+            // Send the command we want to a fuck that will get values from the server.
             return ReadData("get " + command + "\n");
         }
 
@@ -122,6 +123,7 @@ namespace FlightSimulatorApp.Models
 
         public void Write(string command)
         {
+            // Sending the command we want and send it to the server.
             WriteCommand(command + "\n");
         }
 
