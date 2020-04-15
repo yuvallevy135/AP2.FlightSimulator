@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlightSimulatorApp.Models;
 
 namespace FlightSimulatorApp.ViewModels
 {
     public class ManualControlsViewModel : BaseNotify
     {
-
         private FlightSimulatorModel flightSimulatorModel;
 
         public ManualControlsViewModel(FlightSimulatorModel model)
@@ -20,7 +15,6 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
-
 
         // Manual Controls start.
         public double VM_Throttle
@@ -60,7 +54,6 @@ namespace FlightSimulatorApp.ViewModels
                     flightSimulatorModel.StartWriting(stringRudder);
                     #pragma warning restore 4014
                 }
-
             }
         }
 
@@ -80,7 +73,6 @@ namespace FlightSimulatorApp.ViewModels
                     {
                         value = -1;
                     }
-
                     stringAileron += value.ToString();
                     #pragma warning disable 4014
                     flightSimulatorModel.StartWriting(stringAileron);
@@ -110,10 +102,8 @@ namespace FlightSimulatorApp.ViewModels
                     flightSimulatorModel.StartWriting(stringElevator);
                     #pragma warning restore 4014
                 }
-
             }
         }
         // Manual Controls end.
-
     }
 }

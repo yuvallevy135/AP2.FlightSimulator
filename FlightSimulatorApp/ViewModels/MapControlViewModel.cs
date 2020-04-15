@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlightSimulatorApp.Models;
 
 namespace FlightSimulatorApp.ViewModels
@@ -37,8 +33,6 @@ namespace FlightSimulatorApp.ViewModels
         {
             get { return Double.Parse(flightSimulatorModel.Longitude); }
         }
-
         // Map ends.
-
     }
 }

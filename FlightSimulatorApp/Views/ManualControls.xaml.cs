@@ -18,6 +18,7 @@ namespace FlightSimulatorApp.Views
             ElevatorValue.Text = "0";
         }
 
+        // Sets the x and y values from the joystick to the text boxes.
         private void SetXy(double x, double y)
         {
             if (x > 1)

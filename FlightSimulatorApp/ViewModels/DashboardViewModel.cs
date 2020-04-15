@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlightSimulatorApp.Models;
 
 namespace FlightSimulatorApp.ViewModels
@@ -13,9 +9,6 @@ namespace FlightSimulatorApp.ViewModels
 
         private FlightSimulatorModel flightSimulatorModel;
 
-        public DashboardViewModel()
-        {
-        }
         public DashboardViewModel(FlightSimulatorModel model)
         {
             flightSimulatorModel = model;
@@ -23,7 +16,6 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
-
 
         // Dashboard start.
         public double VM_Heading
@@ -69,8 +61,6 @@ namespace FlightSimulatorApp.ViewModels
 
             }
         }
-
         // Dashboard end.
-
     }
 }

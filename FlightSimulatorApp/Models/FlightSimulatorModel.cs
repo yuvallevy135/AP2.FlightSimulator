@@ -18,7 +18,7 @@ namespace FlightSimulatorApp.Models
 		private ITelnetClient telnetClient;
 
         private volatile bool stop = false;
-
+        private int port;
         private string headingAddress, verticalSpeedAddress, groundSpeedAddress, airSpeedAddress, altitudeAddress, rollAddress, pitchAddress,
             altimeterAddress, latitudeAddress, longitudeAddress;
         private string heading, verticalSpeed, groundSpeed, airSpeed, altitude, roll, pitch, altimeter, latitude, longitude;
@@ -33,8 +33,17 @@ namespace FlightSimulatorApp.Models
             status = "Disconnected";
             initializeDashboard();
         }
-		public async void Connect(string ip, int port)
-        { 
+		public async void Connect(string ip, string portString)
+        {
+            try
+            {
+                port = int.Parse(portString);
+            }
+            catch (FormatException)
+            {
+                Err = "The inserted port is not an integer";
+                return;
+            }
             // Using the telnet to connect to the server.
 			await Task.Run(() => telnetClient.Connect(ip, port));
             stop = false;
