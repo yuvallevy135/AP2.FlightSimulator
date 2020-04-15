@@ -12,6 +12,7 @@ namespace FlightSimulatorApp.Views
 	/// comment
 	public partial class Joystick : UserControl
     {
+        // Joystick states.
         private enum BoundState  {
             Move,Stay,Center
         };
@@ -21,15 +22,15 @@ namespace FlightSimulatorApp.Views
         private double normalX = 0, normalY = 0;
 
 		public delegate void Event (double x, double y);
-
         public Event MyEvent;
 
         public Joystick()
 		{
 			InitializeComponent();
-
-			centerPoint = new Point(Base.Width / 2, Base.Height / 2);
-            ellipseRadius = this.borderCircle.Width / 2;
+			// The knob center point.
+            centerPoint = new Point(Base.Width / 2, Base.Height / 2);
+			// The radius the knob is allowed to travel in.
+            ellipseRadius = borderCircle.Width / 2;
             isMousePressed = false;
 			Storyboard storyboard = Knob.Resources["CenterKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
@@ -38,6 +39,7 @@ namespace FlightSimulatorApp.Views
 			y.From = 0;
         }
 
+		// Check the state the joystick should be in.
         private BoundState CheckBound()
         {
             double bound = Math.Sqrt(Math.Pow(to_x - this.centerPoint.X, 2) + Math.Pow(to_y - this.centerPoint.Y, 2));
@@ -52,6 +54,7 @@ namespace FlightSimulatorApp.Views
 		{
             switch (CheckBound())
             {
+				// Moves the knob using animation.
 				case BoundState.Move:
                     Storyboard storyboard = Knob.Resources["CenterKnob"] as Storyboard;
                     DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
@@ -61,7 +64,6 @@ namespace FlightSimulatorApp.Views
                     storyboard.Begin();
                     x.From = x.To;
                     y.From = y.To;
-
                     break;
 				case BoundState.Stay:
                     break;
@@ -71,26 +73,29 @@ namespace FlightSimulatorApp.Views
 				default:
                     break;
             }
+			// Normalize the values.
 			Normal();
         }
 
+		// Normalizing the joystick x and y values to be between 0 and 1.
         private void Normal()
         {
-            //normalize
             normalX = ((to_x - centerPoint.X) / (ellipseRadius));
 			normalY = ((to_y - centerPoint.Y) / (ellipseRadius));
-
+			// Add to my event.
 			if (MyEvent != null)
             {
                 MyEvent(normalX, -normalY);
             }
         }
 
+		// Sets the isMousePressed flag to true when the user clicks on the knob with the left mouse button.
 		private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			isMousePressed = true;
 		}
 
+		// Sets the location that the knob should move to.
 		private void Base_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (isMousePressed)
@@ -101,11 +106,13 @@ namespace FlightSimulatorApp.Views
 			}
 		}
 
+        // Returning the knob to the center when the user stops holding the left mouse button.
 		private void UserControl_MouseLeave(object sender, MouseEventArgs e)
 		{
 			MoveToCenter();
 		}
 
+        // Returning the knob to the center when the user leaves the ellipse's border.
 		private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 		{
 			if (isMousePressed)
@@ -114,11 +121,13 @@ namespace FlightSimulatorApp.Views
 			}
 		}
 
+        // Returning the knob to the center when the user stops holding the left mouse button.
 		private void Base_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			MoveToCenter();
 		}
 
+		// Moving the knob to the center.
 		private void MoveToCenter()
 		{
 			isMousePressed = false;
