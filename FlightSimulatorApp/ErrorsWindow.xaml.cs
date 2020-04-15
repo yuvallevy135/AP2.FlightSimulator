@@ -18,13 +18,13 @@ namespace FlightSimulatorApp
             DataContext = vm;
         }
 
-		private void clear_Click(object sender, RoutedEventArgs e)
+		private void Clear_Click(object sender, RoutedEventArgs e)
 		{
 			// Click clear to clear all the error screen from all the old errors the user got.
-			errorText.Text = "";
+			ErrorText.Text = "";
 		}
 
-		private void close_Click(object sender, RoutedEventArgs e)
+		private void CloseButton_Click(object sender, RoutedEventArgs e)
 		{
 			// Closing the window.
 			this.Close();

@@ -23,18 +23,18 @@
             </Grid.RowDefinitions>
 
             <!-- Map -->
-            <viewWindows:MapControl x:Name="myMapControl" Height="530" Width="400" Grid.Row="1" Grid.RowSpan="2"
+            <viewWindows:MapControl x:Name="MyMapControl" Height="530" Width="400" Grid.Row="1" Grid.RowSpan="2"
                                     Margin="10 0 0 0"/>
             <!-- Map end -->
 
             <!-- Connect bar -->
-            <Button x:Name="connect" Width="90" Height="35" Content="Connect" Margin="10,0,0,0" Click="Connect_Click" 
+            <Button x:Name="Connect" Width="90" Height="35" Content="Connect" Margin="10,0,0,0" Click="Connect_Click" 
                          HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="True" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                            <DataTrigger Binding="{Binding ElementName=Status, Path=Text}" Value="Connected">
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -48,7 +48,7 @@
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="False" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                            <DataTrigger Binding="{Binding ElementName=Status, Path=Text}" Value="Connected">
                                 <Setter Property="IsEnabled" Value="True" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -57,16 +57,16 @@
             </Button>
             <TextBlock HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" Margin="0,8,123,0" TextWrapping="Wrap" 
                            Text="Status:" VerticalAlignment="Top" FontSize="18"/>
-            <TextBlock x:Name="status" Text="{Binding VM_Status, Mode=OneWay}" Grid.Row="0" Grid.Column="0" 
+            <TextBlock x:Name="Status" Text="{Binding VM_Status, Mode=OneWay}" Grid.Row="0" Grid.Column="0" 
                            HorizontalAlignment="Right" Margin="0,8,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Foreground" Value="Black"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Connected">
+                            <DataTrigger Binding="{Binding ElementName=Status, Path=Text}" Value="Connected">
                                 <Setter Property="Foreground" Value="LawnGreen"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=status, Path=Text}" Value="Disconnected">
+                            <DataTrigger Binding="{Binding ElementName=Status, Path=Text}" Value="Disconnected">
                                 <Setter Property="Foreground" Value="Red"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -79,7 +79,7 @@
             <Button x:Name="Error" Style="{StaticResource MyButton}" Width="20" Height="25" Margin="385,500,0, 0"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Click="Error_Click" Grid.Row="2">
                 <Button.Content>
-                    <Rectangle x:Name="imageSwitch" Width="20" Height="25" >
+                    <Rectangle x:Name="ImageSwitch" Width="20" Height="25" >
                         <Rectangle.Style>
                             <Style TargetType="{x:Type Rectangle}" >
                                 <Setter Property="Fill">
@@ -106,11 +106,11 @@
             <!-- Error bar end. -->
 
             <!-- Manual controls -->
-            <viewWindows:ManualControls x:Name="myManualControls" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <viewWindows:ManualControls x:Name="MyManualControls" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
             <!-- Manual controls end -->
 
             <!-- Dashboard -->
-            <viewWindows:Dashboard x:Name="myDashboard" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="10,0,25,270"/>
+            <viewWindows:Dashboard x:Name="MyDashboard" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Margin="10,0,25,270"/>
             <!-- Dashboard end -->
         </Grid>
     </Viewbox>

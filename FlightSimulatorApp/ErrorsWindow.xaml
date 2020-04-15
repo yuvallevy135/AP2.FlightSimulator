@@ -13,13 +13,13 @@
                 <RowDefinition Height="40"/>       
             </Grid.RowDefinitions>
             <ScrollViewer Grid.Row="0">
-            <TextBlock x:Name="errorText" Text="{Binding Path = VM_Err, Mode=TwoWay,
+            <TextBlock x:Name="ErrorText" Text="{Binding Path = VM_Err, Mode=TwoWay,
                 UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="10 10 0 0"/>
             </ScrollViewer>
 
-        <Button x:Name="clear" Content="Clear" Grid.Row="1" Width="90" Height="35"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-120 0 0 0 " Click="clear_Click"/>
-        <Button x:Name="close" Content="Close" Grid.Row="1" Width="90" Height="35" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120 0 0 0 " Click="close_Click"/>
+        <Button x:Name="Clear" Content="Clear" Grid.Row="1" Width="90" Height="35"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-120 0 0 0 " Click="Clear_Click"/>
+        <Button x:Name="CloseButton" Content="Close" Grid.Row="1" Width="90" Height="35" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120 0 0 0 " Click="CloseButton_Click"/>
     </Grid>
 </Window>

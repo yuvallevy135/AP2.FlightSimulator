@@ -17,15 +17,15 @@ namespace FlightSimulatorApp
 			vm = viewModel;
 			DataContext = vm;
 			// Getting the default Ip and Port for the app.
-			portBlock.Text = ConfigurationManager.AppSettings.Get("Port");
-			ipBlock.Text = ConfigurationManager.AppSettings.Get("IP");
+			PortBlock.Text = ConfigurationManager.AppSettings.Get("Port");
+			IpBlock.Text = ConfigurationManager.AppSettings.Get("IP");
 		}
 
 		private void Connect_server_Click(object sender, RoutedEventArgs e)
 		{
 			// Getting the Ip and Port that the user chose.
-			vm.VM_Ip = ipBlock.Text;
-			vm.VM_Port = portBlock.Text;
+			vm.VM_Ip = IpBlock.Text;
+			vm.VM_Port = PortBlock.Text;
 			// Running the connect VM to open a connection with the simulator.
 			vm.VM_Connect();
 			Close();

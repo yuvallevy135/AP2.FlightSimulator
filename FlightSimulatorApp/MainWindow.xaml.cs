@@ -19,9 +19,9 @@ namespace FlightSimulatorApp
             InitializeComponent();
             // Data context initialization.
             DataContext = (Application.Current as App).flightSimulatorViewModel;
-            myDashboard.DataContext = (Application.Current as App).dashboardViewModel;
-            myMapControl.DataContext = (Application.Current as App).mapControlViewModel;
-            myManualControls.DataContext = (Application.Current as App).manualControlsViewModel;
+            MyDashboard.DataContext = (Application.Current as App).dashboardViewModel;
+            MyMapControl.DataContext = (Application.Current as App).mapControlViewModel;
+            MyManualControls.DataContext = (Application.Current as App).manualControlsViewModel;
             // Connect window and ErrorsWindow initialization.
             cw = new ConnectWindow((Application.Current as App).flightSimulatorViewModel);
             ew = new ErrorsWindow((Application.Current as App).flightSimulatorViewModel);

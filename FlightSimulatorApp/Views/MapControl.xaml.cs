@@ -49,8 +49,8 @@ namespace FlightSimulatorApp.Views
                 newDeg = Math.Atan(latitudeChange / longitudeChange) * (180/Math.PI);
                 var doubleAnimation = new DoubleAnimation(currDeg, newDeg, new Duration(TimeSpan.FromSeconds(1)));
                 var rotateTransform = new RotateTransform();
-                planeIcon.RenderTransform = rotateTransform;
-                planeIcon.RenderTransformOrigin = new Point(0.5, 0.5);
+                PlaneIcon.RenderTransform = rotateTransform;
+                PlaneIcon.RenderTransformOrigin = new Point(0.5, 0.5);
                 doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
                 //doubleAnimation.FillBehavior = FillBehavior.HoldEnd;
                 rotateTransform.BeginAnimation(RotateTransform.AngleProperty, null);
@@ -61,18 +61,18 @@ namespace FlightSimulatorApp.Views
 
         private void LongitudeVal_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            newLongitude = Double.Parse(longitudeVal.Text);
+            newLongitude = Double.Parse(LongitudeVal.Text);
             longitudeChange = newLongitude - currentLongitude;
-            myMap.Center = new Location(currentLatitude, currentLongitude);
+            MyMap.Center = new Location(currentLatitude, currentLongitude);
             currentLongitude = newLongitude;
             PlaneRotate();
         }
 
         private void LatitudeVal_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            newLatitude = Double.Parse(latitudeVal.Text);
+            newLatitude = Double.Parse(LatitudeVal.Text);
             latitudeChange = newLatitude - currentLatitude;
-            myMap.Center = new Location(currentLatitude, currentLongitude);
+            MyMap.Center = new Location(currentLatitude, currentLongitude);
             currentLatitude = newLatitude;
             PlaneRotate();
         }

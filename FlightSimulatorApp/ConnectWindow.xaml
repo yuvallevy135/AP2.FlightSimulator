@@ -26,20 +26,20 @@
             </Grid.RowDefinitions>
             
             <TextBlock Grid.Row="1" Grid.Column="1" Text="IP" Margin="0,0,0,20" />
-            <TextBox x:Name="ipBlock"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
+            <TextBox x:Name="IpBlock"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
 
             <TextBlock Grid.Row="2" Grid.Column="1" Text="Port" Margin="0,0,20,0"/>
-            <TextBox x:Name="portBlock"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
+            <TextBox x:Name="PortBlock"  Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,20" MaxHeight="50"/>
 
-            <Button x:Name="connect_server" Content="Connect" Grid.Row="3" Grid.Column="2" Click="Connect_server_Click">
+            <Button x:Name="Connect_server" Content="Connect" Grid.Row="3" Grid.Column="2" Click="Connect_server_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=ipBlock}" Value="">
+                            <DataTrigger Binding="{Binding Text, ElementName=IpBlock}" Value="">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Text, ElementName=portBlock}" Value="">
+                            <DataTrigger Binding="{Binding Text, ElementName=PortBlock}" Value="">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -47,7 +47,7 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="cancel" Content="Cancel" Grid.Row="3" Grid.Column="4" Click="Cancel_Click"/>
+            <Button x:Name="Cancel" Content="Cancel" Grid.Row="3" Grid.Column="4" Click="Cancel_Click"/>
 
         </Grid>
     </Viewbox>
