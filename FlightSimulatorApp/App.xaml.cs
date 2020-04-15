@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using FlightSimulatorApp.Models;
 using FlightSimulatorApp.ViewModels;
@@ -23,13 +18,12 @@ namespace FlightSimulatorApp
 
       private void Application_Startup(Object sender, StartupEventArgs e)
       {
+          // Initialize the app model, view-models and the main window.
             model = new FlightSimulatorModel(new MyTelnetClient());
-
             flightSimulatorViewModel = new FlightSimulatorViewModel(model);
             manualControlsViewModel= new ManualControlsViewModel(model);
             dashboardViewModel = new DashboardViewModel(model);
             mapControlViewModel = new MapControlViewModel(model);
-
             Window mainWindow = new MainWindow();
             mainWindow.Show();
         }

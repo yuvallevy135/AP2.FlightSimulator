@@ -154,25 +154,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\airplane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Views\throttle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Views\straightBoeing.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="errorIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Views\bell.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="bell.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Views\bellNotification.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="bellNotification.png" />

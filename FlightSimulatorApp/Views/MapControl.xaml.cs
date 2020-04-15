@@ -59,7 +59,7 @@ namespace FlightSimulatorApp.Views
             }
         }
 
-        private void longitudeVal_TargetUpdated(object sender, DataTransferEventArgs e)
+        private void LongitudeVal_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             newLongitude = Double.Parse(longitudeVal.Text);
             longitudeChange = newLongitude - currentLongitude;

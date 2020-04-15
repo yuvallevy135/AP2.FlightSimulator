@@ -25,27 +25,15 @@
         <m:Map x:Name="myMap"  CredentialsProvider="FuPsAug2Z6oh963EoalD~vA0zIDr5Tcag1c0ybkBXng~ApWIuNfipAkQymYUrQu0EX0dFJP_cMTKEbHiw60JX7I2_UjZ4rO5q1qYM9JP8dT3" 
                Mode="AerialWithLabels"  Center="32.005232, 34.886709" ZoomLevel="12" VerticalAlignment="Top" Height="500">
             <m:Pushpin x:Name="planeIcon"  Template="{StaticResource Plane}" VerticalAlignment="Bottom" m:MapLayer.Position="{Binding VM_Location}" RenderTransformOrigin="0.5,0.5">
-                <!--<m:Pushpin.Triggers>-->
-                    <!--<EventTrigger RoutedEvent="Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
-                                    To="-360" Duration="0:0:1" RepeatBehavior="Forever" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </m:Pushpin.Triggers>-->
             </m:Pushpin>
         </m:Map>
-
 
         <!--latitude and longitude-->
         <TextBlock x:Name="latitudeVal"  HorizontalAlignment="Left" Margin="140,0,0,5" TextWrapping="Wrap" Text="{Binding VM_Latitude, Mode=OneWay, StringFormat=N, NotifyOnTargetUpdated=True}" VerticalAlignment="Bottom" FontSize="16" TargetUpdated="latitudeVal_TargetUpdated" />
         <TextBlock HorizontalAlignment="Left" Margin="50,0,0,4" TextWrapping="Wrap" Text="Latitude:" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold"  />
         <TextBlock HorizontalAlignment="Left" Margin="200,0,0,4" TextWrapping="Wrap" Text="Longitude:" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" />
-        <TextBlock x:Name="longitudeVal" HorizontalAlignment="Left" Margin="310,0,0,5" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay, StringFormat=N, NotifyOnTargetUpdated=True}" VerticalAlignment="Bottom" FontSize="16" TargetUpdated="longitudeVal_TargetUpdated" />
+        <TextBlock x:Name="longitudeVal" HorizontalAlignment="Left" Margin="310,0,0,5" TextWrapping="Wrap" Text="{Binding VM_Longitude, Mode=OneWay, StringFormat=N, NotifyOnTargetUpdated=True}" VerticalAlignment="Bottom" FontSize="16" TargetUpdated="LongitudeVal_TargetUpdated" />
         <!--latitude and longitude ends-->
     </Grid>
-    <!--map ends-->
+    <!--Map ends-->
 </UserControl>
