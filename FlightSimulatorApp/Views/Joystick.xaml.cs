@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 
 namespace FlightSimulatorApp.Views
@@ -23,7 +13,7 @@ namespace FlightSimulatorApp.Views
 	public partial class Joystick : UserControl
     {
         private enum BoundState  {
-            MOVE,STAY,CENTER
+            Move,Stay,Center
         };
 		private Point centerPoint;
 		private volatile bool isMousePressed;
@@ -39,19 +29,13 @@ namespace FlightSimulatorApp.Views
 			InitializeComponent();
 
 			centerPoint = new Point(Base.Width / 2, Base.Height / 2);
-            // radius = (Base.Width - centerPoint.X) * 0.235;
             ellipseRadius = this.borderCircle.Width / 2;
-            //Console.WriteLine(borderCircle.Width/2);
-            //Console.WriteLine(borderCircle.Width);
-            //Console.WriteLine(Base.Width);
-			isMousePressed = false;
+            isMousePressed = false;
 			Storyboard storyboard = Knob.Resources["CenterKnob"] as Storyboard;
 			DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
 			DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
 			x.From = 0;
 			y.From = 0;
-            //Console.WriteLine(centerPoint.X);
-            //Console.WriteLine(centerPoint.Y);
         }
 
         private BoundState CheckBound()
@@ -59,22 +43,16 @@ namespace FlightSimulatorApp.Views
             double bound = Math.Sqrt(Math.Pow(to_x - this.centerPoint.X, 2) + Math.Pow(to_y - this.centerPoint.Y, 2));
             if (this.ellipseRadius * norm > bound)
             {
-                return BoundState.MOVE;
-            } else
-            {
-                return BoundState.CENTER;
-            }
-            // else
-            // {
-            //     return BoundState.STAY;
-            // }
+                return BoundState.Move;
+            } 
+            return BoundState.Center;
         }
 
 		private void Movement()
 		{
             switch (CheckBound())
             {
-				case BoundState.MOVE:
+				case BoundState.Move:
                     Storyboard storyboard = Knob.Resources["CenterKnob"] as Storyboard;
                     DoubleAnimation x = storyboard.Children[0] as DoubleAnimation;
                     DoubleAnimation y = storyboard.Children[1] as DoubleAnimation;
@@ -83,13 +61,11 @@ namespace FlightSimulatorApp.Views
                     storyboard.Begin();
                     x.From = x.To;
                     y.From = y.To;
-                    //Console.WriteLine(x.To);
-                    //Console.WriteLine(y.To);
 
-					break;
-				case BoundState.STAY:
                     break;
-				case BoundState.CENTER:
+				case BoundState.Stay:
+                    break;
+				case BoundState.Center:
 					MoveToCenter();
 					break;
 				default:

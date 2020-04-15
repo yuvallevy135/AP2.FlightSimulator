@@ -68,7 +68,7 @@ namespace FlightSimulatorApp.Views
             PlaneRotate();
         }
 
-        private void latitudeVal_TargetUpdated(object sender, DataTransferEventArgs e)
+        private void LatitudeVal_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             newLatitude = Double.Parse(latitudeVal.Text);
             latitudeChange = newLatitude - currentLatitude;

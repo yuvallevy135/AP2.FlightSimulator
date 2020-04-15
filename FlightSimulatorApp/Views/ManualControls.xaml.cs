@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FlightSimulatorApp.Views
 {
@@ -23,12 +13,12 @@ namespace FlightSimulatorApp.Views
         public ManualControls()
         {
             InitializeComponent();
-            Joystick.MyEvent += SetXY;
+            Joystick.MyEvent += SetXy;
             RudderValue.Text = "0";
             ElevatorValue.Text = "0";
         }
 
-        private void SetXY(double x, double y)
+        private void SetXy(double x, double y)
         {
             if (x > 1)
             {
