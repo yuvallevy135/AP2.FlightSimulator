@@ -2,8 +2,6 @@
 
 using System.Windows;
 
-
-
 namespace FlightSimulatorApp
 {
 	/// <summary>

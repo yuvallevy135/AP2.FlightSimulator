@@ -28,10 +28,10 @@ namespace FlightSimulatorApp.Models
 
 		public FlightSimulatorModel(ITelnetClient telnetC)
         {
-            initializeModel();
+            InitializeModel();
             telnetClient = telnetC;
             status = "Disconnected";
-            initializeDashboard();
+            InitializeDashboard();
         }
 		public async void Connect(string ip, string portString)
         {
@@ -56,7 +56,7 @@ namespace FlightSimulatorApp.Models
 			Status = "Disconnected";
 			stop = true;
 			telnetClient.Disconnect();
-            initializeDashboard();
+            InitializeDashboard();
         }
 		public void StartReading()
 		{
@@ -95,7 +95,7 @@ namespace FlightSimulatorApp.Models
             }).Start();
 		}
 
-        public bool isFormatValid(string valueRead)
+        public bool IsFormatValid(string valueRead)
         {
             // Checking if the value we got from the serverg is valid.
             try
@@ -106,7 +106,7 @@ namespace FlightSimulatorApp.Models
             catch (OverflowException)
             {
                 Console.WriteLine("Overflow: value is too large");
-                Err = "Overflow: the value sended by the server is too large";
+                Err = "Overflow: the value sent by the server is too large";
                 //telnetClient.ReadTrash();
                 return false;
             }
@@ -127,7 +127,7 @@ namespace FlightSimulatorApp.Models
 
         }
 
-        public void initializeDashboard()
+        public void InitializeDashboard()
         {
             // Initialize all the properties to 0.s.
             AirSpeed = "0";
@@ -154,7 +154,7 @@ namespace FlightSimulatorApp.Models
 			get { return heading; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     heading = value;
                     NotifyPropertyChanged("Heading");
@@ -167,7 +167,7 @@ namespace FlightSimulatorApp.Models
 			get { return verticalSpeed; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     verticalSpeed = value;
                     NotifyPropertyChanged("VerticalSpeed");
@@ -180,7 +180,7 @@ namespace FlightSimulatorApp.Models
 			get { return groundSpeed; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     groundSpeed = value;
                     NotifyPropertyChanged("GroundSpeed");
@@ -192,7 +192,7 @@ namespace FlightSimulatorApp.Models
 			get { return airSpeed; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     airSpeed = value;
                     NotifyPropertyChanged("AirSpeed");
@@ -205,7 +205,7 @@ namespace FlightSimulatorApp.Models
             get { return altitude; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     altitude = value;
                     NotifyPropertyChanged("Altitude");
@@ -217,7 +217,7 @@ namespace FlightSimulatorApp.Models
 			get { return roll; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     roll = value;
                     NotifyPropertyChanged("Roll");
@@ -230,7 +230,7 @@ namespace FlightSimulatorApp.Models
             get { return pitch; }
             set
             {
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     pitch = value;
                     NotifyPropertyChanged("Pitch");
@@ -243,7 +243,7 @@ namespace FlightSimulatorApp.Models
 			get { return altimeter; }
 			set
 			{
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     altimeter = value;
                     NotifyPropertyChanged("Altimeter");
@@ -269,7 +269,7 @@ namespace FlightSimulatorApp.Models
             get { return latitude; }
             set
             {
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     latitude = value;
                     // Console.WriteLine("latitude value: " + value);
@@ -294,7 +294,7 @@ namespace FlightSimulatorApp.Models
             get { return longitude; }
             set
             {
-                if (isFormatValid(value))
+                if (IsFormatValid(value))
                 {
                     longitude = value;
                     //Console.WriteLine("longitude value: " + value);
@@ -375,7 +375,7 @@ namespace FlightSimulatorApp.Models
                     NotifyPropertyChanged("isErrorWindowEmpty");
                 }
                 // Else it isn't the first error and we want to print "\n" between the old error and the new one.
-                else if(!checkAppearance(value))
+                else if(!CheckAppearance(value))
                 {
                     err += "\n" + value;
                     NotifyPropertyChanged("Err");
@@ -385,15 +385,15 @@ namespace FlightSimulatorApp.Models
         }
 
 
-        public void clearError()
+        public void ClearError()
         {
             err = null;
             NotifyPropertyChanged("isErrorWindowEmpty");
         }
 
-        public bool checkAppearance(string val)
+        public bool CheckAppearance(string val)
         {
-            List<string> list = trimStringToLines(Err);
+            List<string> list = TrimStringToLines(Err);
             foreach (string line in list)
             {
                 if (line.Equals(val))
@@ -404,14 +404,14 @@ namespace FlightSimulatorApp.Models
             return false;
         }
 
-        public static List<string> trimStringToLines(string str)
+        public static List<string> TrimStringToLines(string str)
         {
             List<string> list = new List<string>(
                 str.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
             return list;
         }
 
-        private void initializeModel()
+        private void InitializeModel()
         {
             airSpeedAddress = "/instrumentation/airspeed-indicator/indicated-speed-kt";
             altitudeAddress = "/instrumentation/gps/indicated-altitude-ft";

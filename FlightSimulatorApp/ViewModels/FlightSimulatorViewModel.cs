@@ -49,7 +49,7 @@ namespace FlightSimulatorApp.ViewModels
             set
             {
                 // Clearing the error window.
-                flightSimulatorModel.clearError();
+                flightSimulatorModel.ClearError();
                 errorWindowEmptyFlag = true;
             }
             get

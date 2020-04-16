@@ -55,7 +55,6 @@ namespace FlightSimulatorApp.Models
 
 		public string Read(string command)
         {
-            // Send the command we want to a fuck that will get values from the server.
             return ReadData("get " + command + "\n");
         }
 
@@ -111,24 +110,6 @@ namespace FlightSimulatorApp.Models
             return null;
         }
 
-        //public void ReadTrash()
-        //{
-        //    mutex.WaitOne();
-        //    byte[] buffer = new byte[1024];
-        //    client.GetStream().Read(buffer, 0, 1024);
-        //    if (buffer.Length != 0)
-        //    {
-        //        Console.WriteLine("overflow!!!");
-        //        while (buffer.Length!= 0)
-        //        {
-        //            int offset = 0;
-        //            client.GetStream().Read(buffer, 0, 1024);
-        //            offset += 1024;
-        //        }
-        //    }
-        //    mutex.ReleaseMutex();
-        //}
-
         public void Write(string command)
         {
             // Sending the command we want and send it to the server.
@@ -151,23 +132,27 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     Console.WriteLine(data);
                 }
-                catch (Exception)
+                catch (IOException)
                 {
-                    telnetErrorFlag = true;
+                    mutex.ReleaseMutex();
+                    (Application.Current as App).model.Err = "Server is not responding...";
+                }
+                catch (InvalidOperationException)
+                {
                     mutex.ReleaseMutex();               
                     Disconnect();
                     if(telnetErrorFlag == false)
                     {
                         (Application.Current as App).model.Err = "Server ended communication";
                     }
+                    telnetErrorFlag = true;
                 }
             }
         }
 
         public bool getTelnetErrorFlag()
         {
-            return this.telnetErrorFlag;
+            return telnetErrorFlag;
         }
-
-	}
+    }
 }
