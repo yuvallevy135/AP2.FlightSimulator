@@ -85,7 +85,7 @@ namespace FlightSimulatorApp.Models
                     {
                         // Catching errors from the server that sent unvalid values.
                         Disconnect();
-                        if (!telnetClient.getTelnetErrorFlag())
+                        if (!telnetClient.GetTelnetErrorFlag())
                         {
                             Err = "Server ended communication";
                         }
@@ -139,8 +139,8 @@ namespace FlightSimulatorApp.Models
             GroundSpeed = "0";
             VerticalSpeed = "0";
             // Reading map values from the simulator.
-            Latitude = "0";
-            Longitude = "0";
+            Latitude = "32.005232";
+            Longitude = "34.886709";
             Location = latitude + "," + longitude;
 		}
 

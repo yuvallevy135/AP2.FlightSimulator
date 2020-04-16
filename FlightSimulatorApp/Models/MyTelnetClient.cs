@@ -150,7 +150,7 @@ namespace FlightSimulatorApp.Models
             }
         }
 
-        public bool getTelnetErrorFlag()
+        public bool GetTelnetErrorFlag()
         {
             return telnetErrorFlag;
         }
