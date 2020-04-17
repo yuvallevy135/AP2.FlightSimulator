@@ -1,0 +1,10 @@
+206904021, Niv Haim Nisani
+205781966, Yuval Levy
+We implemented MVVM correctly (at least 3 view-model as the instructor requested for the bonus).
+extra asthetics:
+We implemented a designed bell button that shows whenever there is an error and when you click it, it opens and error log window that you can reset.
+When you double-click the Aileron slider - the thumb returns to the 0 value - for more comfort.
+The plane icon is centered in the middle of the map so you won't have to follow it manually.
+The windows in this project are fully resizeble.
+We added a status indication in the main window - so you will be able to know when you are connected/disconncted.
+The disconnect bottun isn't availble when your status is disconncted and vise versa.

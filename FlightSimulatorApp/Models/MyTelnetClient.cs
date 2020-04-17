@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows;
@@ -14,8 +10,7 @@ namespace FlightSimulatorApp.Models
 	public class MyTelnetClient : ITelnetClient
 	{
         private TcpClient client;
-        //private NetworkStream stream;
-		private bool stillConnect = false;
+        private bool stillConnect = false;
         private bool telnetErrorFlag;
         private bool endOfStream = false;
         private int timeout = 10000;
@@ -25,11 +20,13 @@ namespace FlightSimulatorApp.Models
         {
             mutex = new Mutex();         
         }
+
         public void Connect(string ip, int port)
 		{
             client = new TcpClient();
-            // Sets the receive time out using the ReceiveTimeout public property.
+            // Initialize stillConnect to true so the the methods will know we are connected.
             stillConnect = true;
+            // Trying to connect to the server.
             try
             {
                 client.Connect(ip, port);
@@ -39,44 +36,44 @@ namespace FlightSimulatorApp.Models
             {
                 telnetErrorFlag = true;
                 (Application.Current as App).model.Err = "Couldn't connect to server";
-                Console.WriteLine("Couldn't connect to server");
             }
         }
 
-		public void Disconnect()
+        // Disconnecting from the server.
+        public void Disconnect()
 		{
-            // Disconecting from the server.
-			if (stillConnect)
+            if (stillConnect)
 			{
 				stillConnect = false;
 				client.Close();
 			}
 		}
 
+        // Sends the "get" command to the ReadData method
 		public string Read(string command)
         {
             return ReadData("get " + command + "\n");
         }
 
+        // Sends the "get" command to the server and updates the value.
 		public string ReadData(string command)
         {
             if (stillConnect)
             {
                 try
                 {
+                    // Lock access to the server.
                     mutex.WaitOne();
+                    // Set timeout.
                     client.ReceiveTimeout = timeout;
-                    //// Gets the receive time out using the ReceiveTimeout public property.
-                    //if (client.ReceiveTimeout == 2000)
-                    //    Console.WriteLine("The receive time out limit was successfully set " + client.ReceiveTimeout.ToString());
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
                     byte[] buffer = new byte[1024];
                     StringBuilder data = new StringBuilder();
+                    // Read data from server until "\n" is reached.
                     do
                     {
                         client.GetStream().Read(buffer, 0, buffer.Length);
-                        //data.AppendFormat("{0", Encoding.ASCII.GetString(buffer, 0, buffer.Length));
                         data.Append(Encoding.ASCII.GetString(buffer, 0, buffer.Length));
                         for (int i = 0; i < 1024; i++)
                         {
@@ -89,8 +86,7 @@ namespace FlightSimulatorApp.Models
                     } while (!endOfStream);
 
                     endOfStream = false;
-
-                    //string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                    // Release lock.
                     mutex.ReleaseMutex();
                     return data.ToString();
                 }
@@ -98,7 +94,6 @@ namespace FlightSimulatorApp.Models
                 {
                     mutex.ReleaseMutex();
                     Disconnect();
-                    //(Application.Current as App).model.Error = "Server ended communication";
                     return null;
                 }
                 catch (IOException)
@@ -106,31 +101,37 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     return "timeout";
                 }
+                catch (OutOfMemoryException)
+                {
+                    mutex.ReleaseMutex();
+                    (Application.Current as App).model.Err = "The value is too big";
+                }
             }
             return null;
         }
 
+        // Sends the "set" command to the WriteCommand method.
         public void Write(string command)
         {
-            // Sending the command we want and send it to the server.
             WriteCommand(command + "\n");
         }
 
-		public void WriteCommand(string command)
+        // Sends the "set" command to the server.
+        public void WriteCommand(string command)
         {
             if (stillConnect)
             {
                 try
                 {
+                    // Lock access to the server.
                     mutex.WaitOne();
                     byte[] read = Encoding.ASCII.GetBytes(command);
                     client.GetStream().Write(read, 0, read.Length);
                     byte[] buffer = new byte[1024];
                     client.GetStream().Read(buffer, 0, 1024);
                     string data = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-
+                    // Release lock.
                     mutex.ReleaseMutex();
-                    Console.WriteLine(data);
                 }
                 catch (IOException)
                 {
@@ -146,6 +147,11 @@ namespace FlightSimulatorApp.Models
                         (Application.Current as App).model.Err = "Server ended communication";
                     }
                     telnetErrorFlag = true;
+                }
+                catch (OutOfMemoryException)
+                {
+                    mutex.ReleaseMutex();
+                    (Application.Current as App).model.Err = "The value is too big";
                 }
             }
         }

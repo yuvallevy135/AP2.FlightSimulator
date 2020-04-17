@@ -6,7 +6,6 @@ namespace FlightSimulatorApp.ViewModels
 {
     public class DashboardViewModel : BaseNotify
     {
-
         private FlightSimulatorModel flightSimulatorModel;
 
         public DashboardViewModel(FlightSimulatorModel model)

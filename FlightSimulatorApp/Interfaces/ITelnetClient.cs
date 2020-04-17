@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorApp.Models
 {
-	// the telnet interface that incharge of the connection with the server.
+	// The telnet interface that is in charge of the connection with the server.
 	public interface ITelnetClient
 	{
 		void Connect(string ip, int port);
@@ -14,7 +14,5 @@ namespace FlightSimulatorApp.Models
 		void Write(string command);
 		string Read(string command);
 		bool GetTelnetErrorFlag();
-
-		// void ReadTrash();
-	}
+    }
 }
