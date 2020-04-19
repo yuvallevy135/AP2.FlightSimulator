@@ -90,21 +90,25 @@ namespace FlightSimulatorApp.Models
                     mutex.ReleaseMutex();
                     return data.ToString();
                 }
-                catch (InvalidOperationException)
+                catch (Exception e)
                 {
                     mutex.ReleaseMutex();
-                    Disconnect();
-                    return null;
-                }
-                catch (IOException)
-                {
-                    mutex.ReleaseMutex();
-                    return "timeout";
-                }
-                catch (OutOfMemoryException)
-                {
-                    mutex.ReleaseMutex();
-                    (Application.Current as App).model.Err = "The value is too big";
+                    if (e.GetType().ToString().Equals("System.IO.IOException"))
+                    {
+                        return "timeout";
+                    }
+                    if (e.GetType().ToString().Equals("System.InvalidOperationException"))
+                    {
+                        Disconnect();
+                    }
+                    else if (e.GetType().ToString().Equals("System.OutOfMemoryException"))
+                    {
+                        (Application.Current as App).model.Err = "The value is too big";
+                    }
+                    else
+                    {
+                        (Application.Current as App).model.Err = "An error occured";
+                    }
                 }
             }
             return null;
@@ -133,25 +137,30 @@ namespace FlightSimulatorApp.Models
                     // Release lock.
                     mutex.ReleaseMutex();
                 }
-                catch (IOException)
+                catch (Exception e)
                 {
                     mutex.ReleaseMutex();
-                    (Application.Current as App).model.Err = "Server is not responding...";
-                }
-                catch (InvalidOperationException)
-                {
-                    mutex.ReleaseMutex();               
-                    Disconnect();
-                    if(telnetErrorFlag == false)
+                    if (e.GetType().ToString().Equals("System.InvalidOperationException"))
                     {
-                        (Application.Current as App).model.Err = "Server ended communication";
+                        Disconnect();
+                        if (telnetErrorFlag == false)
+                        {
+                            (Application.Current as App).model.Err = "Server ended communication";
+                        }
+                        telnetErrorFlag = true;
                     }
-                    telnetErrorFlag = true;
-                }
-                catch (OutOfMemoryException)
-                {
-                    mutex.ReleaseMutex();
-                    (Application.Current as App).model.Err = "The value is too big";
+                    else if (e.GetType().ToString().Equals("System.IO.IOException"))
+                    {
+                        (Application.Current as App).model.Err = "Server is not responding...";
+                    }
+                    else if (e.GetType().ToString().Equals("System.OutOfMemoryException"))
+                    {
+                        (Application.Current as App).model.Err = "The value is too big";
+                    }
+                    else
+                    {
+                        (Application.Current as App).model.Err = "An error occured";
+                    }
                 }
             }
         }

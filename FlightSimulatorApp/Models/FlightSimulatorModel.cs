@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -69,7 +70,7 @@ namespace FlightSimulatorApp.Models
                         Roll = telnetClient.Read(rollAddress);
                         Pitch = telnetClient.Read(pitchAddress);
                         Altimeter = telnetClient.Read(altimeterAddress);
-						Heading = telnetClient.Read(headingAddress);
+                        Heading = telnetClient.Read(headingAddress);
                         GroundSpeed = telnetClient.Read(groundSpeedAddress);
                         VerticalSpeed = telnetClient.Read(verticalSpeedAddress);
                         // Reading map values from the simulator.
@@ -78,13 +79,20 @@ namespace FlightSimulatorApp.Models
                         Location = latitude + "," + longitude;
                         Thread.Sleep(250);
                     }
-                    catch (ArgumentNullException)
+                    catch (Exception e)
                     {
-                        // Recognizes when the server has been shut down.
-                        Disconnect();
-                        if (!telnetClient.GetTelnetErrorFlag())
+                        if (e.GetType().ToString().Equals("System.ArgumentNullException"))
                         {
-                            Err = "Server ended communication";
+                            // Recognizes when the server has been shut down.
+                            Disconnect();
+                            if (!telnetClient.GetTelnetErrorFlag())
+                            {
+                                Err = "Server ended communication";
+                            }
+                            else
+                            {
+                                Err = "An error occured";
+                            }
                         }
                     }
                 }
@@ -99,22 +107,37 @@ namespace FlightSimulatorApp.Models
                 Double.Parse(valueRead);
                 return true;
             }
-            catch (OverflowException)
+            catch (Exception e)
             {
-                Err = "Overflow: the value sent by the server is too large";
-                //telnetClient.ReadTrash();
-                return false;
-            }
-            catch (FormatException)
-            {
-                // Recognizes that a timeout has occured (more than 10 seconds passed without an answer from the server).
-                if (valueRead.Equals("timeout"))
+                if (e.GetType().ToString().Equals("System.OverflowException"))
                 {
-                    Err = "Server is not responding...";
+                    Err = "Overflow: the value sent by the server is too large";
+                    //telnetClient.ReadTrash();
+                }
+                else if (e.GetType().ToString().Equals("System.FormatException"))
+                {
+                    // Recognizes that a timeout has occured (more than 10 seconds passed without an answer from the server).
+                    if (valueRead.Equals("timeout"))
+                    {
+                        Err = "Server is not responding...";
+                    }
+                    else
+                    {
+                        Err = "Format exception detected from server - notice value isn't updating";
+                    }
+                }
+                else if (e.GetType().ToString().Equals("System.ArgumentNullException"))
+                {
+                    // Recognizes when the server has been shut down.
+                    Disconnect();
+                    if (!telnetClient.GetTelnetErrorFlag())
+                    {
+                        Err = "Server ended communication";
+                    }
                 }
                 else
                 {
-                    Err = "Format exception detected from server - notice value isn't updating";
+                    Err = "An error occured";
                 }
                 return false;
             }
